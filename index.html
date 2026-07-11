@@ -1972,9 +1972,9 @@ document.getElementById('copy-email-btn').addEventListener('click',()=>{
 ════════════════════════════════════════════ */
 document.getElementById('share-btn').addEventListener('click',()=>{
   if(navigator.share){
-    navigator.share({title:'Amr Essam — Portfolio',text:'Check out my portfolio!',url:'https://devvoltx.github.io/AmrEssam/'});
+    navigator.share({title:'Amr Essam — Portfolio',text:'Check out my portfolio!',url:'https://devvoltx.github.io/Amr/'});
   } else {
-    navigator.clipboard.writeText('https://devvoltx.github.io/AmrEssam/').then(()=>showToast('✓ Portfolio URL copied!','success'));
+    navigator.clipboard.writeText('https://devvoltx.github.io/Amr/').then(()=>showToast('✓ Portfolio URL copied!','success'));
   }
 });
 
