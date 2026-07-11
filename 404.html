@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="ar">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>A.ESSAM — 404</title>
+  <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;700&family=Inter:wght@300;400;600;700;900&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+
+  <!-- LOADER -->
+  <div id="loader">
+    <div class="loader-logo">A.<span>ESSAM</span></div>
+    <div class="loader-bar-wrap"><div class="loader-bar" id="loaderBar"></div></div>
+    <div class="loader-pct" id="loaderPct">0%</div>
+  </div>
+
+  <!-- CUSTOM CURSOR -->
+  <div id="cursor-outer"></div>
+  <div id="cursor-inner"></div>
+
+  <canvas id="stars"></canvas>
+
+  <!-- NAV -->
+  <nav>
+    <a href="index.html" class="nav-logo">A.ESSAM</a>
+    <a href="amr_essam_cv.pdf" download class="nav-cv">CV ↓</a>
+  </nav>
+
+  <!-- 404 -->
+  <main id="notfound">
+    <div class="nf-wrap">
+      <div class="nf-glow" aria-hidden="true"></div>
+
+      <div class="nf-code" aria-label="404">404</div>
+      <div class="nf-title">الصفحة غير موجودة</div>
+      <div class="nf-desc">يبدو أن الرابط الذي بحثت عنه لا يطابق أي صفحة في هذا الموقع.</div>
+
+      <div class="nf-actions">
+        <a class="btn-primary" href="index.html">العودة للصفحة الرئيسية</a>
+        <a class="btn-outline" href="mailto:amrt6509@gmail.com">تواصل معنا</a>
+      </div>
+
+      <div class="nf-meta">
+        <span class="nf-dot" aria-hidden="true"></span>
+        <span>SYS.OFFLINE • 404</span>
+      </div>
+    </div>
+  </main>
+
+  <footer>SYS.OFFLINE &bull; &copy; 2026 <span>AMR ESSAM</span></footer>
+
+  <button id="btt" title="Back to top">↑</button>
+
+  <script src="main.js" defer></script>
+</body>
+</html>
+
