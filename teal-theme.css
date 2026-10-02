@@ -1,0 +1,95 @@
+/* ════════════════════════════════════════════
+   TEAL THEME — paste at the VERY END of <style>
+   (names --purple / --pink are legacy aliases now)
+════════════════════════════════════════════ */
+:root {
+  --bg:       #070B0E;
+  --bg2:      #0D1519;
+  --fg:       #E8F4F6;
+  --fg-dim:   #78939B;
+  --fg-muted: #3C5159;
+  --purple:   #0B5965;   /* = teal: borders, surfaces, gradients (not text) */
+  --cyan:     #00D4E8;   /* accent: small details only */
+  --pink:     #B9DCE5;   /* = ice: highlights */
+  --border:   rgba(185,220,229,0.08);
+  --card:     rgba(13,21,25,0.7);
+  --card-hover: rgba(13,21,25,0.9);
+}
+
+[data-theme="light"] {
+  --bg:       #EEF5F7;
+  --bg2:      #E1EDF0;
+  --fg:       #070B0E;
+  --fg-dim:   #4A646C;
+  --fg-muted: #B5CBD1;
+  --cyan:     #0B7F8C;   /* neon cyan is unreadable on light */
+  --pink:     #0B5965;
+  --border:   rgba(7,11,14,0.1);
+  --card:     rgba(255,255,255,0.8);
+  --card-hover: rgba(255,255,255,0.95);
+}
+[data-theme="light"] nav { background: rgba(238,245,247,0.85); }
+
+/* ── gradient text: teal alone is too dark on the dark bg ── */
+.loader-logo span,
+.hero-name .g,
+.about-title .highlight,
+.contact-heading .gradient,
+.stat-num,
+.stat-card-num {
+  background-image: linear-gradient(135deg, var(--pink), var(--cyan));
+}
+
+/* ── small text that was purple ── */
+.hero-tag, .badge, .tag, .cert-date { color: var(--pink); }
+.sec-label .sec-slash, footer span { color: var(--cyan); }
+.hero-tag::before { background: var(--cyan); }
+.ticker-item::after { color: var(--purple); }
+.tag { border-color: var(--purple); background: rgba(11,89,101,.15); }
+.badge { background: rgba(11,89,101,.15); }
+:focus-visible { outline-color: var(--cyan); }
+
+/* ── hovers (teal alpha is too faint as border) ── */
+.btn-outline:hover, #theme-toggle:hover, #cmd-trigger:hover, #share-btn:hover { border-color: var(--cyan); color: var(--pink); background: rgba(11,89,101,.2); }
+.project-item:hover, .cert-card:hover, .skill-card:hover,
+.stat-card:hover, .logo-card:hover, .client-card:hover { border-color: var(--purple); }
+.nav-link.active { background: rgba(11,89,101,.55); }
+.cmd-item:hover, .cmd-item.selected { background: rgba(11,89,101,.4); }
+.lb-nav:hover { background: rgba(11,89,101,.5); border-color: var(--cyan); }
+
+/* ── buttons: white text on ice would be unreadable ── */
+.btn-primary {
+  background: var(--purple); color: #E8F4F6;
+  box-shadow: 0 4px 0 #063840, 0 8px 30px rgba(11,89,101,.5);
+}
+.btn-primary:hover { box-shadow: 0 7px 0 #063840, 0 15px 35px rgba(11,89,101,.6); }
+.nav-cv { border-color: var(--purple); }
+.nav-cv:hover { border-color: var(--cyan); }
+#btt { background: var(--purple); color: #E8F4F6; box-shadow: 0 4px 0 #063840, 0 8px 25px rgba(11,89,101,.5); }
+.skip-link { background: var(--purple); color: #E8F4F6; }
+
+/* ── cursor ── */
+#cur-ring { border-color: var(--pink); }
+#cur-dot { background: var(--cyan); }
+
+/* ── background: keep cyan rare ── */
+.aurora-blob { opacity: .09; }
+.aurora-blob:nth-child(2), .aurora-blob:nth-child(4) { background: var(--purple); }
+.aurora-blob:nth-child(3) { background: var(--pink); opacity: .05; }
+.floating-shape.fs-2 { background: var(--purple); }
+
+/* ── avatar (pixel art) ── */
+.avatar-ring img { image-rendering: pixelated; }
+.avatar-ring { background: conic-gradient(from 0deg, var(--purple), var(--cyan), var(--pink), var(--purple)); }
+
+/* ── light theme: gradients must stay dark enough ── */
+[data-theme="light"] .loader-logo span,
+[data-theme="light"] .hero-name .g,
+[data-theme="light"] .about-title .highlight,
+[data-theme="light"] .contact-heading .gradient,
+[data-theme="light"] .stat-num,
+[data-theme="light"] .stat-card-num {
+  background-image: linear-gradient(135deg, #0B5965, #0B7F8C);
+}
+[data-theme="light"] .hero-tag, [data-theme="light"] .badge,
+[data-theme="light"] .tag, [data-theme="light"] .cert-date { color: #0B5965; }
