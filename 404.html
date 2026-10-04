@@ -1,52 +1,97 @@
 <!DOCTYPE html>
-<html lang="ar" dir="rtl">
+<html lang="ar" dir="rtl" data-theme="dark">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <meta name="theme-color" content="#070B0E" />
-  <meta name="robots" content="noindex" />
-  <title>A.ESSAM — 404</title>
-  <link rel="icon" href="favicon/favicon.ico" sizes="any" />
-  <link rel="icon" href="favicon/favicon-96x96.png" type="image/png" sizes="96x96" />
-  <link rel="apple-touch-icon" href="favicon/apple-touch-icon.png" />
-  <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;700&family=Inter:wght@300;400;600;700;900&display=swap" rel="stylesheet" />
-  <link rel="stylesheet" href="style.css" />
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#070B0E">
+  <meta name="robots" content="noindex">
+  <title>404 — الصفحة غير موجودة | A.ESSAM</title>
+  <link rel="icon" href="favicon/favicon.ico" sizes="any">
+  <link rel="icon" href="favicon/favicon-96x96.png" type="image/png" sizes="96x96">
+  <link rel="apple-touch-icon" href="favicon/apple-touch-icon.png">
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;700&family=Inter:wght@400;700;900&display=swap">
+  <link rel="stylesheet" href="style.css">
+  <style>
+    main { min-height: 100svh; display: grid; place-items: center; padding: 6rem 1.25rem 4rem; position: relative; overflow: hidden; }
+    .orb { position: absolute; border-radius: 50%; filter: blur(60px); opacity: .25; pointer-events: none; animation: drift 14s ease-in-out infinite alternate; }
+    .orb.a { width: 320px; height: 320px; background: var(--teal); top: 8%; inset-inline-start: -80px; }
+    .orb.b { width: 260px; height: 260px; background: var(--accent); bottom: 6%; inset-inline-end: -60px; opacity: .12; animation-delay: -6s; }
+    @keyframes drift { to { transform: translate(40px, -30px) scale(1.15); } }
+
+    .nf { position: relative; width: 100%; max-width: 680px; text-align: center; padding: 2.5rem 1.5rem 2rem; animation: rise .7s ease both; }
+    .nf::before { content: ''; position: absolute; inset: 0 0 auto; height: 2px; border-radius: var(--r) var(--r) 0 0; background: linear-gradient(90deg, transparent, var(--accent), transparent); }
+
+    /* glitch 404 */
+    .code { position: relative; display: inline-block; font: 900 clamp(5.5rem, 24vw, 10rem)/1 var(--mono); letter-spacing: .02em; color: var(--fg); text-shadow: 0 0 40px rgba(0,212,232,.35); }
+    .code::before, .code::after { content: attr(data-t); position: absolute; inset: 0; overflow: hidden; }
+    .code::before { color: var(--accent); transform: translate(3px, -2px); clip-path: inset(0 0 55% 0); animation: glitch-a 3s infinite steps(1); }
+    .code::after { color: #ff3b6b; transform: translate(-3px, 2px); clip-path: inset(50% 0 0 0); animation: glitch-b 3.4s infinite steps(1); opacity: .7; }
+    @keyframes glitch-a { 0%, 90%, 100% { transform: translate(3px, -2px); } 92% { transform: translate(10px, -5px); } 95% { transform: translate(-6px, 3px); } }
+    @keyframes glitch-b { 0%, 88%, 100% { transform: translate(-3px, 2px); } 90% { transform: translate(-11px, 4px); } 94% { transform: translate(6px, -3px); } }
+
+    .nf h1 { font-size: clamp(1.5rem, 5vw, 2.2rem); margin: .6rem 0 .5rem; }
+    .nf > p { color: var(--dim); max-width: 30rem; margin: 0 auto 1.6rem; }
+
+    /* terminal */
+    .term { direction: ltr; text-align: left; margin: 0 auto 1.8rem; max-width: 30rem; background: rgba(0,0,0,.35); border: 1px solid var(--border); border-radius: 10px; overflow: hidden; font: .72rem/1.9 var(--mono); }
+    .term-bar { display: flex; gap: .4rem; padding: .55rem .8rem; border-bottom: 1px solid var(--border); }
+    .term-bar i { width: 9px; height: 9px; border-radius: 50%; background: var(--border); }
+    .term-bar i:first-child { background: #ff5f57; } .term-bar i:nth-child(2) { background: #febc2e; } .term-bar i:nth-child(3) { background: #28c840; }
+    .term-body { padding: .8rem 1rem; color: var(--dim); word-break: break-all; }
+    .term-body b { color: var(--accent); font-weight: 400; }
+    .term-body .err { color: #ff6b8a; }
+    .term-body .cur { display: inline-block; width: 7px; height: 1em; background: var(--accent); vertical-align: middle; animation: blink 1s step-end infinite; }
+
+    .links { display: flex; flex-wrap: wrap; justify-content: center; gap: .5rem; margin-top: 1.6rem; }
+    .links a { font: .65rem var(--mono); letter-spacing: .12em; color: var(--dim); padding: .4rem .9rem; border: 1px solid var(--border); border-radius: 20px; transition: .2s; }
+    .links a:hover { color: var(--accent); border-color: var(--accent); }
+    .nf .row { justify-content: center; }
+  </style>
 </head>
 <body>
-  <div id="loader">
-    <div class="loader-logo" dir="ltr">A.<span>ESSAM</span></div>
-    <div class="loader-bar-wrap"><div class="loader-bar" id="loaderBar"></div></div>
-    <div class="loader-pct" id="loaderPct">0%</div>
-  </div>
-
-  <div id="cursor-outer"></div>
-  <div id="cursor-inner"></div>
-  <canvas id="stars"></canvas>
-
   <nav dir="ltr">
-    <a href="index.html" class="nav-logo">A.ESSAM</a>
-    <a href="amr_essam_cv.pdf" download class="nav-cv">CV ↓</a>
+    <div class="nav-in">
+      <a class="logo" href="index.html">A.ESSAM</a>
+      <a class="btn sm" href="amr_essam_cv.pdf" download>CV ↓</a>
+    </div>
   </nav>
 
-  <main id="notfound">
-    <div class="nf-wrap">
-      <div class="nf-glow" aria-hidden="true"></div>
-      <div class="nf-code" aria-label="404" dir="ltr">404</div>
-      <h1 class="nf-title">الصفحة غير موجودة</h1>
-      <p class="nf-desc">يبدو أن الرابط الذي بحثت عنه لا يطابق أي صفحة في هذا الموقع.</p>
-      <div class="nf-actions">
-        <a class="btn-primary" href="index.html">العودة للصفحة الرئيسية</a>
-        <a class="btn-outline" href="mailto:amrt6509@gmail.com">تواصل معي</a>
+  <main>
+    <span class="orb a" aria-hidden="true"></span>
+    <span class="orb b" aria-hidden="true"></span>
+
+    <div class="card nf">
+      <div class="code" data-t="404" dir="ltr">404</div>
+      <h1>الصفحة غير موجودة</h1>
+      <p>يبدو أن الرابط الذي بحثت عنه لا يطابق أي صفحة في هذا الموقع، أو تم نقلها لمكان آخر.</p>
+
+      <div class="term" aria-hidden="true">
+        <div class="term-bar"><i></i><i></i><i></i></div>
+        <div class="term-body">
+          <div><b>$</b> GET <span id="path">/page</span></div>
+          <div class="err">&gt; 404 NOT FOUND</div>
+          <div><b>$</b> redirect --home <span class="cur"></span></div>
+        </div>
       </div>
-      <div class="nf-meta" dir="ltr">
-        <span class="nf-dot" aria-hidden="true"></span>
-        <span>SYS.OFFLINE • 404</span>
+
+      <div class="row">
+        <a class="btn" href="index.html">العودة للصفحة الرئيسية</a>
+        <a class="btn ghost" href="mailto:amrt6509@gmail.com">تواصل معي</a>
+      </div>
+
+      <div class="links" dir="ltr">
+        <a href="index.html#projects">PROJECTS</a>
+        <a href="index.html#skills">SKILLS</a>
+        <a href="index.html#certificates">CERTS</a>
+        <a href="index.html#contact">CONTACT</a>
       </div>
     </div>
   </main>
 
-  <footer dir="ltr">SYS.OFFLINE &bull; &copy; 2026 <span>AMR ESSAM</span></footer>
-  <button id="btt" title="Back to top">↑</button>
-  <script src="main.js" defer></script>
+  <footer dir="ltr">&copy; 2026 <span>AMR ESSAM</span> &bull; KAFR EL DAWAR, EGYPT</footer>
+  <script>
+    /* show the broken path inside the terminal */
+    document.getElementById('path').textContent = location.pathname.replace(/^\/Amr/, '') || '/';
+  </script>
 </body>
 </html>
