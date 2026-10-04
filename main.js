@@ -25,12 +25,45 @@ themeBtn.addEventListener('click', () => {
 });
 syncTheme();
 
+/* ---------- Language (EN / AR) ---------- */
+let lang = root.lang === 'ar' ? 'ar' : 'en';
+const ROLES = {
+  en: ['Full-Stack Developer', 'Game Developer', 'Cybersecurity Enthusiast', 'Graphic Designer'],
+  ar: ['مطوّر Full-Stack', 'مطوّر ألعاب', 'مهتم بالأمن السيبراني', 'مصمم جرافيك'],
+};
+const AR = {
+  nav_about: 'نبذة', nav_projects: 'المشاريع', nav_skills: 'المهارات', nav_certs: 'الشهادات', nav_contact: 'تواصل',
+  nav_cv: 'السيرة ↓',
+  tagline: 'مهندس برمجيات ومطوّر مبدع',
+  lead: 'طالب هندسة برمجيات من كفر الدوار، مصر. أبني تجارب رقمية غامرة وأنظمة آمنة ومشاريع بصرية إبداعية.',
+  hire: 'وظّفني ✉', download_cv: 'تحميل السيرة الذاتية ↓', view_work: 'شاهد أعمالي ←',
+  stat_projects: 'مشاريع', stat_certs: 'شهادات', stat_logos: 'شعارات', stat_cars: 'بوسترات سيارات',
+  about_title: 'أبني أنظمة قوية، وأصنع ألعابًا غامرة، <span>وأكسر الحصون الرقمية.</span>',
+  about_text: 'خبرتي تغطي الـ stack كاملًا، من واجهات المستخدم إلى معماريات الباك إند ومحركات الألعاب. أتعامل مع الهندسة كوسيلة لصنع تجارب تفاعلية وبنية تحتية آمنة، وليس مجرد كود.',
+  sk_web: 'الويب واللغات', sk_tools: 'الأدوات والمحركات', sk_sec: 'الأمن السيبراني',
+  contact_big: 'لنبنِ<br><span>المستقبل معًا</span>',
+  copy_email: 'نسخ الإيميل', share: 'مشاركة البورتفوليو ⤢',
+};
+const i18nEls = $$('[data-i18n]');
+i18nEls.forEach(el => { el.dataset.en = el.innerHTML; });
+const langBtn = $('#lang');
+function setLang(next) {
+  lang = next;
+  root.lang = next;
+  root.dir = next === 'ar' ? 'rtl' : 'ltr';
+  i18nEls.forEach(el => { el.innerHTML = next === 'ar' ? AR[el.dataset.i18n] : el.dataset.en; });
+  langBtn.textContent = next === 'ar' ? 'EN' : 'AR';
+  try { localStorage.setItem('lang', next); } catch (e) {}
+}
+langBtn.addEventListener('click', () => setLang(lang === 'ar' ? 'en' : 'ar'));
+if (lang === 'ar') setLang('ar'); else langBtn.textContent = 'AR';
+
 /* ---------- Typing effect ---------- */
 (function typing() {
   const el = $('#typed');
-  const roles = ['Full-Stack Developer', 'Game Developer', 'Cybersecurity Enthusiast', 'Graphic Designer'];
-  let role = 0, chars = roles[0].length, deleting = true;
+  let role = 0, chars = ROLES.en[0].length, deleting = true;
   (function tick() {
+    const roles = ROLES[lang];
     const word = roles[role];
     chars += deleting ? -1 : 1;
     el.textContent = word.slice(0, chars);
@@ -96,6 +129,22 @@ document.addEventListener('keydown', e => {
   if (!lightbox.open) return;
   if (e.key === 'ArrowLeft') step(-1);
   if (e.key === 'ArrowRight') step(1);
+});
+
+/* ---------- Certificate flip (front / back) ---------- */
+const certFlip = $('#certFlip');
+const certPages = [
+  { src: 'images/cisco-front.jpg', alt: 'Cisco Networking Basics certificate, front' },
+  { src: 'images/cisco-back.jpg', alt: 'Cisco Networking Basics certificate, back' },
+];
+const flipCert = () => certFlip.classList.toggle('flipped');
+certFlip.addEventListener('click', flipCert);
+$('#cert-flip-btn').addEventListener('click', flipCert);
+$('#cert-full-btn').addEventListener('click', () => openLightbox(certPages, certFlip.classList.contains('flipped') ? 1 : 0));
+
+/* ---------- Certificate images (lightbox) ---------- */
+$$('[data-cert-img]').forEach(btn => {
+  btn.addEventListener('click', () => openLightbox([{ src: btn.dataset.certImg, alt: btn.dataset.certAlt }], 0));
 });
 
 /* ---------- Scroll reveal + counters ---------- */
