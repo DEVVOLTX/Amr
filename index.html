@@ -16,6 +16,9 @@
   <meta property="og:image" content="https://devvoltx.github.io/Amr/preview.jpg">
   <meta name="twitter:card" content="summary_large_image">
   <meta name="twitter:site" content="@Amr2043275">
+  <meta name="twitter:title" content="Amr Essam — Full-Stack Developer & Creative Designer">
+  <meta name="twitter:description" content="Software Engineering student from Egypt. Full-Stack, Game Dev, Cybersecurity & Graphic Design.">
+  <meta name="twitter:image" content="https://devvoltx.github.io/Amr/preview.jpg">
 
   <link rel="icon" href="favicon/favicon.ico" sizes="any">
   <link rel="icon" href="favicon/favicon-96x96.png" type="image/png" sizes="96x96">
@@ -28,11 +31,12 @@
 
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;700&family=Inter:wght@400;700;900&display=swap">
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;700&family=Inter:wght@400;700;900&family=Cairo:wght@400;700;900&display=swap">
   <link rel="stylesheet" href="style.css">
   <script>
     /* runs before paint: restores theme, enables reveal animations */
     try { document.documentElement.dataset.theme = localStorage.getItem('theme') || 'dark'; } catch (e) {}
+    try { if (localStorage.getItem('lang') === 'ar') { document.documentElement.lang = 'ar'; document.documentElement.dir = 'rtl'; } } catch (e) {}
     document.documentElement.classList.add('js');
   </script>
 </head>
@@ -45,11 +49,12 @@
     <div class="nav-in">
       <a class="logo" href="#hero">A.ESSAM</a>
       <div class="links">
-        <a href="#about">ABOUT</a><a href="#projects">PROJECTS</a><a href="#skills">SKILLS</a>
-        <a href="#certificates">CERTS</a><a href="#contact">CONTACT</a>
+        <a href="#about" data-i18n="nav_about">ABOUT</a><a href="#projects" data-i18n="nav_projects">PROJECTS</a><a href="#skills" data-i18n="nav_skills">SKILLS</a>
+        <a href="#certificates" data-i18n="nav_certs">CERTS</a><a href="#contact" data-i18n="nav_contact">CONTACT</a>
       </div>
+      <button class="icon-btn" id="lang" aria-label="Switch language / تغيير اللغة">AR</button>
       <button class="icon-btn" id="theme" aria-label="Toggle light / dark theme">🌙</button>
-      <a class="btn sm" href="amr_essam_cv.pdf" download>CV ↓</a>
+      <a class="btn sm" href="amr_essam_cv.pdf" download data-i18n="nav_cv">CV ↓</a>
     </div>
   </nav>
 
@@ -58,19 +63,20 @@
     <section class="wrap hero" id="hero">
       <div class="avatar" data-rise style="--i:4"><img src="images/avatar.png" alt="Amr Essam profile photo" width="250" height="250" decoding="async"></div>
       <div>
-        <p class="tag-line" data-rise style="--i:0">SOFTWARE ENGINEER & CREATIVE DEVELOPER</p>
+        <p class="tag-line" data-rise style="--i:0" data-i18n="tagline">SOFTWARE ENGINEER & CREATIVE DEVELOPER</p>
         <h1 class="name" data-rise style="--i:1"><span>AMR</span><em>ESSAM</em></h1>
         <p class="role" data-rise style="--i:2"><span id="typed">Full-Stack Developer</span></p>
-        <p class="lead" data-rise style="--i:3">Software Engineering student based in Kafr El Dawar, Egypt. Building immersive digital experiences, secure systems, and creative visual projects.</p>
+        <p class="lead" data-rise style="--i:3" data-i18n="lead">Software Engineering student based in Kafr El Dawar, Egypt. Building immersive digital experiences, secure systems, and creative visual projects.</p>
         <div class="row" data-rise style="--i:4">
-          <a class="btn" href="amr_essam_cv.pdf" download>DOWNLOAD CV ↓</a>
-          <a class="btn ghost" href="#projects">VIEW WORK →</a>
+          <a class="btn" href="mailto:amrt6509@gmail.com?subject=Project%20inquiry%20from%20your%20portfolio" data-i18n="hire">HIRE ME ✉</a>
+          <a class="btn ghost" href="amr_essam_cv.pdf" download data-i18n="download_cv">DOWNLOAD CV ↓</a>
+          <a class="btn ghost" href="#projects" data-i18n="view_work">VIEW WORK →</a>
         </div>
         <div class="stats" data-rise style="--i:5">
-          <div><b data-count="5">5</b><span>PROJECTS</span></div>
-          <div><b data-count="4">4</b><span>CERTIFICATES</span></div>
-          <div><b data-count="6">6</b><span>LOGOS</span></div>
-          <div><b data-count="8">8</b><span>CAR POSTERS</span></div>
+          <div><b data-count="5">5</b><span data-i18n="stat_projects">PROJECTS</span></div>
+          <div><b data-count="4">4</b><span data-i18n="stat_certs">CERTIFICATES</span></div>
+          <div><b data-count="6">6</b><span data-i18n="stat_logos">LOGOS</span></div>
+          <div><b data-count="8">8</b><span data-i18n="stat_cars">CAR POSTERS</span></div>
         </div>
       </div>
       <div class="ticker" aria-hidden="true">
@@ -82,8 +88,8 @@
     <section class="wrap" id="about">
       <h2 class="label"><b>01 /</b>ABOUT_ME</h2>
       <div class="reveal">
-        <p class="about-title">Building robust systems, crafting immersive games, <span>and breaking digital fortresses.</span></p>
-        <p class="about-text">My expertise spans the entire stack, from frontend interfaces to deep backend architectures and game engines. I approach engineering not just as code, but as a medium for interactive experiences and secure infrastructures.</p>
+        <p class="about-title" data-i18n="about_title">Building robust systems, crafting immersive games, <span>and breaking digital fortresses.</span></p>
+        <p class="about-text" data-i18n="about_text">My expertise spans the entire stack, from frontend interfaces to deep backend architectures and game engines. I approach engineering not just as code, but as a medium for interactive experiences and secure infrastructures.</p>
         <div class="card edu">
           <div><strong>Salah Salem High School</strong><small>General Secondary Education</small></div>
           <span class="badge">2026 — 2028</span>
@@ -161,12 +167,18 @@
     <!-- 03 SKILLS -->
     <section class="wrap skills" id="skills">
       <h2 class="label"><b>03 /</b>SYSTEM_SKILLS</h2>
-      <h3>TOOLS & ENGINES</h3>
+      <h3 data-i18n="sk_web">WEB & LANGUAGES</h3>
+      <div class="grid reveal">
+        <div class="card skill"><b>H</b>HTML / CSS</div><div class="card skill"><b>J</b>JavaScript</div>
+        <div class="card skill"><b>P</b>PHP</div><div class="card skill"><b>M</b>MySQL</div>
+        <div class="card skill"><b>Py</b>Python</div><div class="card skill"><b>G</b>GDScript</div>
+      </div>
+      <h3 data-i18n="sk_tools">TOOLS & ENGINES</h3>
       <div class="grid reveal">
         <div class="card skill">🎮<br>Godot Engine</div><div class="card skill">🔀<br>Git</div>
         <div class="card skill">🐧<br>Linux</div><div class="card skill">🐉<br>Kali Linux</div>
       </div>
-      <h3>CYBERSECURITY</h3>
+      <h3 data-i18n="sk_sec">CYBERSECURITY</h3>
       <div class="grid reveal">
         <div class="card skill"><b>P</b>Penetration Testing</div><div class="card skill"><b>N</b>Nmap</div>
         <div class="card skill"><b>B</b>Burp Suite</div><div class="card skill"><b>M</b>Metasploit</div>
@@ -180,17 +192,32 @@
         <article class="card cert">
           <small>TOFAS / SPRIX INC. & HIROSHIMA UNIVERSITY</small><h3>JavaScript Level 1</h3><time>April 2026</time>
           <p>ID: 0019d4b64cc2f9ed1c2452c78adbd1f23</p>
-          <a class="btn ghost sm" href="https://result.egy.programming-testing.com/certificate-check/0019d4b64cc2f9ed1c2452c78adbd1f23" target="_blank" rel="noopener">↗ VIEW CERTIFICATE</a>
+          <div class="row">
+            <a class="btn ghost sm" href="https://result.egy.programming-testing.com/certificate-check/0019d4b64cc2f9ed1c2452c78adbd1f23" target="_blank" rel="noopener">↗ VERIFY</a>
+            <button class="btn ghost sm" type="button" data-cert-img="images/tofas-js1.jpg" data-cert-alt="TOFAS JavaScript Level 1 certificate">⤢ VIEW IMAGE</button>
+          </div>
         </article>
         <article class="card cert">
           <small>TOFAS / SPRIX INC. & HIROSHIMA UNIVERSITY</small><h3>JavaScript Level 2</h3><time>June 2026</time>
           <p>ID: 0019f0d371ef7f9e586b0ad84890bae40</p>
-          <a class="btn ghost sm" href="https://result.egy.programming-testing.com/certificate-check/0019f0d371ef7f9e586b0ad84890bae40" target="_blank" rel="noopener">↗ VIEW CERTIFICATE</a>
+          <div class="row">
+            <a class="btn ghost sm" href="https://result.egy.programming-testing.com/certificate-check/0019f0d371ef7f9e586b0ad84890bae40" target="_blank" rel="noopener">↗ VERIFY</a>
+            <button class="btn ghost sm" type="button" data-cert-img="images/tofas-js2.jpg" data-cert-alt="TOFAS JavaScript Level 2 certificate">⤢ VIEW IMAGE</button>
+          </div>
         </article>
         <article class="card cert">
           <small>CISCO NETWORKING ACADEMY</small><h3>Networking Basics</h3><time>May 2026</time>
           <p>Issued by Lynn Bloomer, Director — Cisco Networking Academy</p>
-          <a class="btn ghost sm" href="https://www.netacad.com/" target="_blank" rel="noopener">↗ VIEW CERTIFICATE</a>
+          <div class="flip" id="certFlip" aria-label="Cisco Networking Basics certificate, front and back">
+            <div class="flip-in">
+              <img class="face front" src="images/cisco-front.jpg" alt="Cisco Networking Basics certificate, front" loading="lazy" decoding="async">
+              <img class="face back" src="images/cisco-back.jpg" alt="Cisco Networking Basics certificate, back" loading="lazy" decoding="async">
+            </div>
+          </div>
+          <div class="row">
+            <button class="btn ghost sm" id="cert-flip-btn" type="button">↻ FLIP</button>
+            <button class="btn ghost sm" id="cert-full-btn" type="button">⤢ FULLSCREEN</button>
+          </div>
         </article>
         <article class="card cert">
           <small>EF EDUCATION FIRST</small><h3>EF SET English Certificate</h3><time>June 2026</time>
@@ -208,11 +235,12 @@
     <!-- CONTACT -->
     <section class="wrap" id="contact">
       <h2 class="label"><b>08 /</b>CONTACT</h2>
-      <p class="big">LET'S BUILD<br><span>THE FUTURE</span></p>
+      <p class="big" data-i18n="contact_big">LET'S BUILD<br><span>THE FUTURE</span></p>
       <a class="email" href="mailto:amrt6509@gmail.com">amrt6509@gmail.com</a>
       <div class="row">
-        <button class="btn ghost sm" id="copy">COPY EMAIL</button>
-        <button class="btn ghost sm" id="share">⤢ SHARE PORTFOLIO</button>
+        <a class="btn sm" href="mailto:amrt6509@gmail.com?subject=Project%20inquiry%20from%20your%20portfolio" data-i18n="hire">HIRE ME ✉</a>
+        <button class="btn ghost sm" id="copy" data-i18n="copy_email">COPY EMAIL</button>
+        <button class="btn ghost sm" id="share" data-i18n="share">⤢ SHARE PORTFOLIO</button>
       </div>
       <div class="row socials">
         <a href="https://github.com/DEVVOLTX" target="_blank" rel="noopener">GITHUB</a>
