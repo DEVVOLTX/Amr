@@ -1064,18 +1064,6 @@ footer span { color: var(--purple); }
 [data-theme="light"] .hero-tag, [data-theme="light"] .badge,
 [data-theme="light"] .tag, [data-theme="light"] .cert-date { color: #0B5965; }
 
-/* ── PROJECT PREVIEW (SALAH STORE) ── */
-.project-preview { display:block; margin-bottom:1.5rem; border:1px solid var(--border); border-radius:var(--radius); overflow:hidden; transition:border-color .3s, box-shadow .3s; }
-.project-preview img { width:100%; height:auto; display:block; transition:transform .5s; }
-.project-preview:hover { border-color:var(--cyan); box-shadow:0 0 40px rgba(0,212,232,.15); }
-.project-preview:hover img { transform:scale(1.04); }
-
-/* ── FAILSAFE: if JS fails (old browser), loader still hides and hero still shows ── */
-@keyframes loader-failsafe { to { opacity:0; visibility:hidden; pointer-events:none; } }
-@keyframes show-failsafe { to { opacity:1; } }
-#loader { animation: loader-failsafe .6s ease 6s forwards; }
-.hero-tag, .hero-role, .hero-desc, .hero-btns, .hero-stats, .avatar-wrap { animation: show-failsafe .01s linear 7s forwards; }
-
 </style>
 </head>
 <body>
@@ -1163,4 +1151,19 @@ footer span { color: var(--purple); }
     <div class="hero-tag" aria-hidden="true">SOFTWARE ENGINEER & CREATIVE DEVELOPER</div>
     <h1 class="hero-name">
       <span class="line"><span class="w">AMR</span></span>
-      <span cla
+      <span class="line"><span class="g">ESSAM</span></span>
+    </h1>
+    <div class="hero-role" aria-live="polite">
+      <span id="typed" aria-label="Role"></span><span class="blink" aria-hidden="true"></span>
+    </div>
+    <p class="hero-desc">Software Engineering student based in Kafr El Dawar, Egypt. Building immersive digital experiences, secure systems, and creative visual projects.</p>
+    <div class="hero-btns">
+      <div class="magnetic-wrap">
+        <a href="amr_essam_cv.pdf" download class="btn-primary" aria-label="Download CV">DOWNLOAD CV ↓</a>
+      </div>
+      <div class="magnetic-wrap">
+        <a href="#projects" class="btn-secondary" aria-label="View my work">VIEW WORK →</a>
+      </div>
+    </div>
+    <div class="hero-stats" aria-label="Portfolio statistics">
+      <div class="stat"><span class="stat-num" data-count="3">0</span><span class="stat-label">PRO
