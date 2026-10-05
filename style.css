@@ -131,6 +131,10 @@ nav { position: fixed; inset: 0 0 auto; z-index: 50; background: rgba(7,11,14,.8
 .skill { padding: 1.2rem; text-align: center; color: var(--dim); font-size: .88rem; }
 .skill:hover { color: var(--fg); transform: translateY(-3px); }
 .skill b { display: block; font: 700 1.6rem var(--mono); color: var(--teal); }
+.skills-grid { grid-template-columns: repeat(2, 1fr); }
+.skill-language { min-height: 92px; display: flex; flex-direction: column; justify-content: center; gap: .35rem; }
+.skill-language b { font-size: 1.15rem; letter-spacing: .04em; }
+.skill-language span { font: .62rem var(--mono); letter-spacing: .12em; color: var(--dim); text-transform: uppercase; }
 .cert { position: relative; display: flex; flex-direction: column; gap: .5rem; padding: 1.4rem; overflow: hidden; }
 .cert::before { content: ''; position: absolute; inset: 0 0 auto; height: 2px; background: linear-gradient(90deg, var(--teal), var(--accent)); }
 .cert:hover { transform: translateY(-4px); }
@@ -139,6 +143,10 @@ nav { position: fixed; inset: 0 0 auto; z-index: 50; background: rgba(7,11,14,.8
 .cert time { font: .65rem var(--mono); color: var(--ice); }
 .cert p { font: .62rem/1.6 var(--mono); color: var(--accent); word-break: break-all; }
 .cert .btn { align-self: flex-start; margin-top: auto; }
+.cert-with-preview { min-width: 0; }
+.cert-preview { display: block; width: 100%; aspect-ratio: 1080 / 834; padding: 0; margin: .5rem 0 .25rem; overflow: hidden; border: 1px solid var(--border); border-radius: 10px; background: #f7f7f8; }
+.cert-preview img { width: 100%; height: 100%; display: block; object-fit: contain; }
+.cert-actions { flex-wrap: wrap; }
 
 /* Galleries */
 .gallery { display: grid; gap: 1rem; grid-template-columns: repeat(2, 1fr); }
@@ -155,6 +163,7 @@ nav { position: fixed; inset: 0 0 auto; z-index: 50; background: rgba(7,11,14,.8
 .cap em { display: block; font: normal .72rem var(--sans); letter-spacing: 0; color: var(--ice); margin-top: .3rem; }
 .shot:hover .cap, .shot:focus-visible .cap { opacity: 1; }
 @media (hover: none) { .cap { opacity: 1; } }
+@media (min-width: 600px) { .skills-grid { grid-template-columns: repeat(3, 1fr); } }
 @media (min-width: 700px) { .logos { grid-template-columns: repeat(3, 1fr); } }
 
 /* Lightbox (native <dialog>) */
