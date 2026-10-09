@@ -4,16 +4,6 @@ const $$ = (sel, root = document) => [...root.querySelectorAll(sel)];
 const EMAIL = 'amrt6509@gmail.com';
 const SITE = 'https://devvoltx.github.io/Amr/';
 
-/* ---------- Toast ---------- */
-const toast = $('#toast');
-let toastTimer;
-function showToast(msg) {
-  toast.textContent = msg;
-  toast.classList.add('show');
-  clearTimeout(toastTimer);
-  toastTimer = setTimeout(() => toast.classList.remove('show'), 2500);
-}
-
 /* ---------- Theme ---------- */
 const themeBtn = $('#theme');
 const root = document.documentElement;
@@ -22,6 +12,7 @@ themeBtn.addEventListener('click', () => {
   root.dataset.theme = root.dataset.theme === 'dark' ? 'light' : 'dark';
   try { localStorage.setItem('theme', root.dataset.theme); } catch (e) {}
   syncTheme();
+  if (typeof say === 'function') say(root.dataset.theme, 'message', { icon: root.dataset.theme === 'dark' ? 'moon' : 'sun', duration: 1800 });
 });
 syncTheme();
 
@@ -55,8 +46,118 @@ function setLang(next) {
   langBtn.textContent = next === 'ar' ? 'EN' : 'AR';
   try { localStorage.setItem('lang', next); } catch (e) {}
 }
-langBtn.addEventListener('click', () => setLang(lang === 'ar' ? 'en' : 'ar'));
+langBtn.addEventListener('click', () => {
+  setLang(lang === 'ar' ? 'en' : 'ar');
+  if (typeof say === 'function') say(lang === 'ar' ? 'langAr' : 'langEn', 'message', { icon: 'globe', duration: 1800 });
+});
 if (lang === 'ar') setLang('ar'); else langBtn.textContent = 'AR';
+
+/* ---------- Notification island ---------- */
+const island = $('#island');
+const islCard = $('.isl-card', island);
+const ISL_ICONS = { /* 24x24 stroke icons (Lucide-style) */
+  check:    '<path d="M20 6 9 17l-5-5"/>',
+  up:       '<path d="M12 19V5"/><path d="m5 12 7-7 7 7"/>',
+  down:     '<path d="M12 5v14"/><path d="m19 12-7 7-7-7"/>',
+  mail:     '<rect width="20" height="16" x="2" y="4" rx="2"/><path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7"/>',
+  dollar:   '<circle cx="12" cy="12" r="10"/><path d="M16 8h-6a2 2 0 1 0 0 4h4a2 2 0 1 1 0 4H8"/><path d="M12 18V6"/>',
+  alert:    '<circle cx="12" cy="12" r="10"/><path d="M12 8v4"/><path d="M12 16h.01"/>',
+  moon:     '<path d="M12 3a6 6 0 0 0 9 9 9 9 0 1 1-9-9Z"/>',
+  sun:      '<circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2M6.34 17.66l-1.41 1.41M19.07 4.93l-1.41 1.41"/>',
+  globe:    '<circle cx="12" cy="12" r="10"/><path d="M12 2a14.5 14.5 0 0 0 0 20 14.5 14.5 0 0 0 0-20"/><path d="M2 12h20"/>',
+  external: '<path d="M7 7h10v10"/><path d="M7 17 17 7"/>',
+  sparkles: '<path d="M9.94 15.5A2 2 0 0 0 8.5 14.06l-6.13-1.58a.5.5 0 0 1 0-.96L8.5 9.94A2 2 0 0 0 9.94 8.5l1.58-6.13a.5.5 0 0 1 .96 0L14.06 8.5a2 2 0 0 0 1.44 1.44l6.13 1.58a.5.5 0 0 1 0 .96L15.5 14.06a2 2 0 0 0-1.44 1.44l-1.58 6.13a.5.5 0 0 1-.96 0z"/>',
+};
+const svgIcon = name => `<svg viewBox="0 0 24 24" aria-hidden="true">${ISL_ICONS[name]}</svg>`;
+const ISL_TYPES = {
+  success:  { icon: 'check',  c1: '#34d399', c2: '#22c55e' },
+  loading:  { icon: '',       c1: '#8b5cf6', c2: '#6366f1', spin: true },
+  upload:   { icon: 'up',     c1: '#3b82f6', c2: '#22d3ee' },
+  download: { icon: 'down',   c1: '#3b82f6', c2: '#22d3ee' },
+  message:  { icon: 'mail',   c1: '#8b5cf6', c2: '#a78bfa' },
+  payment:  { icon: 'dollar', c1: '#34d399', c2: '#22c55e' },
+  error:    { icon: 'alert',  c1: '#fb7185', c2: '#f43f5e' },
+};
+let islTimer, islDuration = 3200, islSeq = 0;
+
+function paintIsland({ type = 'success', title = '', text = '', icon, progress = null }) {
+  const t = ISL_TYPES[type] || ISL_TYPES.success;
+  const ico = $('.isl-ico', island);
+  ico.className = 'isl-ico' + (t.spin ? ' spin' : '');
+  const name = icon || t.icon;
+  ico.innerHTML = ISL_ICONS[name] ? svgIcon(name) : (icon || '');
+  ico.style.setProperty('--c1', t.c1);
+  ico.style.setProperty('--c2', t.c2);
+  $('.isl-title', island).textContent = title;
+  const sub = $('.isl-sub', island);
+  sub.textContent = text;
+  sub.hidden = !text;
+  islCard.classList.toggle('has-bar', progress !== null);
+  island.style.setProperty('--p', (progress ?? 0) + '%');
+}
+function armIsland() {
+  clearTimeout(islTimer);
+  if (islDuration > 0) islTimer = setTimeout(hideIsland, islDuration);
+}
+function hideIsland() { clearTimeout(islTimer); island.classList.remove('show'); }
+
+/* showIsland({ type, title, text, icon, progress, duration })  // icon: optional name from ISL_ICONS -> { update(patch), close() }
+   progress: 0-100 shows the bar and keeps the island open until you update/close it. */
+function showIsland(opts) {
+  const id = ++islSeq;
+  const state = { ...opts };
+  islDuration = state.progress != null ? 0 : (state.duration ?? 3200);
+  const wasOpen = island.classList.contains('show');
+  paintIsland(state);
+  if (wasOpen) { // morph: replay the content swap
+    islCard.classList.remove('swap'); void islCard.offsetWidth; islCard.classList.add('swap');
+  }
+  island.classList.add('show');
+  armIsland();
+  return {
+    update(patch) {
+      if (id !== islSeq) return;
+      Object.assign(state, patch);
+      islDuration = state.progress != null ? 0 : (state.duration ?? 3200);
+      paintIsland(state);
+      if (patch.type || patch.title) { islCard.classList.remove('swap'); void islCard.offsetWidth; islCard.classList.add('swap'); }
+      armIsland();
+    },
+    close() { if (id === islSeq) hideIsland(); },
+  };
+}
+$('.isl-x', island).addEventListener('click', hideIsland);
+island.addEventListener('mouseenter', () => clearTimeout(islTimer));
+island.addEventListener('mouseleave', armIsland);
+document.addEventListener('keydown', e => { if (e.key === 'Escape' && island.classList.contains('show') && !(lightbox && lightbox.open)) hideIsland(); });
+
+const MSG = {
+  en: {
+    site: ['Opening official site', ''],
+    welcome: ['Welcome', 'Thanks for visiting my portfolio.'],
+    copied: ['Email copied', 'amrt6509@gmail.com is on your clipboard.'],
+    copyFail: ['Couldn’t copy', 'Email: amrt6509@gmail.com'],
+    linkCopied: ['Link copied', 'Portfolio link is on your clipboard.'],
+    cv: ['Downloading CV', 'amr_essam_cv.pdf'],
+    cvDone: ['CV downloaded', 'Saved to your downloads.'],
+    cvStarted: ['Download started', 'Check your downloads.'],
+    dark: ['Dark mode', 'Easy on the eyes.'], light: ['Light mode', 'Bright and clean.'],
+    langEn: ['Language: English', 'Switched to English.'], langAr: ['اللغة: العربية', 'تم التبديل إلى العربية.'],
+  },
+  ar: {
+    site: ['فتح الموقع الرسمي', ''],
+    welcome: ['أهلًا بيك', 'شكرًا لزيارتك البورتفوليو.'],
+    copied: ['تم نسخ الإيميل', 'amrt6509@gmail.com اتنسخ.'],
+    copyFail: ['تعذّر النسخ', 'الإيميل: amrt6509@gmail.com'],
+    linkCopied: ['تم نسخ الرابط', 'رابط البورتفوليو اتنسخ.'],
+    cv: ['جاري تحميل السيرة الذاتية', 'amr_essam_cv.pdf'],
+    cvDone: ['تم تحميل السيرة الذاتية', 'اتحفظت في التنزيلات.'],
+    cvStarted: ['بدأ التحميل', 'شوف التنزيلات.'],
+    dark: ['الوضع الداكن', 'مريح للعين.'], light: ['الوضع الفاتح', 'ساطع ونظيف.'],
+    langEn: ['Language: English', 'Switched to English.'], langAr: ['اللغة: العربية', 'تم التبديل إلى العربية.'],
+  },
+};
+const say = (key, type, extra = {}) => { const [title, text] = MSG[lang][key]; return showIsland({ type, title, text, ...extra }); };
 
 /* ---------- Typing effect ---------- */
 (function typing() {
@@ -171,16 +272,94 @@ if ('IntersectionObserver' in window) {
 
 /* ---------- Actions ---------- */
 $('#copy').addEventListener('click', async () => {
-  try { await navigator.clipboard.writeText(EMAIL); showToast('✓ Email copied'); }
-  catch (e) { showToast(EMAIL); }
+  try { await navigator.clipboard.writeText(EMAIL); say('copied', 'success'); }
+  catch (e) { say('copyFail', 'error'); }
 });
 $('#share').addEventListener('click', async () => {
   try {
     if (navigator.share) await navigator.share({ title: 'Amr Essam — Portfolio', url: SITE });
-    else { await navigator.clipboard.writeText(SITE); showToast('✓ Link copied'); }
+    else { await navigator.clipboard.writeText(SITE); say('linkCopied', 'success'); }
   } catch (e) { /* share cancelled */ }
 });
 
 const topBtn = $('#top');
 window.addEventListener('scroll', () => topBtn.classList.toggle('show', scrollY > 500), { passive: true });
 topBtn.addEventListener('click', () => scrollTo({ top: 0, behavior: 'smooth' }));
+
+/* ---------- CV download with live progress ----------
+   Streams the file with fetch() so the island shows the real bytes received.
+   The bar is eased over at least ~0.9s so a very fast download is still visible.
+   If fetch is unavailable (e.g. opened from file://) it falls back to a normal download. */
+let cvBusy = false;
+const fmtSize = (n, unit) => unit === 'MB' ? (n / 1048576).toFixed(1) : Math.max(1, Math.round(n / 1024));
+const sleep = ms => new Promise(r => setTimeout(r, ms));
+function saveFile(url, name) {
+  const a = document.createElement('a');
+  a.href = url; a.download = name; document.body.append(a); a.click(); a.remove();
+}
+async function downloadCV(href) {
+  if (cvBusy) return;
+  cvBusy = true;
+  const name = href.split('/').pop();
+  const note = showIsland({ type: 'download', title: MSG[lang].cv[0], text: name, progress: 0 });
+  const t0 = performance.now(), MIN = 900;
+  let loaded = 0, total = 0, shown = 0, finished = false, lastText = '';
+
+  (function render() {
+    const elapsed = performance.now() - t0;
+    const real = total ? Math.min(loaded / total, .99) : Math.min(elapsed / 2500, .9);
+    shown = Math.max(shown, Math.min(finished ? 1 : real, elapsed / MIN));
+    const pct = Math.round(shown * 100);
+    const unit = total >= 1048576 ? 'MB' : 'KB';
+    const text = total
+      ? `${pct}% · ${fmtSize(Math.min(loaded, total), unit)} / ${fmtSize(total, unit)} ${unit}`
+      : `${pct}%`;
+    if (text !== lastText) { lastText = text; note.update({ progress: pct, text }); }
+    if (!(finished && shown >= 1)) setTimeout(render, 50);
+  })();
+
+  let blob = null;
+  try {
+    const res = await fetch(href);
+    if (!res.ok || !res.body) throw new Error('bad response');
+    total = res.headers.get('content-encoding') ? 0 : +res.headers.get('content-length') || 0;
+    const reader = res.body.getReader(), chunks = [];
+    for (;;) {
+      const { done, value } = await reader.read();
+      if (done) break;
+      chunks.push(value); loaded += value.length;
+    }
+    blob = new Blob(chunks, { type: 'application/pdf' });
+  } catch (e) { /* fall back to a plain download below */ }
+
+  finished = true;
+  while (shown < 1) await sleep(30);
+  await sleep(250); // let the full bar be seen
+
+  if (blob) {
+    const url = URL.createObjectURL(blob);
+    saveFile(url, name);
+    setTimeout(() => URL.revokeObjectURL(url), 5000);
+    const [title, text] = MSG[lang].cvDone;
+    note.update({ type: 'success', title, text, progress: null });
+  } else {
+    saveFile(href, name);
+    const [title, text] = MSG[lang].cvStarted;
+    note.update({ type: 'success', title, text, progress: null });
+  }
+  cvBusy = false;
+}
+/* skill cards open the tool's official site; the island says where */
+$$('a.skill').forEach(a => a.addEventListener('click', () => {
+  showIsland({ type: 'message', title: MSG[lang].site[0], text: a.hostname.replace(/^www\./, ''), icon: 'external', duration: 2200 });
+}));
+
+$$('a[download]').forEach(a => a.addEventListener('click', e => { e.preventDefault(); downloadCV(a.getAttribute('href')); }));
+
+/* welcome island, once per browser session, after the loader has faded */
+try {
+  if (!sessionStorage.getItem('welcomed')) {
+    sessionStorage.setItem('welcomed', '1');
+    setTimeout(() => say('welcome', 'message', { icon: 'sparkles', duration: 5000 }), 1900);
+  }
+} catch (e) {}
