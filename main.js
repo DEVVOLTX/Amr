@@ -2,7 +2,7 @@
 const $ = (sel, root = document) => root.querySelector(sel);
 const $$ = (sel, root = document) => [...root.querySelectorAll(sel)];
 const EMAIL = 'amrt6509@gmail.com';
-const SITE = 'https://devvoltx.github.io/Amr/';
+const SITE = 'https://amressam.is-a.dev/';
 
 /* ---------- Theme ---------- */
 const themeBtn = $('#theme');
@@ -34,7 +34,27 @@ const AR = {
   sk_web: 'الويب واللغات', sk_tools: 'الأدوات والمحركات', sk_sec: 'الأمن السيبراني',
   contact_big: 'لنبنِ<br><span>المستقبل معًا</span>',
   copy_email: 'نسخ الإيميل', share: 'مشاركة البورتفوليو ⤢',
+  lbl_about: '<b>01 /</b>نبذة عني', lbl_projects: '<b>02 /</b>المشاريع', lbl_skills: '<b>03 /</b>المهارات',
+  lbl_certs: '<b>04 /</b>الشهادات', lbl_logos: '<b>05 /</b>تصميم شعارات', lbl_cars: '<b>06 /</b>بوسترات سيارات',
+  lbl_clients: '<b>07 /</b>أعمال العملاء', lbl_contact: '<b>08 /</b>تواصل',
+  edu_school: 'مدرسة صلاح سالم الثانوية', edu_sub: 'الثانوية العامة',
+  m_year: 'السنة', m_type: 'النوع',
+  t_game: 'تطوير ألعاب', t_full: 'ويب Full-Stack', t_store: 'ويب / متجر', t_tool: 'ويب / أداة',
+  p1_h: 'لعبة منصّات ثنائية الأبعاد صعبة تعتمد على الدقة والمهارة.',
+  p1_p: 'صمّمت كل الميكانيكيات والمراحل والرسومات بمفردي باستخدام Godot 4.6 وGDScript. منشورة على GitHub.',
+  p2_h: 'لعبة متعددة اللاعبين عن الاستراتيجية والخداع.',
+  p2_p: 'اللاعبون يتفوقون على بعض بالتمويه وحسن التوقيت. طوّرتها مع شريك بنظام لعب جماعي لحظي. متاحة على Itch.io.',
+  p3_h: 'نظام حجز متكامل Full-Stack.',
+  p3_p: 'العملاء يحجزون المواعيد والموظفون يديرون الجدول. مبني بـ PHP وJavaScript وMySQL مع لوحة تحكم كاملة.',
+  p4_h: 'متجر شحن ألعاب بتسليم فوري.',
+  p4_p: 'Free Fire وeFootball وغيرها. واجهة داكنة عربية أولًا، مع مؤشر حالة مباشر وشريط متحرك وطلب مباشر عبر واتساب.',
+  p5_h: 'حاسبة عمر عربية بالتاريخين الميلادي والهجري.',
+  p5_p: 'عدّاد تنازلي لعيد الميلاد، ومحوّل عمر الحيوانات الأليفة لعمر بشري، وأداة حساب الفرق بين تاريخين. وضع داكن وفاتح ومتجاوب بالكامل بـ JavaScript.',
+  btn_gh: '⬡ حسابي على GitHub', btn_demo: '↗ تجربة مباشرة', btn_verify: '↗ تحقق',
+  btn_view: '⤢ عرض الشهادة', btn_flip: '↻ اقلب', btn_full: '⤢ ملء الشاشة',
+  footer: '&copy; 2026 <span>عمرو عصام</span> &bull; كفر الدوار، مصر',
 };
+const TITLE_EN = document.title;
 const i18nEls = $$('[data-i18n]');
 i18nEls.forEach(el => { el.dataset.en = el.innerHTML; });
 const langBtn = $('#lang');
@@ -44,6 +64,7 @@ function setLang(next) {
   root.dir = next === 'ar' ? 'rtl' : 'ltr';
   i18nEls.forEach(el => { el.innerHTML = next === 'ar' ? AR[el.dataset.i18n] : el.dataset.en; });
   langBtn.textContent = next === 'ar' ? 'EN' : 'AR';
+  document.title = next === 'ar' ? 'عمرو عصام — مطوّر Full-Stack ومصمم مبدع' : TITLE_EN;
   try { localStorage.setItem('lang', next); } catch (e) {}
 }
 langBtn.addEventListener('click', () => {
@@ -162,6 +183,7 @@ const say = (key, type, extra = {}) => { const [title, text] = MSG[lang][key]; r
 /* ---------- Typing effect ---------- */
 (function typing() {
   const el = $('#typed');
+  if (matchMedia('(prefers-reduced-motion: reduce)').matches) return; // keep the static role
   let role = 0, chars = ROLES.en[0].length, deleting = true;
   (function tick() {
     const roles = ROLES[lang];
@@ -198,7 +220,9 @@ function showSlide() {
   const item = current[index];
   lbImg.src = item.src;
   lbImg.alt = item.alt;
-  $('#lb-count').textContent = `${index + 1} / ${current.length}`;
+  $('#lb-count').textContent = current.length > 1 ? `${index + 1} / ${current.length}` : '';
+  $('#lb-prev').hidden = $('#lb-next').hidden = current.length < 2;
+  [1, -1].forEach(d => { const n = current[(index + d + current.length) % current.length]; if (n) new Image().src = n.src; });
 }
 function openLightbox(items, i) {
   current = items; index = i; showSlide();
@@ -222,6 +246,13 @@ renderGallery('#logos', logos);
 renderGallery('#cars', cars);
 renderGallery('#clients', clients);
 
+let touchX = null;
+lightbox.addEventListener('touchstart', e => { touchX = e.touches[0].clientX; }, { passive: true });
+lightbox.addEventListener('touchend', e => {
+  if (touchX === null || current.length < 2) return;
+  const dx = e.changedTouches[0].clientX - touchX; touchX = null;
+  if (Math.abs(dx) > 50) step(dx < 0 ? 1 : -1);
+}, { passive: true });
 $('#lb-prev').addEventListener('click', () => step(-1));
 $('#lb-next').addEventListener('click', () => step(1));
 $('#lb-close').addEventListener('click', () => lightbox.close());
@@ -363,3 +394,45 @@ try {
     setTimeout(() => say('welcome', 'message', { icon: 'sparkles', duration: 5000 }), 1900);
   }
 } catch (e) {}
+
+/* ---------- Mobile menu ---------- */
+const menuBtn = $('#menu-btn'), menu = $('#menu');
+const setMenu = open => {
+  menu.classList.toggle('open', open);
+  document.body.classList.toggle('menu-open', open);
+  menuBtn.setAttribute('aria-expanded', open);
+  menuBtn.setAttribute('aria-label', open ? 'Close menu' : 'Menu');
+};
+menuBtn.addEventListener('click', () => setMenu(!menu.classList.contains('open')));
+menu.addEventListener('click', e => { if (e.target.closest('a')) setMenu(false); });
+addEventListener('resize', () => { if (innerWidth >= 800) setMenu(false); });
+document.addEventListener('keydown', e => { if (e.key === 'Escape' && menu.classList.contains('open')) { setMenu(false); menuBtn.focus(); } });
+document.addEventListener('click', e => { if (menu.classList.contains('open') && !e.target.closest('nav')) setMenu(false); });
+
+/* ---------- Scroll progress + active section in the nav ---------- */
+const bar = $('#progress');
+const onScroll = () => {
+  const h = document.documentElement.scrollHeight - innerHeight;
+  bar.style.transform = `scaleX(${h > 0 ? Math.min(scrollY / h, 1) : 0})`;
+};
+addEventListener('scroll', onScroll, { passive: true }); onScroll();
+{
+  const links = $$('.links > a');
+  const secs = links.map(a => $(a.getAttribute('href'))).filter(Boolean);
+  let ticking = false;
+  const spy = () => {
+    ticking = false;
+    const atEnd = innerHeight + scrollY >= document.documentElement.scrollHeight - 4;
+    let cur = null;
+    secs.forEach(sec => { if (sec.getBoundingClientRect().top <= innerHeight * 0.4) cur = sec; });
+    if (atEnd) cur = secs[secs.length - 1];
+    links.forEach(a => {
+      const on = !!cur && a.getAttribute('href') === '#' + cur.id;
+      a.classList.toggle('active', on);
+      if (on) a.setAttribute('aria-current', 'true'); else a.removeAttribute('aria-current');
+    });
+  };
+  addEventListener('scroll', () => { if (!ticking) { ticking = true; requestAnimationFrame(spy); } }, { passive: true });
+  addEventListener('resize', spy);
+  spy();
+}

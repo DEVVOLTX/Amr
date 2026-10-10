@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://amressam.is-a.dev/sitemap.xml
