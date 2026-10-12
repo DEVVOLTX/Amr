@@ -9,7 +9,7 @@ Based in **Kafr El Dawar, Egypt** 🇪🇬
 
 ## ✨ Features
 - **Dark / light theme** — follows the system on the first visit, then remembers the choice
-- **7 languages with a flag dropdown** — English, Arabic (RTL), Italian, Spanish, Korean, Japanese and Chinese; follows the browser language on the first visit, then remembers the choice
+- **10 languages with a flag dropdown** — English, Arabic (RTL), Italian, Spanish, German, French, Russian, Korean, Japanese and Chinese; follows the browser language on the first visit, then remembers the choice
 - **Mobile menu**, scroll-progress bar and active-section highlight in the nav
 - **Typing role switcher**, animated stats counters and a skills ticker
 - **Collapsible project cards** (native `<details>`, no JS)
