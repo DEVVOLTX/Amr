@@ -131,12 +131,12 @@ const TITLES = {
  "ar": "عمرو عصام — مطوّر Full-Stack ومصمم مبدع",
  "it": "Amr Essam — Sviluppatore Full-Stack e designer creativo",
  "es": "Amr Essam — Desarrollador Full-Stack y diseñador creativo",
- "ko": "Amr Essam — 풀스택 개발자 & 크리에이티브 디자이너",
- "ja": "Amr Essam — フルスタック開発者 & クリエイティブデザイナー",
- "zh": "Amr Essam — 全栈开发者与创意设计师",
+ "ko": "암르 에삼 — 풀스택 개발자 & 크리에이티브 디자이너",
+ "ja": "アムル・エサーム — フルスタック開発者 & クリエイティブデザイナー",
+ "zh": "阿姆鲁·埃萨姆 — 全栈开发者与创意设计师",
  "de": "Amr Essam — Full-Stack-Entwickler & kreativer Designer",
  "fr": "Amr Essam — Développeur Full-Stack & designer créatif",
- "ru": "Amr Essam — Full-Stack разработчик и креативный дизайнер"
+ "ru": "Амр Эссам — Full-Stack разработчик и креативный дизайнер"
 };
 const TR = {
  "ar": {
@@ -195,7 +195,11 @@ const TR = {
   "btn_view": "⤢ عرض الشهادة",
   "btn_flip": "↻ اقلب",
   "btn_full": "⤢ ملء الشاشة",
-  "footer": "&copy; 2026 <span>عمرو عصام</span> &bull; كفر الدوار، مصر"
+  "footer": "&copy; 2026 <span>عمرو عصام</span> &bull; كفر الدوار، مصر",
+  "name1": "عمرو",
+  "name2": "عصام",
+  "logo": "ع.عصام",
+  "loader": "ع.<span>عصام</span>"
  },
  "it": {
   "nav_about": "CHI SONO",
@@ -253,7 +257,11 @@ const TR = {
   "btn_view": "⤢ VEDI IL CERTIFICATO",
   "btn_flip": "↻ GIRA",
   "btn_full": "⤢ SCHERMO INTERO",
-  "footer": "&copy; 2026 <span>AMR ESSAM</span> &bull; KAFR EL DAWAR, EGITTO"
+  "footer": "&copy; 2026 <span>AMR ESSAM</span> &bull; KAFR EL DAWAR, EGITTO",
+  "name1": "AMR",
+  "name2": "ESSAM",
+  "logo": "A.ESSAM",
+  "loader": "A.<span>ESSAM</span>"
  },
  "es": {
   "nav_about": "SOBRE MÍ",
@@ -311,7 +319,11 @@ const TR = {
   "btn_view": "⤢ VER CERTIFICADO",
   "btn_flip": "↻ GIRAR",
   "btn_full": "⤢ PANTALLA COMPLETA",
-  "footer": "&copy; 2026 <span>AMR ESSAM</span> &bull; KAFR EL DAWAR, EGIPTO"
+  "footer": "&copy; 2026 <span>AMR ESSAM</span> &bull; KAFR EL DAWAR, EGIPTO",
+  "name1": "AMR",
+  "name2": "ESSAM",
+  "logo": "A.ESSAM",
+  "loader": "A.<span>ESSAM</span>"
  },
  "ko": {
   "nav_about": "소개",
@@ -369,7 +381,11 @@ const TR = {
   "btn_view": "⤢ 자격증 보기",
   "btn_flip": "↻ 뒤집기",
   "btn_full": "⤢ 전체 화면",
-  "footer": "&copy; 2026 <span>AMR ESSAM</span> &bull; 이집트 카프르 엘 다와르"
+  "footer": "&copy; 2026 <span>암르 에삼</span> &bull; 이집트 카프르 엘 다와르",
+  "name1": "암르",
+  "name2": "에삼",
+  "logo": "암.에삼",
+  "loader": "암.<span>에삼</span>"
  },
  "ja": {
   "nav_about": "自己紹介",
@@ -427,7 +443,11 @@ const TR = {
   "btn_view": "⤢ 証明書を見る",
   "btn_flip": "↻ 裏返す",
   "btn_full": "⤢ 全画面",
-  "footer": "&copy; 2026 <span>AMR ESSAM</span> &bull; エジプト、カフル・エル・ダワール"
+  "footer": "&copy; 2026 <span>アムル・エサーム</span> &bull; エジプト、カフル・エル・ダワール",
+  "name1": "アムル",
+  "name2": "エサーム",
+  "logo": "ア.エサーム",
+  "loader": "ア.<span>エサーム</span>"
  },
  "zh": {
   "nav_about": "关于我",
@@ -485,7 +505,11 @@ const TR = {
   "btn_view": "⤢ 查看证书",
   "btn_flip": "↻ 翻转",
   "btn_full": "⤢ 全屏",
-  "footer": "&copy; 2026 <span>AMR ESSAM</span> &bull; 埃及卡夫尔达瓦尔"
+  "footer": "&copy; 2026 <span>阿姆鲁·埃萨姆</span> &bull; 埃及卡夫尔达瓦尔",
+  "name1": "阿姆鲁",
+  "name2": "埃萨姆",
+  "logo": "阿.埃萨姆",
+  "loader": "阿.<span>埃萨姆</span>"
  },
  "de": {
   "nav_about": "ÜBER MICH",
@@ -543,7 +567,11 @@ const TR = {
   "btn_view": "⤢ ZERTIFIKAT ANSEHEN",
   "btn_flip": "↻ DREHEN",
   "btn_full": "⤢ VOLLBILD",
-  "footer": "&copy; 2026 <span>AMR ESSAM</span> &bull; KAFR EL DAWAR, ÄGYPTEN"
+  "footer": "&copy; 2026 <span>AMR ESSAM</span> &bull; KAFR EL DAWAR, ÄGYPTEN",
+  "name1": "AMR",
+  "name2": "ESSAM",
+  "logo": "A.ESSAM",
+  "loader": "A.<span>ESSAM</span>"
  },
  "fr": {
   "nav_about": "À PROPOS",
@@ -601,7 +629,11 @@ const TR = {
   "btn_view": "⤢ VOIR LE CERTIFICAT",
   "btn_flip": "↻ RETOURNER",
   "btn_full": "⤢ PLEIN ÉCRAN",
-  "footer": "&copy; 2026 <span>AMR ESSAM</span> &bull; KAFR EL DAWAR, ÉGYPTE"
+  "footer": "&copy; 2026 <span>AMR ESSAM</span> &bull; KAFR EL DAWAR, ÉGYPTE",
+  "name1": "AMR",
+  "name2": "ESSAM",
+  "logo": "A.ESSAM",
+  "loader": "A.<span>ESSAM</span>"
  },
  "ru": {
   "nav_about": "ОБО МНЕ",
@@ -659,7 +691,11 @@ const TR = {
   "btn_view": "⤢ СМОТРЕТЬ СЕРТИФИКАТ",
   "btn_flip": "↻ ПЕРЕВЕРНУТЬ",
   "btn_full": "⤢ НА ВЕСЬ ЭКРАН",
-  "footer": "&copy; 2026 <span>AMR ESSAM</span> &bull; КАФР-ЭЛЬ-ДАВВАР, ЕГИПЕТ"
+  "footer": "&copy; 2026 <span>АМР ЭССАМ</span> &bull; КАФР-ЭЛЬ-ДАВВАР, ЕГИПЕТ",
+  "name1": "АМР",
+  "name2": "ЭССАМ",
+  "logo": "А.ЭССАМ",
+  "loader": "А.<span>ЭССАМ</span>"
  }
 };
 const MSG = {
