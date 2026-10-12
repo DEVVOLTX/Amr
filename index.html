@@ -48,8 +48,12 @@
     try { st.theme = localStorage.getItem('theme'); st.lang = localStorage.getItem('lang'); } catch (e) {}
     try { de.dataset.theme = st.theme || (matchMedia('(prefers-color-scheme: light)').matches ? 'light' : 'dark'); } catch (e) {}
     try {
-      var L = ['en', 'ar', 'it', 'es', 'ko', 'ja', 'zh'], l = st.lang;
-      if (L.indexOf(l) < 0) { l = (navigator.language || '').slice(0, 2).toLowerCase(); if (L.indexOf(l) < 0) l = 'en'; }
+      var L = ['en', 'ar', 'it', 'es', 'de', 'fr', 'ru', 'ko', 'ja', 'zh'], l = st.lang;
+      if (L.indexOf(l) < 0) { /* no saved choice: take the first language in the browser's preference list that the site supports */
+        l = 'en';
+        var prefs = navigator.languages && navigator.languages.length ? navigator.languages : [navigator.language || 'en'];
+        for (var i = 0; i < prefs.length; i++) { var c = String(prefs[i]).slice(0, 2).toLowerCase(); if (L.indexOf(c) >= 0) { l = c; break; } }
+      }
       de.lang = l; if (l === 'ar') de.dir = 'rtl';
     } catch (e) {}
     de.classList.add('js');
