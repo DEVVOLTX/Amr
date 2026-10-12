@@ -197,11 +197,34 @@ footer span { color: var(--accent); }
   *, *::before, *::after { animation-duration: .01ms !important; animation-delay: 0s !important; transition-duration: .01ms !important; }
 }
 
-/* ===== Language switch + Arabic / RTL ===== */
-#lang { font: 700 .68rem var(--mono); }
+/* ===== Language dropdown ===== */
+.lang-wrap { position: relative; }
+.lang-btn { display: inline-flex; align-items: center; gap: .45rem; height: 38px; padding: 0 .75rem; border-radius: 20px; border: 1px solid var(--border); background: var(--card); font: 700 .68rem var(--mono); letter-spacing: .08em; }
+.lang-btn:hover, .lang-btn[aria-expanded="true"] { border-color: var(--accent); }
+.lang-btn::after { content: ''; width: 5px; height: 5px; border-right: 1.5px solid currentColor; border-bottom: 1.5px solid currentColor; transform: rotate(45deg) translate(-1px, -1px); opacity: .6; transition: transform .2s; }
+.lang-btn[aria-expanded="true"]::after { transform: rotate(225deg) translate(-1px, -1px); }
+.flag { width: 20px; height: 14px; border-radius: 3px; flex: none; box-shadow: 0 0 0 1px rgba(128,128,128,.35); }
+.lang-menu { position: absolute; top: calc(100% + .5rem); inset-inline-end: 0; min-width: 190px; padding: .35rem; border: 1px solid var(--border); border-radius: 14px; background: var(--bg2); box-shadow: 0 14px 34px rgba(0,0,0,.4); z-index: 60; }
+.lang-opt { display: flex; align-items: center; gap: .65rem; width: 100%; padding: .55rem .7rem; border: 0; border-radius: 10px; background: none; text-align: start; font: .72rem var(--mono); letter-spacing: .06em; }
+.lang-opt b { font-weight: 700; }
+.lang-opt small { margin-inline-start: auto; font: .72rem var(--sans); letter-spacing: 0; color: var(--dim); }
+.lang-opt:hover, .lang-opt:focus-visible { background: var(--border); }
+.lang-opt[aria-selected="true"] { color: var(--accent); }
+.lang-opt[aria-selected="true"] small { color: inherit; }
+.lang-opt:lang(ar) small { font-family: 'Cairo', var(--sans); }
+@media (max-width: 480px) {
+  .nav-in { gap: .5rem; }
+  .nav-in .btn.sm { padding: .65rem .8rem; white-space: nowrap; }
+  .lang-btn { padding: 0 .6rem; gap: .35rem; }
+}
+@media (max-width: 420px) { .lang-btn span { display: none; } }
+
+/* ===== Per-language typography (Arabic = RTL, CJK = system fonts, no letter-spacing) ===== */
 [lang="ar"] body { font-family: 'Cairo', var(--sans); }
-[lang="ar"] .links a, [lang="ar"] .btn, [lang="ar"] .tag-line, [lang="ar"] .stats span,
-[lang="ar"] .skills h3, [lang="ar"] .role { letter-spacing: 0; }
+[lang="ja"] body { font-family: var(--sans), 'Hiragino Sans', 'Yu Gothic', 'Meiryo', 'Noto Sans JP', sans-serif; }
+[lang="ko"] body { font-family: var(--sans), 'Apple SD Gothic Neo', 'Malgun Gothic', 'Noto Sans KR', sans-serif; }
+[lang="zh"] body { font-family: var(--sans), 'PingFang SC', 'Microsoft YaHei', 'Noto Sans SC', sans-serif; }
+:is([lang="ar"], [lang="ja"], [lang="ko"], [lang="zh"]) :is(.links a, .btn, .tag-line, .stats span, .skills h3, .role, .label, .meta dt, .num, footer) { letter-spacing: 0; }
 [dir="rtl"] .label b { margin-right: 0; margin-left: .5rem; }
 
 /* ===== Certificate flip (front / back) ===== */
