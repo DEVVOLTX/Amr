@@ -24,6 +24,7 @@ const TITLE_EN = document.title;
 const i18nEls = $$('[data-i18n]');
 i18nEls.forEach(el => { el.dataset.en = el.innerHTML; });
 const reduceMotion = matchMedia('(prefers-reduced-motion: reduce)').matches;
+let restartTyping = null; // set by the typing effect below
 const langBtn = $('#lang'), langMenu = $('#lang-menu');
 langMenu.innerHTML = LANGS.map(l => `
   <li role="presentation"><button class="lang-opt" type="button" role="option" data-lang="${l.code}" lang="${l.code}" aria-selected="false">${FLAGS[l.code]}<b>${l.label}</b><small>${l.name}</small></button></li>`).join('');
@@ -39,6 +40,7 @@ function setLang(next, persist = true) {
   langOpts.forEach(o => o.setAttribute('aria-selected', String(o.dataset.lang === next)));
   document.title = TITLES[next] || TITLE_EN;
   if (reduceMotion) $('#typed').textContent = ROLES[next][0]; // typing effect is off, keep the static role in sync
+  else if (restartTyping) restartTyping(); // re-type the role in the new language right away
   if (persist) { try { localStorage.setItem('lang', next); } catch (e) {} }
 }
 const setLangMenu = open => { langMenu.hidden = !open; langBtn.setAttribute('aria-expanded', String(open)); };
@@ -150,8 +152,8 @@ const say = (key, type, extra = {}) => { const [title, text] = MSG[lang][key]; r
 (function typing() {
   const el = $('#typed');
   if (reduceMotion) return; // keep the static role
-  let role = 0, chars = ROLES.en[0].length, deleting = true;
-  (function tick() {
+  let role = 0, chars = ROLES.en[0].length, deleting = true, timer;
+  function tick() {
     const roles = ROLES[lang];
     const word = roles[role];
     chars += deleting ? -1 : 1;
@@ -159,8 +161,10 @@ const say = (key, type, extra = {}) => { const [title, text] = MSG[lang][key]; r
     let delay = deleting ? 45 : 100;
     if (!deleting && chars === word.length) { deleting = true; delay = 1800; }
     else if (deleting && chars === 0) { deleting = false; role = (role + 1) % roles.length; delay = 300; }
-    setTimeout(tick, delay);
-  })();
+    timer = setTimeout(tick, delay);
+  }
+  restartTyping = () => { clearTimeout(timer); role = 0; chars = 0; deleting = false; el.textContent = ''; tick(); };
+  tick();
 })();
 
 /* ---------- Ticker (duplicate items for a seamless loop) ---------- */
