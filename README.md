@@ -9,7 +9,7 @@ Based in **Kafr El Dawar, Egypt** 🇪🇬
 
 ## ✨ Features
 - **Dark / light theme** — follows the system on the first visit, then remembers the choice
-- **English / Arabic (RTL)** — follows the browser language on the first visit; the whole page is translated
+- **7 languages with a flag dropdown** — English, Arabic (RTL), Italian, Spanish, Korean, Japanese and Chinese; follows the browser language on the first visit, then remembers the choice
 - **Mobile menu**, scroll-progress bar and active-section highlight in the nav
 - **Typing role switcher**, animated stats counters and a skills ticker
 - **Collapsible project cards** (native `<details>`, no JS)
@@ -26,7 +26,8 @@ Plain HTML5, CSS3 and vanilla JavaScript — no build step, no dependencies.
 ```
 index.html        page markup
 style.css         all styles (themes, RTL, print)
-main.js           i18n, theme, menu, galleries, lightbox, CV download
+i18n.js          language data: flags, translations, toast messages
+main.js          language switcher, theme, menu, galleries, lightbox, CV download
 404.html          custom not-found page (uses root-absolute paths)
 favicon/          icons + web manifest
 images/           project, certificate, logo and poster images
