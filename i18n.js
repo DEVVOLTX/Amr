@@ -1,0 +1,775 @@
+'use strict';
+/* Language data: flags (inline SVG, no external requests), role titles, page titles, UI strings and toast messages.
+   English is the source text inside index.html; every other language overrides it by data-i18n key. */
+const LANGS = [
+ {
+  "code": "en",
+  "label": "EN",
+  "name": "English"
+ },
+ {
+  "code": "ar",
+  "label": "AR",
+  "name": "العربية"
+ },
+ {
+  "code": "it",
+  "label": "IT",
+  "name": "Italiano"
+ },
+ {
+  "code": "es",
+  "label": "ES",
+  "name": "Español"
+ },
+ {
+  "code": "ko",
+  "label": "KO",
+  "name": "한국어"
+ },
+ {
+  "code": "ja",
+  "label": "JA",
+  "name": "日本語"
+ },
+ {
+  "code": "zh",
+  "label": "ZH",
+  "name": "中文"
+ }
+];
+const FLAGS = {
+ "en": "<svg class=\"flag\" viewBox=\"0 0 24 16\" aria-hidden=\"true\" focusable=\"false\"><rect y=\"0.000\" width=\"24\" height=\"1.231\" fill=\"#B22234\"/><rect y=\"1.231\" width=\"24\" height=\"1.231\" fill=\"#fff\"/><rect y=\"2.462\" width=\"24\" height=\"1.231\" fill=\"#B22234\"/><rect y=\"3.692\" width=\"24\" height=\"1.231\" fill=\"#fff\"/><rect y=\"4.923\" width=\"24\" height=\"1.231\" fill=\"#B22234\"/><rect y=\"6.154\" width=\"24\" height=\"1.231\" fill=\"#fff\"/><rect y=\"7.385\" width=\"24\" height=\"1.231\" fill=\"#B22234\"/><rect y=\"8.615\" width=\"24\" height=\"1.231\" fill=\"#fff\"/><rect y=\"9.846\" width=\"24\" height=\"1.231\" fill=\"#B22234\"/><rect y=\"11.077\" width=\"24\" height=\"1.231\" fill=\"#fff\"/><rect y=\"12.308\" width=\"24\" height=\"1.231\" fill=\"#B22234\"/><rect y=\"13.538\" width=\"24\" height=\"1.231\" fill=\"#fff\"/><rect y=\"14.769\" width=\"24\" height=\"1.231\" fill=\"#B22234\"/><rect width=\"10.4\" height=\"8.62\" fill=\"#3C3B6E\"/><g fill=\"#fff\"><circle cx=\"1.4\" cy=\"1.2\" r=\".35\"/><circle cx=\"3.4\" cy=\"1.2\" r=\".35\"/><circle cx=\"5.4\" cy=\"1.2\" r=\".35\"/><circle cx=\"7.4\" cy=\"1.2\" r=\".35\"/><circle cx=\"9.4\" cy=\"1.2\" r=\".35\"/><circle cx=\"1.4\" cy=\"2.9\" r=\".35\"/><circle cx=\"3.4\" cy=\"2.9\" r=\".35\"/><circle cx=\"5.4\" cy=\"2.9\" r=\".35\"/><circle cx=\"7.4\" cy=\"2.9\" r=\".35\"/><circle cx=\"9.4\" cy=\"2.9\" r=\".35\"/><circle cx=\"1.4\" cy=\"4.6\" r=\".35\"/><circle cx=\"3.4\" cy=\"4.6\" r=\".35\"/><circle cx=\"5.4\" cy=\"4.6\" r=\".35\"/><circle cx=\"7.4\" cy=\"4.6\" r=\".35\"/><circle cx=\"9.4\" cy=\"4.6\" r=\".35\"/><circle cx=\"1.4\" cy=\"6.3\" r=\".35\"/><circle cx=\"3.4\" cy=\"6.3\" r=\".35\"/><circle cx=\"5.4\" cy=\"6.3\" r=\".35\"/><circle cx=\"7.4\" cy=\"6.3\" r=\".35\"/><circle cx=\"9.4\" cy=\"6.3\" r=\".35\"/></g></svg>",
+ "ar": "<svg class=\"flag\" viewBox=\"0 0 24 16\" aria-hidden=\"true\" focusable=\"false\"><rect width=\"24\" height=\"5.34\" fill=\"#CE1126\"/><rect y=\"5.33\" width=\"24\" height=\"5.34\" fill=\"#fff\"/><rect y=\"10.66\" width=\"24\" height=\"5.34\" fill=\"#000\"/><circle cx=\"12\" cy=\"8\" r=\"1.5\" fill=\"#C09300\"/></svg>",
+ "it": "<svg class=\"flag\" viewBox=\"0 0 24 16\" aria-hidden=\"true\" focusable=\"false\"><rect width=\"8\" height=\"16\" fill=\"#009246\"/><rect x=\"8\" width=\"8\" height=\"16\" fill=\"#fff\"/><rect x=\"16\" width=\"8\" height=\"16\" fill=\"#CE2B37\"/></svg>",
+ "es": "<svg class=\"flag\" viewBox=\"0 0 24 16\" aria-hidden=\"true\" focusable=\"false\"><rect width=\"24\" height=\"16\" fill=\"#AA151B\"/><rect y=\"4\" width=\"24\" height=\"8\" fill=\"#F1BF00\"/></svg>",
+ "ko": "<svg class=\"flag\" viewBox=\"0 0 24 16\" aria-hidden=\"true\" focusable=\"false\"><rect width=\"24\" height=\"16\" fill=\"#fff\"/><path d=\"M8.8 8a3.2 3.2 0 0 1 6.4 0z\" fill=\"#CD2E3A\"/><path d=\"M15.2 8a3.2 3.2 0 0 1-6.4 0z\" fill=\"#0047A0\"/><g stroke=\"#000\" stroke-width=\".6\" fill=\"none\"><g transform=\"translate(5.2 3.9) rotate(-33.7)\"><line x1=\"-1.6\" y1=\"-0.9\" x2=\"1.6\" y2=\"-0.9\"/><line x1=\"-1.6\" y1=\"0\" x2=\"1.6\" y2=\"0\"/><line x1=\"-1.6\" y1=\"0.9\" x2=\"1.6\" y2=\"0.9\"/></g><g transform=\"translate(18.8 3.9) rotate(33.7)\"><line x1=\"-1.6\" y1=\"-0.9\" x2=\"1.6\" y2=\"-0.9\"/><line x1=\"-1.6\" y1=\"0\" x2=\"1.6\" y2=\"0\"/><line x1=\"-1.6\" y1=\"0.9\" x2=\"1.6\" y2=\"0.9\"/></g><g transform=\"translate(5.2 12.1) rotate(33.7)\"><line x1=\"-1.6\" y1=\"-0.9\" x2=\"1.6\" y2=\"-0.9\"/><line x1=\"-1.6\" y1=\"0\" x2=\"1.6\" y2=\"0\"/><line x1=\"-1.6\" y1=\"0.9\" x2=\"1.6\" y2=\"0.9\"/></g><g transform=\"translate(18.8 12.1) rotate(-33.7)\"><line x1=\"-1.6\" y1=\"-0.9\" x2=\"1.6\" y2=\"-0.9\"/><line x1=\"-1.6\" y1=\"0\" x2=\"1.6\" y2=\"0\"/><line x1=\"-1.6\" y1=\"0.9\" x2=\"1.6\" y2=\"0.9\"/></g></g></svg>",
+ "ja": "<svg class=\"flag\" viewBox=\"0 0 24 16\" aria-hidden=\"true\" focusable=\"false\"><rect width=\"24\" height=\"16\" fill=\"#fff\"/><circle cx=\"12\" cy=\"8\" r=\"4.8\" fill=\"#BC002D\"/></svg>",
+ "zh": "<svg class=\"flag\" viewBox=\"0 0 24 16\" aria-hidden=\"true\" focusable=\"false\"><rect width=\"24\" height=\"16\" fill=\"#DE2910\"/><g fill=\"#FFDE00\"><polygon points=\"4.20,1.60 4.78,3.40 6.67,3.40 5.14,4.51 5.73,6.30 4.20,5.19 2.67,6.30 3.26,4.51 1.73,3.40 3.62,3.40\"/><polygon points=\"8.87,0.95 8.85,1.53 9.40,1.73 8.84,1.89 8.82,2.47 8.50,1.99 7.94,2.15 8.29,1.69 7.97,1.21 8.52,1.41\"/><polygon points=\"10.81,2.99 10.60,3.53 11.04,3.90 10.46,3.86 10.24,4.40 10.10,3.83 9.52,3.79 10.02,3.49 9.88,2.92 10.32,3.30\"/><polygon points=\"10.99,5.90 10.60,6.33 10.89,6.84 10.36,6.60 9.97,7.03 10.04,6.45 9.50,6.22 10.07,6.10 10.13,5.52 10.42,6.02\"/><polygon points=\"9.39,8.06 8.87,8.33 8.98,8.91 8.56,8.50 8.04,8.78 8.30,8.25 7.88,7.85 8.46,7.93 8.71,7.41 8.81,7.98\"/></g></svg>"
+};
+const ROLES = {
+ "en": [
+  "Full-Stack Developer",
+  "Game Developer",
+  "Cybersecurity Enthusiast",
+  "Graphic Designer"
+ ],
+ "ar": [
+  "مطوّر Full-Stack",
+  "مطوّر ألعاب",
+  "مهتم بالأمن السيبراني",
+  "مصمم جرافيك"
+ ],
+ "it": [
+  "Sviluppatore Full-Stack",
+  "Sviluppatore di giochi",
+  "Appassionato di cybersicurezza",
+  "Graphic designer"
+ ],
+ "es": [
+  "Desarrollador Full-Stack",
+  "Desarrollador de juegos",
+  "Entusiasta de la ciberseguridad",
+  "Diseñador gráfico"
+ ],
+ "ko": [
+  "풀스택 개발자",
+  "게임 개발자",
+  "사이버 보안 애호가",
+  "그래픽 디자이너"
+ ],
+ "ja": [
+  "フルスタック開発者",
+  "ゲーム開発者",
+  "サイバーセキュリティ愛好家",
+  "グラフィックデザイナー"
+ ],
+ "zh": [
+  "全栈开发者",
+  "游戏开发者",
+  "网络安全爱好者",
+  "平面设计师"
+ ]
+};
+const TITLES = {
+ "ar": "عمرو عصام — مطوّر Full-Stack ومصمم مبدع",
+ "it": "Amr Essam — Sviluppatore Full-Stack e designer creativo",
+ "es": "Amr Essam — Desarrollador Full-Stack y diseñador creativo",
+ "ko": "Amr Essam — 풀스택 개발자 & 크리에이티브 디자이너",
+ "ja": "Amr Essam — フルスタック開発者 & クリエイティブデザイナー",
+ "zh": "Amr Essam — 全栈开发者与创意设计师"
+};
+const TR = {
+ "ar": {
+  "nav_about": "نبذة",
+  "nav_projects": "المشاريع",
+  "nav_skills": "المهارات",
+  "nav_certs": "الشهادات",
+  "nav_contact": "تواصل",
+  "nav_cv": "السيرة ↓",
+  "tagline": "مهندس برمجيات ومطوّر مبدع",
+  "lead": "طالب هندسة برمجيات من كفر الدوار، مصر. أبني تجارب رقمية غامرة وأنظمة آمنة ومشاريع بصرية إبداعية.",
+  "hire": "وظّفني ✉",
+  "download_cv": "تحميل السيرة الذاتية ↓",
+  "view_work": "شاهد أعمالي ←",
+  "stat_projects": "مشاريع",
+  "stat_certs": "شهادات",
+  "stat_logos": "شعارات",
+  "stat_cars": "بوسترات سيارات",
+  "about_title": "أبني أنظمة قوية، وأصنع ألعابًا غامرة، <span>وأكسر الحصون الرقمية.</span>",
+  "about_text": "خبرتي تغطي الـ stack كاملًا، من واجهات المستخدم إلى معماريات الباك إند ومحركات الألعاب. أتعامل مع الهندسة كوسيلة لصنع تجارب تفاعلية وبنية تحتية آمنة، وليس مجرد كود.",
+  "sk_web": "الويب واللغات",
+  "sk_tools": "الأدوات والمحركات",
+  "sk_sec": "الأمن السيبراني",
+  "contact_big": "لنبنِ<br><span>المستقبل معًا</span>",
+  "copy_email": "نسخ الإيميل",
+  "share": "مشاركة البورتفوليو ⤢",
+  "lbl_about": "<b>01 /</b>نبذة عني",
+  "lbl_projects": "<b>02 /</b>المشاريع",
+  "lbl_skills": "<b>03 /</b>المهارات",
+  "lbl_certs": "<b>04 /</b>الشهادات",
+  "lbl_logos": "<b>05 /</b>تصميم شعارات",
+  "lbl_cars": "<b>06 /</b>بوسترات سيارات",
+  "lbl_clients": "<b>07 /</b>أعمال العملاء",
+  "lbl_contact": "<b>08 /</b>تواصل",
+  "edu_school": "مدرسة صلاح سالم الثانوية",
+  "edu_sub": "الثانوية العامة",
+  "m_year": "السنة",
+  "m_type": "النوع",
+  "t_game": "تطوير ألعاب",
+  "t_full": "ويب Full-Stack",
+  "t_store": "ويب / متجر",
+  "t_tool": "ويب / أداة",
+  "p1_h": "لعبة منصّات ثنائية الأبعاد صعبة تعتمد على الدقة والمهارة.",
+  "p1_p": "صمّمت كل الميكانيكيات والمراحل والرسومات بمفردي باستخدام Godot 4.6 وGDScript. منشورة على GitHub.",
+  "p2_h": "لعبة متعددة اللاعبين عن الاستراتيجية والخداع.",
+  "p2_p": "اللاعبون يتفوقون على بعض بالتمويه وحسن التوقيت. طوّرتها مع شريك بنظام لعب جماعي لحظي. متاحة على Itch.io.",
+  "p3_h": "نظام حجز متكامل Full-Stack.",
+  "p3_p": "العملاء يحجزون المواعيد والموظفون يديرون الجدول. مبني بـ PHP وJavaScript وMySQL مع لوحة تحكم كاملة.",
+  "p4_h": "متجر شحن ألعاب بتسليم فوري.",
+  "p4_p": "Free Fire وeFootball وغيرها. واجهة داكنة عربية أولًا، مع مؤشر حالة مباشر وشريط متحرك وطلب مباشر عبر واتساب.",
+  "p5_h": "حاسبة عمر عربية بالتاريخين الميلادي والهجري.",
+  "p5_p": "عدّاد تنازلي لعيد الميلاد، ومحوّل عمر الحيوانات الأليفة لعمر بشري، وأداة حساب الفرق بين تاريخين. وضع داكن وفاتح ومتجاوب بالكامل بـ JavaScript.",
+  "btn_gh": "⬡ حسابي على GitHub",
+  "btn_demo": "↗ تجربة مباشرة",
+  "btn_verify": "↗ تحقق",
+  "btn_view": "⤢ عرض الشهادة",
+  "btn_flip": "↻ اقلب",
+  "btn_full": "⤢ ملء الشاشة",
+  "footer": "&copy; 2026 <span>عمرو عصام</span> &bull; كفر الدوار، مصر"
+ },
+ "it": {
+  "nav_about": "CHI SONO",
+  "nav_projects": "PROGETTI",
+  "nav_skills": "COMPETENZE",
+  "nav_certs": "CERTIFICATI",
+  "nav_contact": "CONTATTI",
+  "nav_cv": "CV ↓",
+  "tagline": "INGEGNERE DEL SOFTWARE E SVILUPPATORE CREATIVO",
+  "lead": "Studente di ingegneria del software di Kafr El Dawar, Egitto. Creo esperienze digitali coinvolgenti, sistemi sicuri e progetti visivi creativi.",
+  "hire": "ASSUMIMI ✉",
+  "download_cv": "SCARICA IL CV ↓",
+  "view_work": "VEDI I LAVORI →",
+  "stat_projects": "PROGETTI",
+  "stat_certs": "CERTIFICATI",
+  "stat_logos": "LOGHI",
+  "stat_cars": "POSTER DI AUTO",
+  "about_title": "Costruisco sistemi solidi, creo giochi coinvolgenti <span>e violo fortezze digitali.</span>",
+  "about_text": "La mia esperienza copre l'intero stack, dalle interfacce frontend alle architetture backend più profonde e ai motori di gioco. Considero l'ingegneria non solo come codice, ma come un mezzo per creare esperienze interattive e infrastrutture sicure.",
+  "sk_web": "LINGUAGGI E STACK WEB",
+  "sk_tools": "STRUMENTI E MOTORI",
+  "sk_sec": "CYBERSICUREZZA",
+  "contact_big": "COSTRUIAMO<br><span>IL FUTURO</span>",
+  "copy_email": "COPIA EMAIL",
+  "share": "⤢ CONDIVIDI IL PORTFOLIO",
+  "lbl_about": "<b>01 /</b>CHI_SONO",
+  "lbl_projects": "<b>02 /</b>PROGETTI",
+  "lbl_skills": "<b>03 /</b>COMPETENZE",
+  "lbl_certs": "<b>04 /</b>CERTIFICATI",
+  "lbl_logos": "<b>05 /</b>PROGETTI_LOGO",
+  "lbl_cars": "<b>06 /</b>POSTER_AUTO",
+  "lbl_clients": "<b>07 /</b>LAVORI_PER_CLIENTI",
+  "lbl_contact": "<b>08 /</b>CONTATTI",
+  "edu_school": "Liceo Salah Salem",
+  "edu_sub": "Istruzione secondaria generale",
+  "m_year": "ANNO",
+  "m_type": "TIPO",
+  "t_game": "Sviluppo di giochi",
+  "t_full": "Web Full-Stack",
+  "t_store": "Web / Negozio",
+  "t_tool": "Web / Strumento",
+  "p1_h": "Un platformer 2D impegnativo, basato su precisione e abilità.",
+  "p1_p": "Ho progettato da solo tutte le meccaniche, i livelli e la grafica con Godot 4.6 e GDScript. Pubblicato su GitHub.",
+  "p2_h": "Un gioco multiplayer di strategia e inganno.",
+  "p2_p": "I giocatori si superano a vicenda con depistaggi e tempismo. Sviluppato insieme a un partner, con multiplayer in tempo reale. Disponibile su Itch.io.",
+  "p3_h": "Un sistema di prenotazione full-stack.",
+  "p3_p": "I clienti prenotano gli slot e lo staff gestisce i turni. Realizzato con PHP, JavaScript e MySQL, con un pannello di amministrazione completo.",
+  "p4_h": "Un negozio di ricariche per videogiochi con consegna istantanea.",
+  "p4_p": "Free Fire, eFootball e altro. Interfaccia scura pensata per l’arabo, con indicatore di stato in tempo reale, ticker animato e ordini diretti su WhatsApp.",
+  "p5_h": "Un calcolatore di età in arabo con date gregoriane e hijri.",
+  "p5_p": "Conto alla rovescia del compleanno, convertitore dell'età degli animali in età umana e strumento per calcolare la differenza tra due date. Temi scuro e chiaro, completamente responsive, in JavaScript puro.",
+  "btn_gh": "⬡ PROFILO GITHUB",
+  "btn_demo": "↗ DEMO LIVE",
+  "btn_verify": "↗ VERIFICA",
+  "btn_view": "⤢ VEDI IL CERTIFICATO",
+  "btn_flip": "↻ GIRA",
+  "btn_full": "⤢ SCHERMO INTERO",
+  "footer": "&copy; 2026 <span>AMR ESSAM</span> &bull; KAFR EL DAWAR, EGITTO"
+ },
+ "es": {
+  "nav_about": "SOBRE MÍ",
+  "nav_projects": "PROYECTOS",
+  "nav_skills": "HABILIDADES",
+  "nav_certs": "CERTIFICADOS",
+  "nav_contact": "CONTACTO",
+  "nav_cv": "CV ↓",
+  "tagline": "INGENIERO DE SOFTWARE Y DESARROLLADOR CREATIVO",
+  "lead": "Estudiante de ingeniería de software de Kafr El Dawar, Egipto. Creo experiencias digitales inmersivas, sistemas seguros y proyectos visuales creativos.",
+  "hire": "CONTRÁTAME ✉",
+  "download_cv": "DESCARGAR CV ↓",
+  "view_work": "VER TRABAJOS →",
+  "stat_projects": "PROYECTOS",
+  "stat_certs": "CERTIFICADOS",
+  "stat_logos": "LOGOTIPOS",
+  "stat_cars": "PÓSTERS DE COCHES",
+  "about_title": "Construyo sistemas robustos, creo juegos inmersivos <span>y rompo fortalezas digitales.</span>",
+  "about_text": "Mi experiencia abarca todo el stack, desde interfaces frontend hasta arquitecturas backend profundas y motores de juego. Veo la ingeniería no solo como código, sino como un medio para crear experiencias interactivas e infraestructuras seguras.",
+  "sk_web": "LENGUAJES Y STACK WEB",
+  "sk_tools": "HERRAMIENTAS Y MOTORES",
+  "sk_sec": "CIBERSEGURIDAD",
+  "contact_big": "CONSTRUYAMOS<br><span>EL FUTURO</span>",
+  "copy_email": "COPIAR CORREO",
+  "share": "⤢ COMPARTIR PORTAFOLIO",
+  "lbl_about": "<b>01 /</b>SOBRE_MÍ",
+  "lbl_projects": "<b>02 /</b>PROYECTOS",
+  "lbl_skills": "<b>03 /</b>HABILIDADES",
+  "lbl_certs": "<b>04 /</b>CERTIFICADOS",
+  "lbl_logos": "<b>05 /</b>DISEÑO_DE_LOGOS",
+  "lbl_cars": "<b>06 /</b>PÓSTERS_DE_COCHES",
+  "lbl_clients": "<b>07 /</b>TRABAJOS_PARA_CLIENTES",
+  "lbl_contact": "<b>08 /</b>CONTACTO",
+  "edu_school": "Instituto Salah Salem",
+  "edu_sub": "Educación secundaria general",
+  "m_year": "AÑO",
+  "m_type": "TIPO",
+  "t_game": "Desarrollo de juegos",
+  "t_full": "Web Full-Stack",
+  "t_store": "Web / Tienda",
+  "t_tool": "Web / Herramienta",
+  "p1_h": "Un plataformas 2D desafiante basado en la precisión y la habilidad.",
+  "p1_p": "Diseñé yo solo todas las mecánicas, niveles y arte con Godot 4.6 y GDScript. Publicado en GitHub.",
+  "p2_h": "Un juego multijugador de estrategia y engaño.",
+  "p2_p": "Los jugadores se superan con despistes y buen timing. Desarrollado junto a un compañero, con multijugador en tiempo real. Disponible en Itch.io.",
+  "p3_h": "Un sistema de reservas full-stack.",
+  "p3_p": "Los clientes reservan horarios y el personal gestiona la agenda. Hecho con PHP, JavaScript y MySQL, con un panel de administración completo.",
+  "p4_h": "Una tienda de recargas de juegos con entrega instantánea.",
+  "p4_p": "Free Fire, eFootball y más. Interfaz oscura pensada primero para el árabe, con indicador de estado en vivo, ticker animado y pedidos directos por WhatsApp.",
+  "p5_h": "Una calculadora de edad en árabe con fechas gregorianas y hégira.",
+  "p5_p": "Cuenta atrás de cumpleaños, conversor de edad de mascotas a edad humana y herramienta para calcular la diferencia entre dos fechas. Temas oscuro y claro, totalmente responsive, con JavaScript puro.",
+  "btn_gh": "⬡ PERFIL DE GITHUB",
+  "btn_demo": "↗ DEMO EN VIVO",
+  "btn_verify": "↗ VERIFICAR",
+  "btn_view": "⤢ VER CERTIFICADO",
+  "btn_flip": "↻ GIRAR",
+  "btn_full": "⤢ PANTALLA COMPLETA",
+  "footer": "&copy; 2026 <span>AMR ESSAM</span> &bull; KAFR EL DAWAR, EGIPTO"
+ },
+ "ko": {
+  "nav_about": "소개",
+  "nav_projects": "프로젝트",
+  "nav_skills": "기술",
+  "nav_certs": "자격증",
+  "nav_contact": "연락처",
+  "nav_cv": "CV ↓",
+  "tagline": "소프트웨어 엔지니어 & 크리에이티브 개발자",
+  "lead": "이집트 카프르 엘 다와르 출신의 소프트웨어 공학 전공 학생입니다. 몰입감 있는 디지털 경험, 안전한 시스템, 창의적인 비주얼 프로젝트를 만듭니다.",
+  "hire": "채용 문의 ✉",
+  "download_cv": "CV 다운로드 ↓",
+  "view_work": "작업 보기 →",
+  "stat_projects": "프로젝트",
+  "stat_certs": "자격증",
+  "stat_logos": "로고",
+  "stat_cars": "자동차 포스터",
+  "about_title": "견고한 시스템을 만들고, 몰입감 있는 게임을 제작하며, <span>디지털 요새를 뚫습니다.</span>",
+  "about_text": "프런트엔드 인터페이스부터 깊이 있는 백엔드 아키텍처, 게임 엔진까지 전체 스택을 다룹니다. 엔지니어링을 단순한 코드가 아니라 인터랙티브한 경험과 안전한 인프라를 만드는 수단이라고 생각합니다.",
+  "sk_web": "언어 및 웹 스택",
+  "sk_tools": "도구 및 엔진",
+  "sk_sec": "사이버 보안",
+  "contact_big": "함께<br><span>미래를 만들어요</span>",
+  "copy_email": "이메일 복사",
+  "share": "⤢ 포트폴리오 공유",
+  "lbl_about": "<b>01 /</b>소개",
+  "lbl_projects": "<b>02 /</b>프로젝트",
+  "lbl_skills": "<b>03 /</b>기술",
+  "lbl_certs": "<b>04 /</b>자격증",
+  "lbl_logos": "<b>05 /</b>로고_디자인",
+  "lbl_cars": "<b>06 /</b>자동차_포스터",
+  "lbl_clients": "<b>07 /</b>클라이언트_작업",
+  "lbl_contact": "<b>08 /</b>연락처",
+  "edu_school": "살라 살렘 고등학교",
+  "edu_sub": "일반 중등 교육",
+  "m_year": "연도",
+  "m_type": "유형",
+  "t_game": "게임 개발",
+  "t_full": "풀스택 웹",
+  "t_store": "웹 / 스토어",
+  "t_tool": "웹 / 도구",
+  "p1_h": "정밀함과 실력이 중요한 도전적인 2D 플랫포머입니다.",
+  "p1_p": "Godot 4.6과 GDScript로 모든 메커니즘, 레벨, 아트워크를 혼자 설계했습니다. GitHub에 공개되어 있습니다.",
+  "p2_h": "전략과 속임수를 다루는 멀티플레이어 게임입니다.",
+  "p2_p": "플레이어들은 위장과 타이밍으로 서로를 앞지릅니다. 파트너와 함께 실시간 멀티플레이어로 개발했습니다. Itch.io에서 플레이할 수 있습니다.",
+  "p3_h": "풀스택 예약 시스템입니다.",
+  "p3_p": "고객은 시간대를 예약하고 직원은 일정을 관리합니다. PHP, JavaScript, MySQL로 제작했으며 관리자 패널을 갖추고 있습니다.",
+  "p4_h": "즉시 지급되는 게임 충전 스토어입니다.",
+  "p4_p": "Free Fire, eFootball 등을 지원합니다. 아랍어를 우선한 다크 UI에 실시간 상태 표시, 애니메이션 티커, WhatsApp 직접 주문 기능이 있습니다.",
+  "p5_h": "그레고리력과 히즈라력을 지원하는 아랍어 나이 계산기입니다.",
+  "p5_p": "생일 카운트다운, 반려동물 나이를 사람 나이로 변환하는 기능, 두 날짜 사이의 차이를 계산하는 도구를 제공합니다. 다크/라이트 테마와 완전한 반응형을 바닐라 JavaScript로 구현했습니다.",
+  "btn_gh": "⬡ GITHUB 프로필",
+  "btn_demo": "↗ 라이브 데모",
+  "btn_verify": "↗ 확인",
+  "btn_view": "⤢ 자격증 보기",
+  "btn_flip": "↻ 뒤집기",
+  "btn_full": "⤢ 전체 화면",
+  "footer": "&copy; 2026 <span>AMR ESSAM</span> &bull; 이집트 카프르 엘 다와르"
+ },
+ "ja": {
+  "nav_about": "自己紹介",
+  "nav_projects": "プロジェクト",
+  "nav_skills": "スキル",
+  "nav_certs": "資格",
+  "nav_contact": "連絡先",
+  "nav_cv": "履歴書 ↓",
+  "tagline": "ソフトウェアエンジニア & クリエイティブデベロッパー",
+  "lead": "エジプトのカフル・エル・ダワール出身のソフトウェア工学専攻の学生です。没入感のあるデジタル体験、安全なシステム、クリエイティブなビジュアルプロジェクトを作っています。",
+  "hire": "依頼する ✉",
+  "download_cv": "履歴書をダウンロード ↓",
+  "view_work": "作品を見る →",
+  "stat_projects": "プロジェクト",
+  "stat_certs": "資格",
+  "stat_logos": "ロゴ",
+  "stat_cars": "車のポスター",
+  "about_title": "堅牢なシステムを構築し、没入感のあるゲームを作り、<span>デジタルの要塞を破ります。</span>",
+  "about_text": "フロントエンドのインターフェースから、深いバックエンド設計、ゲームエンジンまで、スタック全体を扱います。エンジニアリングを単なるコードではなく、インタラクティブな体験と安全なインフラを生み出す手段と考えています。",
+  "sk_web": "言語とWebスタック",
+  "sk_tools": "ツールとエンジン",
+  "sk_sec": "サイバーセキュリティ",
+  "contact_big": "一緒に<br><span>未来を作りましょう</span>",
+  "copy_email": "メールをコピー",
+  "share": "⤢ ポートフォリオを共有",
+  "lbl_about": "<b>01 /</b>自己紹介",
+  "lbl_projects": "<b>02 /</b>プロジェクト",
+  "lbl_skills": "<b>03 /</b>スキル",
+  "lbl_certs": "<b>04 /</b>資格",
+  "lbl_logos": "<b>05 /</b>ロゴデザイン",
+  "lbl_cars": "<b>06 /</b>車のポスター",
+  "lbl_clients": "<b>07 /</b>クライアント作品",
+  "lbl_contact": "<b>08 /</b>連絡先",
+  "edu_school": "サラー・サレム高校",
+  "edu_sub": "一般中等教育",
+  "m_year": "年",
+  "m_type": "種類",
+  "t_game": "ゲーム開発",
+  "t_full": "フルスタックWeb",
+  "t_store": "Web / ストア",
+  "t_tool": "Web / ツール",
+  "p1_h": "精密さと腕前が試される、手応えのある2Dプラットフォーマーです。",
+  "p1_p": "Godot 4.6とGDScriptで、すべてのメカニクス、レベル、アートを一人で設計しました。GitHubで公開中です。",
+  "p2_h": "戦略と欺きのマルチプレイヤーゲームです。",
+  "p2_p": "プレイヤーは陽動とタイミングで相手を出し抜きます。パートナーと共同で、リアルタイムのマルチプレイヤーとして開発しました。Itch.ioで公開中です。",
+  "p3_h": "フルスタックの予約システムです。",
+  "p3_p": "お客様が枠を予約し、スタッフがスケジュールを管理します。PHP、JavaScript、MySQLで構築し、管理パネルも備えています。",
+  "p4_h": "即時配送のゲームチャージストアです。",
+  "p4_p": "Free Fire、eFootballなどに対応。アラビア語を優先したダークUIに、リアルタイムのステータス表示、アニメーションするティッカー、WhatsAppでの直接注文を備えています。",
+  "p5_h": "西暦とヒジュラ暦に対応したアラビア語の年齢計算ツールです。",
+  "p5_p": "誕生日までのカウントダウン、ペットの年齢を人間の年齢に換算する機能、2つの日付の差を計算するツールを備えています。ダーク/ライトテーマ、完全レスポンシブで、素のJavaScriptで作りました。",
+  "btn_gh": "⬡ GITHUBプロフィール",
+  "btn_demo": "↗ ライブデモ",
+  "btn_verify": "↗ 確認",
+  "btn_view": "⤢ 証明書を見る",
+  "btn_flip": "↻ 裏返す",
+  "btn_full": "⤢ 全画面",
+  "footer": "&copy; 2026 <span>AMR ESSAM</span> &bull; エジプト、カフル・エル・ダワール"
+ },
+ "zh": {
+  "nav_about": "关于我",
+  "nav_projects": "项目",
+  "nav_skills": "技能",
+  "nav_certs": "证书",
+  "nav_contact": "联系",
+  "nav_cv": "简历 ↓",
+  "tagline": "软件工程师 & 创意开发者",
+  "lead": "来自埃及卡夫尔达瓦尔的软件工程专业学生。我打造沉浸式的数字体验、安全的系统和富有创意的视觉项目。",
+  "hire": "聘用我 ✉",
+  "download_cv": "下载简历 ↓",
+  "view_work": "查看作品 →",
+  "stat_projects": "项目",
+  "stat_certs": "证书",
+  "stat_logos": "标志",
+  "stat_cars": "汽车海报",
+  "about_title": "构建稳健的系统，打造沉浸式游戏，<span>攻破数字堡垒。</span>",
+  "about_text": "我的专长涵盖整个技术栈，从前端界面到深层后端架构，再到游戏引擎。在我看来，工程不只是代码，更是创造交互体验和安全基础设施的手段。",
+  "sk_web": "语言与 Web 技术栈",
+  "sk_tools": "工具与引擎",
+  "sk_sec": "网络安全",
+  "contact_big": "一起<br><span>创造未来</span>",
+  "copy_email": "复制邮箱",
+  "share": "⤢ 分享作品集",
+  "lbl_about": "<b>01 /</b>关于我",
+  "lbl_projects": "<b>02 /</b>项目",
+  "lbl_skills": "<b>03 /</b>技能",
+  "lbl_certs": "<b>04 /</b>证书",
+  "lbl_logos": "<b>05 /</b>标志设计",
+  "lbl_cars": "<b>06 /</b>汽车海报",
+  "lbl_clients": "<b>07 /</b>客户作品",
+  "lbl_contact": "<b>08 /</b>联系",
+  "edu_school": "萨拉赫·萨利姆高中",
+  "edu_sub": "普通中等教育",
+  "m_year": "年份",
+  "m_type": "类型",
+  "t_game": "游戏开发",
+  "t_full": "全栈 Web",
+  "t_store": "Web / 商店",
+  "t_tool": "Web / 工具",
+  "p1_h": "一款考验精准与技巧的高难度 2D 平台跳跃游戏。",
+  "p1_p": "使用 Godot 4.6 和 GDScript，独自设计了所有机制、关卡和美术。已发布在 GitHub。",
+  "p2_h": "一款关于策略与欺骗的多人游戏。",
+  "p2_p": "玩家通过迷惑对手和把握时机来智取彼此。与搭档共同开发，支持实时多人联机。已在 Itch.io 上线。",
+  "p3_h": "一个全栈预约系统。",
+  "p3_p": "顾客预订时段，员工管理排班。使用 PHP、JavaScript 和 MySQL 构建，配有完整的管理后台。",
+  "p4_h": "一个即时到账的游戏充值商店。",
+  "p4_p": "支持 Free Fire、eFootball 等。以阿拉伯语为优先的深色界面，带有实时状态指示、动态滚动条和 WhatsApp 直接下单功能。",
+  "p5_h": "一款支持公历和伊斯兰历的阿拉伯语年龄计算器。",
+  "p5_p": "包含生日倒计时、宠物年龄换算为人类年龄的工具，以及日期差计算工具。支持深色和浅色主题，完全响应式，使用原生 JavaScript 构建。",
+  "btn_gh": "⬡ GITHUB 主页",
+  "btn_demo": "↗ 在线演示",
+  "btn_verify": "↗ 验证",
+  "btn_view": "⤢ 查看证书",
+  "btn_flip": "↻ 翻转",
+  "btn_full": "⤢ 全屏",
+  "footer": "&copy; 2026 <span>AMR ESSAM</span> &bull; 埃及卡夫尔达瓦尔"
+ }
+};
+const MSG = {
+ "en": {
+  "site": [
+   "Opening official site",
+   ""
+  ],
+  "welcome": [
+   "Welcome",
+   "Thanks for visiting my portfolio."
+  ],
+  "copied": [
+   "Email copied",
+   "amrt6509@gmail.com is on your clipboard."
+  ],
+  "copyFail": [
+   "Couldn’t copy",
+   "Email: amrt6509@gmail.com"
+  ],
+  "linkCopied": [
+   "Link copied",
+   "Portfolio link is on your clipboard."
+  ],
+  "cv": [
+   "Downloading CV",
+   "amr_essam_cv.pdf"
+  ],
+  "cvDone": [
+   "CV downloaded",
+   "Saved to your downloads."
+  ],
+  "cvStarted": [
+   "Download started",
+   "Check your downloads."
+  ],
+  "dark": [
+   "Dark mode",
+   "Easy on the eyes."
+  ],
+  "light": [
+   "Light mode",
+   "Bright and clean."
+  ],
+  "lang": [
+   "Language: English",
+   "Switched to English."
+  ]
+ },
+ "ar": {
+  "site": [
+   "فتح الموقع الرسمي",
+   ""
+  ],
+  "welcome": [
+   "أهلًا بيك",
+   "شكرًا لزيارتك البورتفوليو."
+  ],
+  "copied": [
+   "تم نسخ الإيميل",
+   "amrt6509@gmail.com اتنسخ."
+  ],
+  "copyFail": [
+   "تعذّر النسخ",
+   "الإيميل: amrt6509@gmail.com"
+  ],
+  "linkCopied": [
+   "تم نسخ الرابط",
+   "رابط البورتفوليو اتنسخ."
+  ],
+  "cv": [
+   "جاري تحميل السيرة الذاتية",
+   "amr_essam_cv.pdf"
+  ],
+  "cvDone": [
+   "تم تحميل السيرة الذاتية",
+   "اتحفظت في التنزيلات."
+  ],
+  "cvStarted": [
+   "بدأ التحميل",
+   "شوف التنزيلات."
+  ],
+  "dark": [
+   "الوضع الداكن",
+   "مريح للعين."
+  ],
+  "light": [
+   "الوضع الفاتح",
+   "ساطع ونظيف."
+  ],
+  "lang": [
+   "اللغة: العربية",
+   "تم التبديل إلى العربية."
+  ]
+ },
+ "it": {
+  "site": [
+   "Apertura del sito ufficiale",
+   ""
+  ],
+  "welcome": [
+   "Benvenuto",
+   "Grazie per aver visitato il mio portfolio."
+  ],
+  "copied": [
+   "Email copiata",
+   "amrt6509@gmail.com è negli appunti."
+  ],
+  "copyFail": [
+   "Copia non riuscita",
+   "Email: amrt6509@gmail.com"
+  ],
+  "linkCopied": [
+   "Link copiato",
+   "Il link del portfolio è negli appunti."
+  ],
+  "cv": [
+   "Download del CV in corso",
+   "amr_essam_cv.pdf"
+  ],
+  "cvDone": [
+   "CV scaricato",
+   "Salvato nei download."
+  ],
+  "cvStarted": [
+   "Download avviato",
+   "Controlla i download."
+  ],
+  "dark": [
+   "Modalità scura",
+   "Riposante per gli occhi."
+  ],
+  "light": [
+   "Modalità chiara",
+   "Luminosa e pulita."
+  ],
+  "lang": [
+   "Lingua: Italiano",
+   "Passato all'italiano."
+  ]
+ },
+ "es": {
+  "site": [
+   "Abriendo el sitio oficial",
+   ""
+  ],
+  "welcome": [
+   "Bienvenido",
+   "Gracias por visitar mi portafolio."
+  ],
+  "copied": [
+   "Correo copiado",
+   "amrt6509@gmail.com está en el portapapeles."
+  ],
+  "copyFail": [
+   "No se pudo copiar",
+   "Correo: amrt6509@gmail.com"
+  ],
+  "linkCopied": [
+   "Enlace copiado",
+   "El enlace del portafolio está en el portapapeles."
+  ],
+  "cv": [
+   "Descargando CV",
+   "amr_essam_cv.pdf"
+  ],
+  "cvDone": [
+   "CV descargado",
+   "Guardado en tus descargas."
+  ],
+  "cvStarted": [
+   "Descarga iniciada",
+   "Revisa tus descargas."
+  ],
+  "dark": [
+   "Modo oscuro",
+   "Cómodo para la vista."
+  ],
+  "light": [
+   "Modo claro",
+   "Luminoso y limpio."
+  ],
+  "lang": [
+   "Idioma: Español",
+   "Cambiado a español."
+  ]
+ },
+ "ko": {
+  "site": [
+   "공식 사이트 여는 중",
+   ""
+  ],
+  "welcome": [
+   "환영합니다",
+   "제 포트폴리오를 방문해 주셔서 감사합니다."
+  ],
+  "copied": [
+   "이메일 복사됨",
+   "amrt6509@gmail.com이(가) 클립보드에 복사되었습니다."
+  ],
+  "copyFail": [
+   "복사하지 못했습니다",
+   "이메일: amrt6509@gmail.com"
+  ],
+  "linkCopied": [
+   "링크 복사됨",
+   "포트폴리오 링크가 클립보드에 복사되었습니다."
+  ],
+  "cv": [
+   "CV 다운로드 중",
+   "amr_essam_cv.pdf"
+  ],
+  "cvDone": [
+   "CV 다운로드 완료",
+   "다운로드 폴더에 저장되었습니다."
+  ],
+  "cvStarted": [
+   "다운로드 시작",
+   "다운로드 폴더를 확인하세요."
+  ],
+  "dark": [
+   "다크 모드",
+   "눈이 편안합니다."
+  ],
+  "light": [
+   "라이트 모드",
+   "밝고 깔끔합니다."
+  ],
+  "lang": [
+   "언어: 한국어",
+   "한국어로 전환되었습니다."
+  ]
+ },
+ "ja": {
+  "site": [
+   "公式サイトを開いています",
+   ""
+  ],
+  "welcome": [
+   "ようこそ",
+   "ポートフォリオをご覧いただきありがとうございます。"
+  ],
+  "copied": [
+   "メールをコピーしました",
+   "amrt6509@gmail.com をクリップボードにコピーしました。"
+  ],
+  "copyFail": [
+   "コピーできませんでした",
+   "メール: amrt6509@gmail.com"
+  ],
+  "linkCopied": [
+   "リンクをコピーしました",
+   "ポートフォリオのリンクをクリップボードにコピーしました。"
+  ],
+  "cv": [
+   "履歴書をダウンロード中",
+   "amr_essam_cv.pdf"
+  ],
+  "cvDone": [
+   "ダウンロード完了",
+   "ダウンロードフォルダに保存しました。"
+  ],
+  "cvStarted": [
+   "ダウンロードを開始しました",
+   "ダウンロードフォルダをご確認ください。"
+  ],
+  "dark": [
+   "ダークモード",
+   "目にやさしい表示です。"
+  ],
+  "light": [
+   "ライトモード",
+   "明るくすっきり。"
+  ],
+  "lang": [
+   "言語: 日本語",
+   "日本語に切り替えました。"
+  ]
+ },
+ "zh": {
+  "site": [
+   "正在打开官方网站",
+   ""
+  ],
+  "welcome": [
+   "欢迎",
+   "感谢访问我的作品集。"
+  ],
+  "copied": [
+   "邮箱已复制",
+   "amrt6509@gmail.com 已复制到剪贴板。"
+  ],
+  "copyFail": [
+   "复制失败",
+   "邮箱：amrt6509@gmail.com"
+  ],
+  "linkCopied": [
+   "链接已复制",
+   "作品集链接已复制到剪贴板。"
+  ],
+  "cv": [
+   "正在下载简历",
+   "amr_essam_cv.pdf"
+  ],
+  "cvDone": [
+   "简历已下载",
+   "已保存到下载文件夹。"
+  ],
+  "cvStarted": [
+   "已开始下载",
+   "请查看下载文件夹。"
+  ],
+  "dark": [
+   "深色模式",
+   "更护眼。"
+  ],
+  "light": [
+   "浅色模式",
+   "明亮清爽。"
+  ],
+  "lang": [
+   "语言：中文",
+   "已切换为中文。"
+  ]
+ }
+};
