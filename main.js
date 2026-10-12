@@ -16,62 +16,54 @@ themeBtn.addEventListener('click', () => {
 });
 syncTheme();
 
-/* ---------- Language (EN / AR) ---------- */
-let lang = root.lang === 'ar' ? 'ar' : 'en';
-const ROLES = {
-  en: ['Full-Stack Developer', 'Game Developer', 'Cybersecurity Enthusiast', 'Graphic Designer'],
-  ar: ['مطوّر Full-Stack', 'مطوّر ألعاب', 'مهتم بالأمن السيبراني', 'مصمم جرافيك'],
-};
-const AR = {
-  nav_about: 'نبذة', nav_projects: 'المشاريع', nav_skills: 'المهارات', nav_certs: 'الشهادات', nav_contact: 'تواصل',
-  nav_cv: 'السيرة ↓',
-  tagline: 'مهندس برمجيات ومطوّر مبدع',
-  lead: 'طالب هندسة برمجيات من كفر الدوار، مصر. أبني تجارب رقمية غامرة وأنظمة آمنة ومشاريع بصرية إبداعية.',
-  hire: 'وظّفني ✉', download_cv: 'تحميل السيرة الذاتية ↓', view_work: 'شاهد أعمالي ←',
-  stat_projects: 'مشاريع', stat_certs: 'شهادات', stat_logos: 'شعارات', stat_cars: 'بوسترات سيارات',
-  about_title: 'أبني أنظمة قوية، وأصنع ألعابًا غامرة، <span>وأكسر الحصون الرقمية.</span>',
-  about_text: 'خبرتي تغطي الـ stack كاملًا، من واجهات المستخدم إلى معماريات الباك إند ومحركات الألعاب. أتعامل مع الهندسة كوسيلة لصنع تجارب تفاعلية وبنية تحتية آمنة، وليس مجرد كود.',
-  sk_web: 'الويب واللغات', sk_tools: 'الأدوات والمحركات', sk_sec: 'الأمن السيبراني',
-  contact_big: 'لنبنِ<br><span>المستقبل معًا</span>',
-  copy_email: 'نسخ الإيميل', share: 'مشاركة البورتفوليو ⤢',
-  lbl_about: '<b>01 /</b>نبذة عني', lbl_projects: '<b>02 /</b>المشاريع', lbl_skills: '<b>03 /</b>المهارات',
-  lbl_certs: '<b>04 /</b>الشهادات', lbl_logos: '<b>05 /</b>تصميم شعارات', lbl_cars: '<b>06 /</b>بوسترات سيارات',
-  lbl_clients: '<b>07 /</b>أعمال العملاء', lbl_contact: '<b>08 /</b>تواصل',
-  edu_school: 'مدرسة صلاح سالم الثانوية', edu_sub: 'الثانوية العامة',
-  m_year: 'السنة', m_type: 'النوع',
-  t_game: 'تطوير ألعاب', t_full: 'ويب Full-Stack', t_store: 'ويب / متجر', t_tool: 'ويب / أداة',
-  p1_h: 'لعبة منصّات ثنائية الأبعاد صعبة تعتمد على الدقة والمهارة.',
-  p1_p: 'صمّمت كل الميكانيكيات والمراحل والرسومات بمفردي باستخدام Godot 4.6 وGDScript. منشورة على GitHub.',
-  p2_h: 'لعبة متعددة اللاعبين عن الاستراتيجية والخداع.',
-  p2_p: 'اللاعبون يتفوقون على بعض بالتمويه وحسن التوقيت. طوّرتها مع شريك بنظام لعب جماعي لحظي. متاحة على Itch.io.',
-  p3_h: 'نظام حجز متكامل Full-Stack.',
-  p3_p: 'العملاء يحجزون المواعيد والموظفون يديرون الجدول. مبني بـ PHP وJavaScript وMySQL مع لوحة تحكم كاملة.',
-  p4_h: 'متجر شحن ألعاب بتسليم فوري.',
-  p4_p: 'Free Fire وeFootball وغيرها. واجهة داكنة عربية أولًا، مع مؤشر حالة مباشر وشريط متحرك وطلب مباشر عبر واتساب.',
-  p5_h: 'حاسبة عمر عربية بالتاريخين الميلادي والهجري.',
-  p5_p: 'عدّاد تنازلي لعيد الميلاد، ومحوّل عمر الحيوانات الأليفة لعمر بشري، وأداة حساب الفرق بين تاريخين. وضع داكن وفاتح ومتجاوب بالكامل بـ JavaScript.',
-  btn_gh: '⬡ حسابي على GitHub', btn_demo: '↗ تجربة مباشرة', btn_verify: '↗ تحقق',
-  btn_view: '⤢ عرض الشهادة', btn_flip: '↻ اقلب', btn_full: '⤢ ملء الشاشة',
-  footer: '&copy; 2026 <span>عمرو عصام</span> &bull; كفر الدوار، مصر',
-};
+/* ---------- Language (EN / AR / IT / ES / KO / JA / ZH) ----------
+   Text lives in i18n.js. English is the markup itself; other languages override it by data-i18n key. */
+const LANG_CODES = LANGS.map(l => l.code);
+let lang = LANG_CODES.includes(root.lang) ? root.lang : 'en';
 const TITLE_EN = document.title;
 const i18nEls = $$('[data-i18n]');
 i18nEls.forEach(el => { el.dataset.en = el.innerHTML; });
-const langBtn = $('#lang');
-function setLang(next) {
+const reduceMotion = matchMedia('(prefers-reduced-motion: reduce)').matches;
+const langBtn = $('#lang'), langMenu = $('#lang-menu');
+langMenu.innerHTML = LANGS.map(l => `
+  <li role="presentation"><button class="lang-opt" type="button" role="option" data-lang="${l.code}" lang="${l.code}" aria-selected="false">${FLAGS[l.code]}<b>${l.label}</b><small>${l.name}</small></button></li>`).join('');
+const langOpts = $$('.lang-opt', langMenu);
+
+function setLang(next, persist = true) {
   lang = next;
   root.lang = next;
   root.dir = next === 'ar' ? 'rtl' : 'ltr';
-  i18nEls.forEach(el => { el.innerHTML = next === 'ar' ? AR[el.dataset.i18n] : el.dataset.en; });
-  langBtn.textContent = next === 'ar' ? 'EN' : 'AR';
-  document.title = next === 'ar' ? 'عمرو عصام — مطوّر Full-Stack ومصمم مبدع' : TITLE_EN;
-  try { localStorage.setItem('lang', next); } catch (e) {}
+  i18nEls.forEach(el => { el.innerHTML = (TR[next] && TR[next][el.dataset.i18n]) ?? el.dataset.en; });
+  const meta = LANGS.find(l => l.code === next);
+  langBtn.innerHTML = `${FLAGS[next]}<span>${meta.label}</span>`;
+  langOpts.forEach(o => o.setAttribute('aria-selected', String(o.dataset.lang === next)));
+  document.title = TITLES[next] || TITLE_EN;
+  if (reduceMotion) $('#typed').textContent = ROLES[next][0]; // typing effect is off, keep the static role in sync
+  if (persist) { try { localStorage.setItem('lang', next); } catch (e) {} }
 }
-langBtn.addEventListener('click', () => {
-  setLang(lang === 'ar' ? 'en' : 'ar');
-  if (typeof say === 'function') say(lang === 'ar' ? 'langAr' : 'langEn', 'message', { icon: 'globe', duration: 1800 });
+const setLangMenu = open => { langMenu.hidden = !open; langBtn.setAttribute('aria-expanded', String(open)); };
+langBtn.addEventListener('click', () => setLangMenu(langMenu.hidden));
+langMenu.addEventListener('click', e => {
+  const opt = e.target.closest('[data-lang]');
+  if (!opt) return;
+  setLangMenu(false);
+  langBtn.focus();
+  if (opt.dataset.lang === lang) return;
+  setLang(opt.dataset.lang);
+  say('lang', 'message', { icon: 'globe', duration: 1800 });
 });
-if (lang === 'ar') setLang('ar'); else langBtn.textContent = 'AR';
+document.addEventListener('click', e => { if (!langMenu.hidden && !e.target.closest('.lang-wrap')) setLangMenu(false); });
+document.addEventListener('keydown', e => {
+  if (langMenu.hidden) return;
+  if (e.key === 'Escape') { setLangMenu(false); langBtn.focus(); return; }
+  if (e.key === 'ArrowDown' || e.key === 'ArrowUp') {
+    e.preventDefault();
+    const i = langOpts.indexOf(document.activeElement);
+    const n = e.key === 'ArrowDown' ? (i + 1) % langOpts.length : (i <= 0 ? langOpts.length - 1 : i - 1);
+    langOpts[n].focus();
+  }
+});
+setLang(lang, false);
 
 /* ---------- Notification island ---------- */
 const island = $('#island');
@@ -152,38 +144,12 @@ island.addEventListener('mouseenter', () => clearTimeout(islTimer));
 island.addEventListener('mouseleave', armIsland);
 document.addEventListener('keydown', e => { if (e.key === 'Escape' && island.classList.contains('show') && !(lightbox && lightbox.open)) hideIsland(); });
 
-const MSG = {
-  en: {
-    site: ['Opening official site', ''],
-    welcome: ['Welcome', 'Thanks for visiting my portfolio.'],
-    copied: ['Email copied', 'amrt6509@gmail.com is on your clipboard.'],
-    copyFail: ['Couldn’t copy', 'Email: amrt6509@gmail.com'],
-    linkCopied: ['Link copied', 'Portfolio link is on your clipboard.'],
-    cv: ['Downloading CV', 'amr_essam_cv.pdf'],
-    cvDone: ['CV downloaded', 'Saved to your downloads.'],
-    cvStarted: ['Download started', 'Check your downloads.'],
-    dark: ['Dark mode', 'Easy on the eyes.'], light: ['Light mode', 'Bright and clean.'],
-    langEn: ['Language: English', 'Switched to English.'], langAr: ['اللغة: العربية', 'تم التبديل إلى العربية.'],
-  },
-  ar: {
-    site: ['فتح الموقع الرسمي', ''],
-    welcome: ['أهلًا بيك', 'شكرًا لزيارتك البورتفوليو.'],
-    copied: ['تم نسخ الإيميل', 'amrt6509@gmail.com اتنسخ.'],
-    copyFail: ['تعذّر النسخ', 'الإيميل: amrt6509@gmail.com'],
-    linkCopied: ['تم نسخ الرابط', 'رابط البورتفوليو اتنسخ.'],
-    cv: ['جاري تحميل السيرة الذاتية', 'amr_essam_cv.pdf'],
-    cvDone: ['تم تحميل السيرة الذاتية', 'اتحفظت في التنزيلات.'],
-    cvStarted: ['بدأ التحميل', 'شوف التنزيلات.'],
-    dark: ['الوضع الداكن', 'مريح للعين.'], light: ['الوضع الفاتح', 'ساطع ونظيف.'],
-    langEn: ['Language: English', 'Switched to English.'], langAr: ['اللغة: العربية', 'تم التبديل إلى العربية.'],
-  },
-};
 const say = (key, type, extra = {}) => { const [title, text] = MSG[lang][key]; return showIsland({ type, title, text, ...extra }); };
 
 /* ---------- Typing effect ---------- */
 (function typing() {
   const el = $('#typed');
-  if (matchMedia('(prefers-reduced-motion: reduce)').matches) return; // keep the static role
+  if (reduceMotion) return; // keep the static role
   let role = 0, chars = ROLES.en[0].length, deleting = true;
   (function tick() {
     const roles = ROLES[lang];
