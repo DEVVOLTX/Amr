@@ -47,7 +47,11 @@
     var de = document.documentElement, st = {};
     try { st.theme = localStorage.getItem('theme'); st.lang = localStorage.getItem('lang'); } catch (e) {}
     try { de.dataset.theme = st.theme || (matchMedia('(prefers-color-scheme: light)').matches ? 'light' : 'dark'); } catch (e) {}
-    try { if ((st.lang || (/^ar/i.test(navigator.language || '') ? 'ar' : 'en')) === 'ar') { de.lang = 'ar'; de.dir = 'rtl'; } } catch (e) {}
+    try {
+      var L = ['en', 'ar', 'it', 'es', 'ko', 'ja', 'zh'], l = st.lang;
+      if (L.indexOf(l) < 0) { l = (navigator.language || '').slice(0, 2).toLowerCase(); if (L.indexOf(l) < 0) l = 'en'; }
+      de.lang = l; if (l === 'ar') de.dir = 'rtl';
+    } catch (e) {}
     de.classList.add('js');
   </script>
 </head>
@@ -77,7 +81,10 @@
         </div>
       </div>
       <button class="icon-btn menu-btn" id="menu-btn" type="button" aria-label="Menu" aria-expanded="false" aria-controls="menu"><span class="bars" aria-hidden="true"><i></i><i></i><i></i></span></button>
-      <button class="icon-btn" id="lang" aria-label="Switch language / تغيير اللغة">AR</button>
+      <div class="lang-wrap">
+        <button class="lang-btn" id="lang" type="button" aria-haspopup="listbox" aria-expanded="false" aria-controls="lang-menu" aria-label="Language / اللغة">EN</button>
+        <ul class="lang-menu" id="lang-menu" role="listbox" aria-label="Language" hidden></ul>
+      </div>
       <button class="icon-btn" id="theme" aria-label="Toggle light / dark theme">🌙</button>
       <a class="btn sm" href="amr_essam_cv.pdf" download data-i18n="nav_cv">CV ↓</a>
     </div>
@@ -303,7 +310,7 @@
         <a href="https://www.instagram.com/3am_our1430" target="_blank" rel="noopener">INSTAGRAM</a>
         <a href="https://www.tiktok.com/@amr_taha62" target="_blank" rel="noopener">TIKTOK</a>
         <a href="https://x.com/Amr2043275" target="_blank" rel="noopener">X</a>
-        <a href="https://discord.com/users/amr_taha62" target="_blank" rel="noopener">DISCORD</a>
+        <a href="https://discord.com/users/981231266768752760" target="_blank" rel="noopener">DISCORD</a>
         <a href="https://t.me/Amour_64x" target="_blank" rel="noopener">TELEGRAM</a>
       </div>
     </section>
@@ -320,6 +327,7 @@
     <span id="lb-count"></span>
   </dialog>
 
+  <script src="i18n.js" defer></script>
   <script src="main.js" defer></script>
 </body>
 </html>
