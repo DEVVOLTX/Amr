@@ -23,6 +23,21 @@ const LANGS = [
   "name": "Español"
  },
  {
+  "code": "de",
+  "label": "DE",
+  "name": "Deutsch"
+ },
+ {
+  "code": "fr",
+  "label": "FR",
+  "name": "Français"
+ },
+ {
+  "code": "ru",
+  "label": "RU",
+  "name": "Русский"
+ },
+ {
   "code": "ko",
   "label": "KO",
   "name": "한국어"
@@ -45,7 +60,10 @@ const FLAGS = {
  "es": "<svg class=\"flag\" viewBox=\"0 0 24 16\" aria-hidden=\"true\" focusable=\"false\"><rect width=\"24\" height=\"16\" fill=\"#AA151B\"/><rect y=\"4\" width=\"24\" height=\"8\" fill=\"#F1BF00\"/></svg>",
  "ko": "<svg class=\"flag\" viewBox=\"0 0 24 16\" aria-hidden=\"true\" focusable=\"false\"><rect width=\"24\" height=\"16\" fill=\"#fff\"/><path d=\"M8.8 8a3.2 3.2 0 0 1 6.4 0z\" fill=\"#CD2E3A\"/><path d=\"M15.2 8a3.2 3.2 0 0 1-6.4 0z\" fill=\"#0047A0\"/><g stroke=\"#000\" stroke-width=\".6\" fill=\"none\"><g transform=\"translate(5.2 3.9) rotate(-33.7)\"><line x1=\"-1.6\" y1=\"-0.9\" x2=\"1.6\" y2=\"-0.9\"/><line x1=\"-1.6\" y1=\"0\" x2=\"1.6\" y2=\"0\"/><line x1=\"-1.6\" y1=\"0.9\" x2=\"1.6\" y2=\"0.9\"/></g><g transform=\"translate(18.8 3.9) rotate(33.7)\"><line x1=\"-1.6\" y1=\"-0.9\" x2=\"1.6\" y2=\"-0.9\"/><line x1=\"-1.6\" y1=\"0\" x2=\"1.6\" y2=\"0\"/><line x1=\"-1.6\" y1=\"0.9\" x2=\"1.6\" y2=\"0.9\"/></g><g transform=\"translate(5.2 12.1) rotate(33.7)\"><line x1=\"-1.6\" y1=\"-0.9\" x2=\"1.6\" y2=\"-0.9\"/><line x1=\"-1.6\" y1=\"0\" x2=\"1.6\" y2=\"0\"/><line x1=\"-1.6\" y1=\"0.9\" x2=\"1.6\" y2=\"0.9\"/></g><g transform=\"translate(18.8 12.1) rotate(-33.7)\"><line x1=\"-1.6\" y1=\"-0.9\" x2=\"1.6\" y2=\"-0.9\"/><line x1=\"-1.6\" y1=\"0\" x2=\"1.6\" y2=\"0\"/><line x1=\"-1.6\" y1=\"0.9\" x2=\"1.6\" y2=\"0.9\"/></g></g></svg>",
  "ja": "<svg class=\"flag\" viewBox=\"0 0 24 16\" aria-hidden=\"true\" focusable=\"false\"><rect width=\"24\" height=\"16\" fill=\"#fff\"/><circle cx=\"12\" cy=\"8\" r=\"4.8\" fill=\"#BC002D\"/></svg>",
- "zh": "<svg class=\"flag\" viewBox=\"0 0 24 16\" aria-hidden=\"true\" focusable=\"false\"><rect width=\"24\" height=\"16\" fill=\"#DE2910\"/><g fill=\"#FFDE00\"><polygon points=\"4.20,1.60 4.78,3.40 6.67,3.40 5.14,4.51 5.73,6.30 4.20,5.19 2.67,6.30 3.26,4.51 1.73,3.40 3.62,3.40\"/><polygon points=\"8.87,0.95 8.85,1.53 9.40,1.73 8.84,1.89 8.82,2.47 8.50,1.99 7.94,2.15 8.29,1.69 7.97,1.21 8.52,1.41\"/><polygon points=\"10.81,2.99 10.60,3.53 11.04,3.90 10.46,3.86 10.24,4.40 10.10,3.83 9.52,3.79 10.02,3.49 9.88,2.92 10.32,3.30\"/><polygon points=\"10.99,5.90 10.60,6.33 10.89,6.84 10.36,6.60 9.97,7.03 10.04,6.45 9.50,6.22 10.07,6.10 10.13,5.52 10.42,6.02\"/><polygon points=\"9.39,8.06 8.87,8.33 8.98,8.91 8.56,8.50 8.04,8.78 8.30,8.25 7.88,7.85 8.46,7.93 8.71,7.41 8.81,7.98\"/></g></svg>"
+ "zh": "<svg class=\"flag\" viewBox=\"0 0 24 16\" aria-hidden=\"true\" focusable=\"false\"><rect width=\"24\" height=\"16\" fill=\"#DE2910\"/><g fill=\"#FFDE00\"><polygon points=\"4.20,1.60 4.78,3.40 6.67,3.40 5.14,4.51 5.73,6.30 4.20,5.19 2.67,6.30 3.26,4.51 1.73,3.40 3.62,3.40\"/><polygon points=\"8.87,0.95 8.85,1.53 9.40,1.73 8.84,1.89 8.82,2.47 8.50,1.99 7.94,2.15 8.29,1.69 7.97,1.21 8.52,1.41\"/><polygon points=\"10.81,2.99 10.60,3.53 11.04,3.90 10.46,3.86 10.24,4.40 10.10,3.83 9.52,3.79 10.02,3.49 9.88,2.92 10.32,3.30\"/><polygon points=\"10.99,5.90 10.60,6.33 10.89,6.84 10.36,6.60 9.97,7.03 10.04,6.45 9.50,6.22 10.07,6.10 10.13,5.52 10.42,6.02\"/><polygon points=\"9.39,8.06 8.87,8.33 8.98,8.91 8.56,8.50 8.04,8.78 8.30,8.25 7.88,7.85 8.46,7.93 8.71,7.41 8.81,7.98\"/></g></svg>",
+ "de": "<svg class=\"flag\" viewBox=\"0 0 24 16\" aria-hidden=\"true\" focusable=\"false\"><rect width=\"24\" height=\"5.34\" fill=\"#000\"/><rect y=\"5.33\" width=\"24\" height=\"5.34\" fill=\"#DD0000\"/><rect y=\"10.66\" width=\"24\" height=\"5.34\" fill=\"#FFCE00\"/></svg>",
+ "fr": "<svg class=\"flag\" viewBox=\"0 0 24 16\" aria-hidden=\"true\" focusable=\"false\"><rect width=\"8\" height=\"16\" fill=\"#0055A4\"/><rect x=\"8\" width=\"8\" height=\"16\" fill=\"#fff\"/><rect x=\"16\" width=\"8\" height=\"16\" fill=\"#EF4135\"/></svg>",
+ "ru": "<svg class=\"flag\" viewBox=\"0 0 24 16\" aria-hidden=\"true\" focusable=\"false\"><rect width=\"24\" height=\"5.34\" fill=\"#fff\"/><rect y=\"5.33\" width=\"24\" height=\"5.34\" fill=\"#0039A6\"/><rect y=\"10.66\" width=\"24\" height=\"5.34\" fill=\"#D52B1E\"/></svg>"
 };
 const ROLES = {
  "en": [
@@ -89,6 +107,24 @@ const ROLES = {
   "游戏开发者",
   "网络安全爱好者",
   "平面设计师"
+ ],
+ "de": [
+  "Full-Stack-Entwickler",
+  "Spieleentwickler",
+  "Cybersicherheits-Enthusiast",
+  "Grafikdesigner"
+ ],
+ "fr": [
+  "Développeur Full-Stack",
+  "Développeur de jeux",
+  "Passionné de cybersécurité",
+  "Graphiste"
+ ],
+ "ru": [
+  "Full-Stack разработчик",
+  "Разработчик игр",
+  "Энтузиаст кибербезопасности",
+  "Графический дизайнер"
  ]
 };
 const TITLES = {
@@ -97,7 +133,10 @@ const TITLES = {
  "es": "Amr Essam — Desarrollador Full-Stack y diseñador creativo",
  "ko": "Amr Essam — 풀스택 개발자 & 크리에이티브 디자이너",
  "ja": "Amr Essam — フルスタック開発者 & クリエイティブデザイナー",
- "zh": "Amr Essam — 全栈开发者与创意设计师"
+ "zh": "Amr Essam — 全栈开发者与创意设计师",
+ "de": "Amr Essam — Full-Stack-Entwickler & kreativer Designer",
+ "fr": "Amr Essam — Développeur Full-Stack & designer créatif",
+ "ru": "Amr Essam — Full-Stack разработчик и креативный дизайнер"
 };
 const TR = {
  "ar": {
@@ -447,6 +486,180 @@ const TR = {
   "btn_flip": "↻ 翻转",
   "btn_full": "⤢ 全屏",
   "footer": "&copy; 2026 <span>AMR ESSAM</span> &bull; 埃及卡夫尔达瓦尔"
+ },
+ "de": {
+  "nav_about": "ÜBER MICH",
+  "nav_projects": "PROJEKTE",
+  "nav_skills": "SKILLS",
+  "nav_certs": "ZERTIFIKATE",
+  "nav_contact": "KONTAKT",
+  "nav_cv": "CV ↓",
+  "tagline": "SOFTWARE-ENGINEER & KREATIVER ENTWICKLER",
+  "lead": "Student der Softwaretechnik aus Kafr El Dawar, Ägypten. Ich entwickle immersive digitale Erlebnisse, sichere Systeme und kreative visuelle Projekte.",
+  "hire": "MICH BEAUFTRAGEN ✉",
+  "download_cv": "LEBENSLAUF HERUNTERLADEN ↓",
+  "view_work": "ARBEITEN ANSEHEN →",
+  "stat_projects": "PROJEKTE",
+  "stat_certs": "ZERTIFIKATE",
+  "stat_logos": "LOGOS",
+  "stat_cars": "AUTOPOSTER",
+  "about_title": "Ich baue robuste Systeme, entwickle immersive Spiele <span>und knacke digitale Festungen.</span>",
+  "about_text": "Meine Expertise umfasst den gesamten Stack – von Frontend-Oberflächen über tiefe Backend-Architekturen bis zu Game-Engines. Ich sehe Engineering nicht nur als Code, sondern als Mittel, interaktive Erlebnisse und sichere Infrastrukturen zu schaffen.",
+  "sk_web": "SPRACHEN & WEB-STACK",
+  "sk_tools": "TOOLS & ENGINES",
+  "sk_sec": "CYBERSICHERHEIT",
+  "contact_big": "LASS UNS DIE<br><span>ZUKUNFT BAUEN</span>",
+  "copy_email": "E-MAIL KOPIEREN",
+  "share": "⤢ PORTFOLIO TEILEN",
+  "lbl_about": "<b>01 /</b>ÜBER_MICH",
+  "lbl_projects": "<b>02 /</b>PROJEKTE",
+  "lbl_skills": "<b>03 /</b>SKILLS",
+  "lbl_certs": "<b>04 /</b>ZERTIFIKATE",
+  "lbl_logos": "<b>05 /</b>LOGO_PROJEKTE",
+  "lbl_cars": "<b>06 /</b>AUTOPOSTER",
+  "lbl_clients": "<b>07 /</b>KUNDENARBEITEN",
+  "lbl_contact": "<b>08 /</b>KONTAKT",
+  "edu_school": "Salah Salem Highschool",
+  "edu_sub": "Allgemeine Sekundarbildung",
+  "m_year": "JAHR",
+  "m_type": "ART",
+  "t_game": "Spieleentwicklung",
+  "t_full": "Full-Stack-Web",
+  "t_store": "Web / Shop",
+  "t_tool": "Web / Tool",
+  "p1_h": "Ein anspruchsvolles 2D-Jump-and-Run, das auf Präzision und Geschick setzt.",
+  "p1_p": "Alle Mechaniken, Level und Grafiken habe ich allein mit Godot 4.6 und GDScript entworfen. Veröffentlicht auf GitHub.",
+  "p2_h": "Ein Multiplayer-Spiel über Strategie und Täuschung.",
+  "p2_p": "Die Spieler überlisten einander mit Ablenkung und gutem Timing. Gemeinsam mit einem Partner entwickelt, mit Echtzeit-Multiplayer. Auf Itch.io verfügbar.",
+  "p3_h": "Ein Full-Stack-Reservierungssystem.",
+  "p3_p": "Kunden buchen Zeitfenster, das Personal verwaltet die Termine. Entwickelt mit PHP, JavaScript und MySQL, inklusive vollständigem Admin-Bereich.",
+  "p4_h": "Ein Shop für Spiele-Aufladungen mit sofortiger Lieferung.",
+  "p4_p": "Free Fire, eFootball und mehr. Dunkles UI mit Fokus auf Arabisch, Live-Statusanzeige, animiertem Ticker und direkter Bestellung per WhatsApp.",
+  "p5_h": "Ein arabischer Altersrechner mit gregorianischem und Hidschri-Datum.",
+  "p5_p": "Live-Geburtstags-Countdown, Umrechner vom Tieralter ins Menschenalter und ein Tool für die Differenz zwischen zwei Daten. Dunkles und helles Design, vollständig responsiv, mit reinem JavaScript gebaut.",
+  "btn_gh": "⬡ GITHUB-PROFIL",
+  "btn_demo": "↗ LIVE-DEMO",
+  "btn_verify": "↗ PRÜFEN",
+  "btn_view": "⤢ ZERTIFIKAT ANSEHEN",
+  "btn_flip": "↻ DREHEN",
+  "btn_full": "⤢ VOLLBILD",
+  "footer": "&copy; 2026 <span>AMR ESSAM</span> &bull; KAFR EL DAWAR, ÄGYPTEN"
+ },
+ "fr": {
+  "nav_about": "À PROPOS",
+  "nav_projects": "PROJETS",
+  "nav_skills": "COMPÉTENCES",
+  "nav_certs": "CERTIFICATS",
+  "nav_contact": "CONTACT",
+  "nav_cv": "CV ↓",
+  "tagline": "INGÉNIEUR LOGICIEL & DÉVELOPPEUR CRÉATIF",
+  "lead": "Étudiant en génie logiciel basé à Kafr El Dawar, en Égypte. Je crée des expériences numériques immersives, des systèmes sécurisés et des projets visuels créatifs.",
+  "hire": "ME RECRUTER ✉",
+  "download_cv": "TÉLÉCHARGER LE CV ↓",
+  "view_work": "VOIR MES TRAVAUX →",
+  "stat_projects": "PROJETS",
+  "stat_certs": "CERTIFICATS",
+  "stat_logos": "LOGOS",
+  "stat_cars": "AFFICHES AUTO",
+  "about_title": "Je construis des systèmes robustes, je crée des jeux immersifs <span>et je fais tomber des forteresses numériques.</span>",
+  "about_text": "Mon expertise couvre toute la stack, des interfaces frontend aux architectures backend profondes et aux moteurs de jeu. J’aborde l’ingénierie non seulement comme du code, mais comme un moyen de créer des expériences interactives et des infrastructures sécurisées.",
+  "sk_web": "LANGAGES & STACK WEB",
+  "sk_tools": "OUTILS & MOTEURS",
+  "sk_sec": "CYBERSÉCURITÉ",
+  "contact_big": "CONSTRUISONS<br><span>L’AVENIR</span>",
+  "copy_email": "COPIER L’E-MAIL",
+  "share": "⤢ PARTAGER LE PORTFOLIO",
+  "lbl_about": "<b>01 /</b>À_PROPOS",
+  "lbl_projects": "<b>02 /</b>PROJETS",
+  "lbl_skills": "<b>03 /</b>COMPÉTENCES",
+  "lbl_certs": "<b>04 /</b>CERTIFICATS",
+  "lbl_logos": "<b>05 /</b>CRÉATION_DE_LOGOS",
+  "lbl_cars": "<b>06 /</b>AFFICHES_AUTO",
+  "lbl_clients": "<b>07 /</b>TRAVAUX_CLIENTS",
+  "lbl_contact": "<b>08 /</b>CONTACT",
+  "edu_school": "Lycée Salah Salem",
+  "edu_sub": "Enseignement secondaire général",
+  "m_year": "ANNÉE",
+  "m_type": "TYPE",
+  "t_game": "Développement de jeux",
+  "t_full": "Web Full-Stack",
+  "t_store": "Web / Boutique",
+  "t_tool": "Web / Outil",
+  "p1_h": "Un jeu de plateforme 2D exigeant, basé sur la précision et l’habileté.",
+  "p1_p": "J’ai conçu seul toutes les mécaniques, les niveaux et les graphismes avec Godot 4.6 et GDScript. Publié sur GitHub.",
+  "p2_h": "Un jeu multijoueur de stratégie et de tromperie.",
+  "p2_p": "Les joueurs se surpassent grâce aux diversions et au bon timing. Développé avec un partenaire, en multijoueur temps réel. Disponible sur Itch.io.",
+  "p3_h": "Un système de réservation full-stack.",
+  "p3_p": "Les clients réservent des créneaux et le personnel gère les plannings. Réalisé avec PHP, JavaScript et MySQL, avec un panneau d’administration complet.",
+  "p4_h": "Une boutique de recharges de jeux à livraison instantanée.",
+  "p4_p": "Free Fire, eFootball et plus encore. Interface sombre pensée d’abord pour l’arabe, avec indicateur d’état en direct, bandeau animé et commande directe via WhatsApp.",
+  "p5_h": "Un calculateur d’âge en arabe avec dates grégoriennes et hégiriennes.",
+  "p5_p": "Compte à rebours d’anniversaire, convertisseur d’âge animal en âge humain et outil de calcul de l’écart entre deux dates. Thèmes sombre et clair, entièrement responsive, en JavaScript pur.",
+  "btn_gh": "⬡ PROFIL GITHUB",
+  "btn_demo": "↗ DÉMO EN LIGNE",
+  "btn_verify": "↗ VÉRIFIER",
+  "btn_view": "⤢ VOIR LE CERTIFICAT",
+  "btn_flip": "↻ RETOURNER",
+  "btn_full": "⤢ PLEIN ÉCRAN",
+  "footer": "&copy; 2026 <span>AMR ESSAM</span> &bull; KAFR EL DAWAR, ÉGYPTE"
+ },
+ "ru": {
+  "nav_about": "ОБО МНЕ",
+  "nav_projects": "ПРОЕКТЫ",
+  "nav_skills": "НАВЫКИ",
+  "nav_certs": "СЕРТИФИКАТЫ",
+  "nav_contact": "КОНТАКТЫ",
+  "nav_cv": "CV ↓",
+  "tagline": "ИНЖЕНЕР-ПРОГРАММИСТ И КРЕАТИВНЫЙ РАЗРАБОТЧИК",
+  "lead": "Студент по специальности «Программная инженерия» из Кафр-эль-Даввара, Египет. Создаю захватывающие цифровые проекты, безопасные системы и креативные визуальные работы.",
+  "hire": "НАНЯТЬ МЕНЯ ✉",
+  "download_cv": "СКАЧАТЬ РЕЗЮМЕ ↓",
+  "view_work": "СМОТРЕТЬ РАБОТЫ →",
+  "stat_projects": "ПРОЕКТОВ",
+  "stat_certs": "СЕРТИФИКАТОВ",
+  "stat_logos": "ЛОГОТИПОВ",
+  "stat_cars": "ПОСТЕРОВ С АВТО",
+  "about_title": "Я создаю надёжные системы, делаю увлекательные игры <span>и взламываю цифровые крепости.</span>",
+  "about_text": "Мой опыт охватывает весь стек — от фронтенд-интерфейсов до глубокой бэкенд-архитектуры и игровых движков. Для меня инженерия — это не просто код, а способ создавать интерактивные впечатления и защищённую инфраструктуру.",
+  "sk_web": "ЯЗЫКИ И ВЕБ-СТЕК",
+  "sk_tools": "ИНСТРУМЕНТЫ И ДВИЖКИ",
+  "sk_sec": "КИБЕРБЕЗОПАСНОСТЬ",
+  "contact_big": "СОЗДАДИМ<br><span>БУДУЩЕЕ ВМЕСТЕ</span>",
+  "copy_email": "КОПИРОВАТЬ E-MAIL",
+  "share": "⤢ ПОДЕЛИТЬСЯ ПОРТФОЛИО",
+  "lbl_about": "<b>01 /</b>ОБО_МНЕ",
+  "lbl_projects": "<b>02 /</b>ПРОЕКТЫ",
+  "lbl_skills": "<b>03 /</b>НАВЫКИ",
+  "lbl_certs": "<b>04 /</b>СЕРТИФИКАТЫ",
+  "lbl_logos": "<b>05 /</b>ДИЗАЙН_ЛОГОТИПОВ",
+  "lbl_cars": "<b>06 /</b>ПОСТЕРЫ_С_АВТО",
+  "lbl_clients": "<b>07 /</b>РАБОТЫ_ДЛЯ_КЛИЕНТОВ",
+  "lbl_contact": "<b>08 /</b>КОНТАКТЫ",
+  "edu_school": "Школа Салах Салем",
+  "edu_sub": "Общее среднее образование",
+  "m_year": "ГОД",
+  "m_type": "ТИП",
+  "t_game": "Разработка игр",
+  "t_full": "Full-Stack веб",
+  "t_store": "Веб / Магазин",
+  "t_tool": "Веб / Инструмент",
+  "p1_h": "Сложный 2D-платформер, где важны точность и мастерство.",
+  "p1_p": "Все механики, уровни и графику я разработал в одиночку на Godot 4.6 и GDScript. Опубликовано на GitHub.",
+  "p2_h": "Многопользовательская игра о стратегии и обмане.",
+  "p2_p": "Игроки перехитряют друг друга с помощью отвлекающих манёвров и точного расчёта времени. Разработана вместе с партнёром, с мультиплеером в реальном времени. Доступна на Itch.io.",
+  "p3_h": "Full-stack система бронирования.",
+  "p3_p": "Клиенты бронируют время, сотрудники управляют расписанием. Создано на PHP, JavaScript и MySQL, с полноценной панелью администратора.",
+  "p4_h": "Магазин пополнения игр с мгновенной доставкой.",
+  "p4_p": "Free Fire, eFootball и другие игры. Тёмный интерфейс с приоритетом арабского языка, индикатором статуса в реальном времени, бегущей строкой и заказом напрямую через WhatsApp.",
+  "p5_h": "Арабский калькулятор возраста с григорианским и хиджрийским календарями.",
+  "p5_p": "Обратный отсчёт до дня рождения, конвертер возраста питомцев в человеческий и инструмент для расчёта разницы между датами. Тёмная и светлая темы, полностью адаптивный, на чистом JavaScript.",
+  "btn_gh": "⬡ ПРОФИЛЬ GITHUB",
+  "btn_demo": "↗ ЖИВАЯ ДЕМО",
+  "btn_verify": "↗ ПРОВЕРИТЬ",
+  "btn_view": "⤢ СМОТРЕТЬ СЕРТИФИКАТ",
+  "btn_flip": "↻ ПЕРЕВЕРНУТЬ",
+  "btn_full": "⤢ НА ВЕСЬ ЭКРАН",
+  "footer": "&copy; 2026 <span>AMR ESSAM</span> &bull; КАФР-ЭЛЬ-ДАВВАР, ЕГИПЕТ"
  }
 };
 const MSG = {
@@ -770,6 +983,144 @@ const MSG = {
   "lang": [
    "语言：中文",
    "已切换为中文。"
+  ]
+ },
+ "de": {
+  "site": [
+   "Offizielle Seite wird geöffnet",
+   ""
+  ],
+  "welcome": [
+   "Willkommen",
+   "Danke für den Besuch meines Portfolios."
+  ],
+  "copied": [
+   "E-Mail kopiert",
+   "amrt6509@gmail.com befindet sich in der Zwischenablage."
+  ],
+  "copyFail": [
+   "Kopieren fehlgeschlagen",
+   "E-Mail: amrt6509@gmail.com"
+  ],
+  "linkCopied": [
+   "Link kopiert",
+   "Der Portfolio-Link befindet sich in der Zwischenablage."
+  ],
+  "cv": [
+   "Lebenslauf wird heruntergeladen",
+   "amr_essam_cv.pdf"
+  ],
+  "cvDone": [
+   "Lebenslauf heruntergeladen",
+   "In deinen Downloads gespeichert."
+  ],
+  "cvStarted": [
+   "Download gestartet",
+   "Sieh in deinen Downloads nach."
+  ],
+  "dark": [
+   "Dunkelmodus",
+   "Schonend für die Augen."
+  ],
+  "light": [
+   "Hellmodus",
+   "Hell und klar."
+  ],
+  "lang": [
+   "Sprache: Deutsch",
+   "Zu Deutsch gewechselt."
+  ]
+ },
+ "fr": {
+  "site": [
+   "Ouverture du site officiel",
+   ""
+  ],
+  "welcome": [
+   "Bienvenue",
+   "Merci de visiter mon portfolio."
+  ],
+  "copied": [
+   "E-mail copié",
+   "amrt6509@gmail.com est dans le presse-papiers."
+  ],
+  "copyFail": [
+   "Copie impossible",
+   "E-mail : amrt6509@gmail.com"
+  ],
+  "linkCopied": [
+   "Lien copié",
+   "Le lien du portfolio est dans le presse-papiers."
+  ],
+  "cv": [
+   "Téléchargement du CV",
+   "amr_essam_cv.pdf"
+  ],
+  "cvDone": [
+   "CV téléchargé",
+   "Enregistré dans vos téléchargements."
+  ],
+  "cvStarted": [
+   "Téléchargement lancé",
+   "Consultez vos téléchargements."
+  ],
+  "dark": [
+   "Mode sombre",
+   "Reposant pour les yeux."
+  ],
+  "light": [
+   "Mode clair",
+   "Lumineux et net."
+  ],
+  "lang": [
+   "Langue : Français",
+   "Passé en français."
+  ]
+ },
+ "ru": {
+  "site": [
+   "Открываю официальный сайт",
+   ""
+  ],
+  "welcome": [
+   "Добро пожаловать",
+   "Спасибо, что заглянули в моё портфолио."
+  ],
+  "copied": [
+   "E-mail скопирован",
+   "amrt6509@gmail.com в буфере обмена."
+  ],
+  "copyFail": [
+   "Не удалось скопировать",
+   "E-mail: amrt6509@gmail.com"
+  ],
+  "linkCopied": [
+   "Ссылка скопирована",
+   "Ссылка на портфолио в буфере обмена."
+  ],
+  "cv": [
+   "Загрузка резюме",
+   "amr_essam_cv.pdf"
+  ],
+  "cvDone": [
+   "Резюме загружено",
+   "Сохранено в загрузках."
+  ],
+  "cvStarted": [
+   "Загрузка началась",
+   "Проверьте папку загрузок."
+  ],
+  "dark": [
+   "Тёмная тема",
+   "Приятна для глаз."
+  ],
+  "light": [
+   "Светлая тема",
+   "Светло и чисто."
+  ],
+  "lang": [
+   "Язык: Русский",
+   "Переключено на русский."
   ]
  }
 };
