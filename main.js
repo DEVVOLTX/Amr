@@ -356,7 +356,8 @@ $$('a.skill').forEach(a => a.addEventListener('click', () => {
   showIsland({ type: 'message', title: MSG[lang].site[0], text: a.hostname.replace(/^www\./, ''), icon: 'external', duration: 2200 });
 }));
 
-$$('a[download]').forEach(a => a.addEventListener('click', e => { e.preventDefault(); downloadCV(a.getAttribute('href')); }));
+/* CV buttons open the chooser (ATS / designed). Without JS the link still downloads the ATS version. */
+$$('a[download]').forEach(a => a.addEventListener('click', e => { e.preventDefault(); a.hasAttribute('data-cv-choose') ? openCvModal(a) : downloadCV(a.getAttribute('href')); }));
 
 /* welcome island, once per browser session, after the loader has faded */
 try {
@@ -490,3 +491,77 @@ addEventListener('storage', e => { if (e.key === 'hcp_best' || e.key === 'hcp_lb
 renderBoard();
 /* share link: https://…/#play opens the game straight away */
 if (location.hash === '#play') setTimeout(() => openGame(), 1500);
+
+/* ---------- Arc-lightning hover button (.btn.arc) ----------
+   Two jagged bolts leave the top corners and chase the pointer while it hovers the button.
+   Touch: a short flash at the tap point. Keyboard focus: bolts aim at the centre. Reduced motion: border glow only. */
+(() => {
+  const reduce = matchMedia('(prefers-reduced-motion: reduce)').matches;
+  $$('.btn.arc').forEach(btn => {
+    const cv = document.createElement('canvas'); cv.setAttribute('aria-hidden', 'true'); btn.prepend(cv);
+    const ctx = cv.getContext('2d');
+    let w = 0, h = 0, raf = 0, last = 0, tx = 0, ty = 0, on = false, color = '#00D4E8', core = '#E8FDFF';
+    const size = () => { const r = btn.getBoundingClientRect(), d = Math.min(devicePixelRatio || 1, 2); w = r.width; h = r.height; cv.width = w * d; cv.height = h * d; ctx.setTransform(d, 0, 0, d, 0, 0); };
+    const bolt = (x0, y0, x1, y1, amp) => {            // midpoint displacement = a jagged line
+      let p = [[x0, y0], [x1, y1]];
+      for (let i = 0; i < 5; i++) {
+        const n = [p[0]];
+        for (let k = 1; k < p.length; k++) {
+          const [ax, ay] = p[k - 1], [bx, by] = p[k], dx = bx - ax, dy = by - ay, l = Math.hypot(dx, dy) || 1, o = (Math.random() - .5) * amp;
+          n.push([(ax + bx) / 2 - dy / l * o, (ay + by) / 2 + dx / l * o], p[k]);
+        }
+        p = n; amp *= .55;
+      }
+      return p;
+    };
+    const line = (p, lw, a, blur, c) => { ctx.beginPath(); p.forEach(([x, y], i) => i ? ctx.lineTo(x, y) : ctx.moveTo(x, y)); ctx.lineJoin = 'round'; ctx.lineWidth = lw; ctx.globalAlpha = a; ctx.shadowBlur = blur; ctx.shadowColor = color; ctx.strokeStyle = c; ctx.stroke(); };
+    const tick = t => {
+      if (!on) return;
+      raf = requestAnimationFrame(tick);
+      if (t - last < 70) return; last = t;               // ~14 fps flicker reads as electricity
+      ctx.clearRect(0, 0, w, h);
+      const amp = Math.max(10, Math.min(w, h) * .55);
+      [[3, 3], [w - 3, 3]].forEach(([ox, oy]) => { const p = bolt(ox, oy, tx, ty, amp); line(p, 3, .35, 10, color); line(p, 1.2, .95, 4, core); });
+      ctx.globalAlpha = 1; ctx.shadowBlur = 0;
+    };
+    const start = (x, y) => { if (reduce) return; size(); color = getComputedStyle(btn).getPropertyValue('--accent').trim() || color; core = document.documentElement.dataset.theme === 'light' ? '#04323a' : '#E8FDFF'; tx = x; ty = y; on = true; cancelAnimationFrame(raf); raf = requestAnimationFrame(tick); };
+    const stop = () => { on = false; cancelAnimationFrame(raf); ctx.clearRect(0, 0, w, h); };
+    const aim = e => { const r = btn.getBoundingClientRect(); tx = e.clientX - r.left; ty = e.clientY - r.top; };
+    btn.addEventListener('pointerenter', e => { const r = btn.getBoundingClientRect(); start(e.clientX - r.left, e.clientY - r.top); });
+    btn.addEventListener('pointermove', aim);
+    btn.addEventListener('pointerleave', stop);
+    btn.addEventListener('pointerdown', e => { if (e.pointerType === 'touch') { const r = btn.getBoundingClientRect(); start(e.clientX - r.left, e.clientY - r.top); setTimeout(stop, 380); } });
+    btn.addEventListener('focus', () => { if (btn.matches(':focus-visible')) { const r = btn.getBoundingClientRect(); start(r.width / 2, r.height / 2); } });
+    btn.addEventListener('blur', stop);
+    btn.addEventListener('click', stop);
+  });
+})();
+
+
+/* ---------- CV chooser modal ---------- */
+const cvModal = $('#cvModal');
+let cvOpener = null;
+const cvBackground = () => $$('nav, main, footer, #top');
+function openCvModal(from) {
+  if (!cvModal.hidden) return;
+  cvOpener = from || document.activeElement;
+  cvModal.hidden = false;
+  document.body.classList.add('game-open');           // same scroll lock as the game overlay
+  cvBackground().forEach(el => { el.inert = true; });
+  $('.cv-option', cvModal).focus();
+}
+function closeCvModal(restore = true) {
+  if (cvModal.hidden) return;
+  cvModal.hidden = true;
+  document.body.classList.remove('game-open');
+  cvBackground().forEach(el => { el.inert = false; });
+  if (restore && cvOpener && cvOpener.focus) cvOpener.focus();
+}
+$$('.cv-option', cvModal).forEach(b => b.addEventListener('click', () => {
+  const file = b.dataset.cv;
+  closeCvModal(false);                                 // close first so the progress island is visible
+  downloadCV(file);
+}));
+$('#cvm-close').addEventListener('click', () => closeCvModal());
+cvModal.addEventListener('click', e => { if (e.target === cvModal) closeCvModal(); });
+document.addEventListener('keydown', e => { if (e.key === 'Escape' && !cvModal.hidden) closeCvModal(); });
