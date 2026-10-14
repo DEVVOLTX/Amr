@@ -1,0 +1,400 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Hand Platformer</title>
+<meta name="theme-color" content="#00D4E8">
+<link rel="manifest" href="manifest.json">
+<link rel="icon" href="icon-192.png">
+<link rel="apple-touch-icon" href="icon-192.png">
+<style>
+  :root { --bg:#070B0E; --surface:#0D1519; --teal:#0B5965; --accent:#00D4E8; --ice:#B9DCE5; }
+  * { box-sizing:border-box; }
+  html, body { height:100%; }
+  body { margin:0; display:flex; flex-direction:column; overflow:hidden; background:var(--bg); color:var(--ice); font-family:system-ui,-apple-system,"Segoe UI",sans-serif; }
+  #wrap { position:relative; flex:1; min-height:0; }
+  canvas { position:absolute; inset:0; width:100%; height:100%; object-fit:contain; background:var(--surface); display:block; touch-action:none; user-select:none; }
+  #overlay { position:absolute; inset:0; display:flex; flex-direction:column; align-items:center; justify-content:flex-start; gap:10px; background:rgba(7,11,14,.92); text-align:center; padding:14px; overflow:auto; }
+  button { background:var(--accent); color:#04181c; border:0; border-radius:10px; padding:11px 22px; font-size:.95rem; font-weight:700; cursor:pointer; }
+  button.alt { background:transparent; color:var(--accent); border:1px solid var(--teal); }
+  button:disabled { opacity:.5; }
+  #overlay > :first-child { margin-top:auto; } #overlay > :last-child { margin-bottom:auto; }
+  #msg { font-size:.92rem; line-height:1.7; }
+  @media (max-height:340px), (max-width:480px) {   /* compact start screen for small frames (phones, embedded) */
+    #overlay { gap:6px; padding:8px; } #msg { font-size:.74rem; line-height:1.4; } .more, .hint { display:none; }
+    #overlay button { padding:8px 16px; font-size:.82rem; }
+  }
+  .hint { font-size:.75rem; opacity:.7; margin:0; max-width:520px; }
+  #bar { display:flex; gap:6px; flex-wrap:wrap; justify-content:center; align-items:center; padding:6px; }
+  #bar button { padding:6px 12px; font-size:.78rem; }
+  #status { font-size:.8rem; color:#ff9aa8; }
+  #prog { position:absolute; left:50%; bottom:10px; transform:translateX(-50%); width:min(340px,86%); display:none; background:rgba(13,21,25,.92); border:1px solid var(--teal); border-radius:8px; padding:6px 8px; font-size:.8rem; text-align:center; }
+  #prog i { display:block; height:5px; width:0; background:var(--accent); border-radius:3px; margin-bottom:4px; transition:width .2s; }
+  #nameBox { position:absolute; left:50%; bottom:4%; transform:translateX(-50%); display:none; gap:8px; }
+  html.embed #bInst { display:none !important; }
+  html.embed #bar { padding:4px; }
+  #nameBox input { background:var(--surface); color:var(--ice); border:1px solid var(--accent); border-radius:8px; padding:8px 12px; font-size:1rem; width:160px; }
+</style>
+</head>
+<body>
+<div id="wrap">
+  <canvas id="game" width="800" height="480"></canvas>
+  <div id="nameBox"><input id="nameIn" maxlength="12" placeholder="Your name"><button id="nameBtn">Save score</button></div>
+  <div id="prog"><i></i><span></span></div>
+  <div id="overlay">
+    <div id="msg">
+      <b>Move your hand</b> left / right to run (farther = faster)<br>
+      <b>Close your fist</b> to jump (hold = higher)<br>
+      Touch: drag on the left side to move, tap the right side to jump<br>
+      <span class="more">5 levels · 3 lives · top-5 leaderboard<br>
+      The game starts instantly; hand tracking loads in the background (cached after the first time).</span>
+    </div>
+    <button id="start">Start with camera</button>
+    <button id="kbd" class="alt">Play without camera (keyboard / touch)</button>
+    <p class="hint">Camera is processed locally, nothing is uploaded. Keys: arrows/A/D + Space · R restart · M mute · drag the camera preview.</p>
+  </div>
+</div>
+<div id="bar">
+  <button id="bPv" class="alt">Hide camera</button>
+  <button id="bCam" class="alt" disabled>Switch camera</button>
+  <button id="bSave" class="alt">Battery saver: off</button>
+  <button id="bInst" class="alt" style="display:none">Install app</button>
+  <span id="status"></span>
+</div>
+<video id="cam" playsinline muted style="display:none"></video>
+
+<script type="module">
+const VISION = "https://cdn.jsdelivr.net/npm/@mediapipe/tasks-vision@0.10.14";
+// Default model. To use a lighter/self-hosted .task file: add ?model=URL to the page address.
+const MODEL = new URLSearchParams(location.search).get("model") || "https://storage.googleapis.com/mediapipe-models/hand_landmarker/hand_landmarker/float16/1/hand_landmarker.task";
+
+// ---------- portfolio bridge (only active when embedded in the portfolio page) ----------
+const EMBED = new URLSearchParams(location.search).has("embed") && parent !== window;
+if (EMBED) document.documentElement.classList.add("embed");
+const post = (type, data = {}) => { if (EMBED) try { parent.postMessage({ src:"hcp", type, ...data }, location.origin); } catch (e) {} };
+
+const W = 800, H = 480, GRAV = 0.8, JUMP_V = -15, SPEED = 6, PW = 30, PH = 40, PVW = 160, PVH = 120;
+const L = JSON.parse('[[[[0,440,800,40],[150,350,140,15],[350,270,140,15],[560,190,140,15],[300,140,120,15]],[[220,320],[420,240],[630,160],[360,110]],[],[],[740,400]],[[[0,440,800,40],[100,360,120,15],[300,300,120,15],[520,360,120,15],[640,250,130,15],[380,190,120,15]],[[160,330],[360,270],[580,330],[700,220],[440,160]],[[500,416,420,700,1.5]],[],[740,400]],[[[0,440,330,40],[470,440,330,40],[360,350,80,15],[120,330,120,15],[560,320,120,15],[300,230,130,15],[620,200,130,15]],[[180,300],[400,320],[600,290],[360,200],[680,170]],[[60,416,30,300,1.8],[500,416,480,770,1.8]],[[250,440,60]],[745,400]],[[[0,440,200,40],[600,440,200,40],[240,370,100,15],[400,310,100,15],[540,370,60,15],[100,280,120,15],[300,190,120,15],[560,200,140,15]],[[120,250],[290,340],[450,280],[360,160],[620,170]],[[110,256,100,200,1.2],[570,176,560,670,1.6]],[[130,440,50]],[745,400]],[[[0,440,150,40],[650,440,150,40],[200,380,90,15],[340,320,90,15],[480,260,90,15],[620,200,90,15],[330,150,110,15],[60,240,100,15]],[[240,350],[380,290],[520,230],[660,170],[380,120],[100,210]],[[340,296,340,430,1.4],[330,126,330,420,2]],[[90,440,50],[680,440,60]],[745,400]]]').map(([p, c, e, s, d]) => ({ p, c, e, s, d }));   // [platforms, coins, enemies, spikes, door]
+const STARS = Array.from({ length:45 }, (_, i) => { const a = (i * 9301 + 49297) % 233280 / 233280, b = (i * 7919 + 13) % 1009 / 1009; return [a * W, b * H, 1 + a % 1 * 1.2]; });
+const $ = id => document.getElementById(id), clamp = (v, a, b) => Math.min(Math.max(v, a), b);
+const cv = $("game"), ctx = cv.getContext("2d"), video = $("cam"), overlay = $("overlay"), msg = $("msg"), status = $("status");
+const btnCam = $("start"), btnKbd = $("kbd"), bPv = $("bPv"), bCam = $("bCam"), nameBox = $("nameBox"), nameIn = $("nameIn"), prog = $("prog"), bSave = $("bSave"), bInst = $("bInst");
+
+let S, lvl = 0, score = 0, lives = 3, st = "play", best = 0, started = false, naming = false;
+let landmarker = null, hand = null, handX = 0.5, fist = false, prevFist = false, jumpEdge = false;
+let facing = "user", stream = null, showPv = true, pv = { x:W - PVW - 10, y:10 }, drag = null;
+let touchSeen = matchMedia("(pointer:coarse)").matches, lostSince = 0;
+const keys = {}, tc = { joy:null, jump:null }, parts = [];
+let saver = false, lastDet = 0, lowFps = 0, warn = false, deferredPrompt = null;
+const lbGet = () => { try { return JSON.parse(localStorage.getItem("hcp_lb")) || []; } catch (e) { return []; } };
+let lb = lbGet();
+try { best = +localStorage.getItem("hcp_best") || 0; } catch (e) {}
+
+// ---------- sound ----------
+let ac = null, muted = false;
+function beep(f, d, t = "sine") {
+  if (!ac || muted) return;
+  const o = ac.createOscillator(), g = ac.createGain();
+  o.type = t; o.frequency.value = f;
+  g.gain.setValueAtTime(.07, ac.currentTime); g.gain.exponentialRampToValueAtTime(.001, ac.currentTime + d);
+  o.connect(g); g.connect(ac.destination); o.start(); o.stop(ac.currentTime + d);
+}
+
+// ---------- game state ----------
+function load(n) {
+  lvl = n; const d = L[n]; post("level", { level:n + 1, of:L.length, score });
+  S = { x:40, y:400, vx:0, vy:0, ground:false, coyote:0, buf:0, face:1, inv:0, t:0,
+        coins:d.c.map(a => [...a]), en:d.e.map(a => ({ x:a[0], y:a[1], a:a[2], b:a[3], v:a[4], dir:1, alive:true })) };
+}
+function reset() { score = 0; lives = 3; st = "play"; naming = false; nameBox.style.display = "none"; load(0); }
+function saveBest() { if (score > best) { best = score; try { localStorage.setItem("hcp_best", best); } catch (e) {} post("best", { score:best }); } }
+function burst(x, y, col, n = 12) { for (let i = 0; i < n; i++) parts.push({ x, y, vx:(Math.random()-.5)*7, vy:(Math.random()-.9)*7, life:30 + Math.random()*10, col }); }
+function hurt(force) {
+  if (S.inv > 0 && !force) return;
+  lives--; S.inv = 90; beep(120, .3, "sawtooth");
+  if (force) { S.x = 40; S.y = 400; S.vx = 0; S.vy = 0; } else { S.vy = -9; }
+  if (lives <= 0) { st = "over"; saveBest(); post("over", { score, best }); }
+}
+function saveScore() {
+  lb.push({ n:(nameIn.value.trim() || "Player").slice(0, 12), s:score });
+  lb.sort((a, b) => b.s - a.s); lb = lb.slice(0, 10);
+  try { localStorage.setItem("hcp_lb", JSON.stringify(lb)); } catch (e) {}
+  naming = false; nameBox.style.display = "none"; post("saved", { score });
+}
+$("nameBtn").onclick = saveScore;
+nameIn.addEventListener("keydown", e => { if (e.key === "Enter") saveScore(); });
+
+// ---------- input ----------
+const dist = (a, b) => Math.hypot(a.x - b.x, a.y - b.y);
+const isFist = lm => [[8,6],[12,10],[16,14],[20,18]].filter(([t, p]) => dist(lm[t], lm[0]) > dist(lm[p], lm[0]) * 1.05).length <= 1;
+function readHand() {
+  if (!landmarker || video.readyState < 2) return;
+  const res = landmarker.detectForVideo(video, performance.now());
+  hand = res.landmarks[0] || null;
+  if (!hand) { fist = false; prevFist = false; return; }
+  handX = handX * 0.6 + (facing === "user" ? 1 - hand[9].x : hand[9].x) * 0.4;
+  fist = isFist(hand);
+  if (fist && !prevFist) jumpEdge = true;
+  prevFist = fist;
+}
+function moveInput() {
+  const k = (keys.right ? 1 : 0) - (keys.left ? 1 : 0);
+  if (k) return k;
+  if (tc.joy) { const v = clamp((tc.joy.x - tc.joy.ox) / 50, -1, 1); return Math.abs(v) < .15 ? 0 : v; }
+  if (!hand) return 0;
+  const off = handX - 0.5, a = Math.abs(off);
+  return a < 0.08 ? 0 : Math.sign(off) * Math.min(1, (a - 0.08) / 0.22);
+}
+
+// ---------- update ----------
+function update() {
+  const d = L[lvl], dx = moveInput(), jumpHeld = fist || keys.jump || !!tc.jump;
+  S.t++; if (S.inv > 0) S.inv--;
+  S.vx += (dx * SPEED - S.vx) * 0.35;
+  S.x = clamp(S.x + S.vx, 0, W - PW);
+  if (Math.abs(S.vx) > 0.5) S.face = Math.sign(S.vx);
+
+  if (jumpEdge) { S.buf = 8; jumpEdge = false; } else if (S.buf > 0) S.buf--;
+  S.coyote = S.ground ? 6 : Math.max(0, S.coyote - 1);
+  if (S.buf > 0 && S.coyote > 0) { S.vy = JUMP_V; S.buf = 0; S.coyote = 0; beep(520, .1, "square"); }
+  if (!jumpHeld && S.vy < -4) S.vy *= 0.85;
+
+  const pb = S.y + PH;
+  S.vy += GRAV; S.y += S.vy; S.ground = false;
+  for (const [px, py, pw] of d.p)
+    if (S.x + PW > px && S.x < px + pw && S.vy >= 0 && pb <= py && S.y + PH >= py) { S.y = py - PH; S.vy = 0; S.ground = true; }
+  if (S.y > H + 60) { hurt(true); return; }
+
+  for (const e of S.en) {
+    if (!e.alive) continue;
+    e.x += e.v * e.dir; if (e.x < e.a || e.x > e.b) e.dir *= -1;
+    if (S.x + PW > e.x && S.x < e.x + 28 && S.y + PH > e.y && S.y < e.y + 24) {
+      if (S.vy > 0 && pb <= e.y + 10) { e.alive = false; S.vy = -9; score += 50; beep(300, .12, "sawtooth"); burst(e.x + 14, e.y + 12, "#ff6b6b"); }
+      else hurt(false);
+    }
+  }
+  for (const [sx, sy, sw] of d.s)
+    if (S.x + PW > sx && S.x < sx + sw && S.y + PH > sy - 14 && S.y < sy) hurt(false);
+
+  const before = S.coins.length;
+  S.coins = S.coins.filter(([cx, cy]) => {
+    const hit = Math.abs(cx - (S.x + PW / 2)) < 25 && Math.abs(cy - (S.y + PH / 2)) < 30;
+    if (hit) { burst(cx, cy, "#FFD166", 20); burst(cx, cy, "#fff", 6); }
+    return !hit;
+  });
+  if (S.coins.length < before) { score += 10 * (before - S.coins.length); beep(880, .08); }
+
+  if (!S.coins.length && S.x + PW > d.d[0] && S.x < d.d[0] + 36 && S.y + PH > d.d[1]) {
+    score += Math.max(0, 200 - Math.floor(S.t / 60) * 3); beep(660, .25, "triangle");
+    if (lvl + 1 < L.length) load(lvl + 1);
+    else { st = "win"; saveBest(); post("win", { score, best }); naming = true; nameBox.style.display = "flex"; nameIn.focus(); }
+  }
+}
+
+// ---------- drawing ----------
+function panel(title, sub, showLb) {
+  ctx.fillStyle = "rgba(7,11,14,.85)"; ctx.fillRect(0, 70, W, 330);
+  ctx.fillStyle = "#00D4E8"; ctx.font = "bold 40px system-ui"; ctx.fillText(title, W / 2, 120);
+  ctx.fillStyle = "#B9DCE5"; ctx.font = "18px system-ui"; ctx.fillText(sub, W / 2, 152);
+  if (!showLb) return;
+  ctx.fillStyle = "#00D4E8"; ctx.font = "bold 18px system-ui"; ctx.fillText("TOP 5", W / 2, 192);
+  ctx.fillStyle = "#B9DCE5"; ctx.font = "20px system-ui";
+  if (!lb.length) ctx.fillText("No scores yet. Win a run to get listed!", W / 2, 240);
+  lb.slice(0, 5).forEach((r, i) => ctx.fillText((i + 1) + ".  " + r.n + "   " + r.s, W / 2, 226 + i * 30));
+}
+function draw(mode, fps) {
+  const d = L[lvl], t = performance.now() / 1000;
+  const bg = ctx.createLinearGradient(0, 0, 0, H); bg.addColorStop(0, "#0A1A20"); bg.addColorStop(1, "#070B0E");
+  ctx.fillStyle = bg; ctx.fillRect(0, 0, W, H); ctx.fillStyle = "#B9DCE5";
+  for (const [x, y, r] of STARS) { ctx.globalAlpha = .25 + .25 * Math.sin(t * 2 + x); ctx.fillRect(x, y, r, r); }
+  ctx.globalAlpha = 1;
+
+  for (const [x, y, w, h] of d.p) { ctx.fillStyle = "#0B5965"; ctx.fillRect(x, y, w, h); ctx.fillStyle = "#00D4E8"; ctx.fillRect(x, y, w, 3); }
+  ctx.fillStyle = "#ff4d6d";
+  for (const [sx, sy, sw] of d.s) for (let x = sx; x < sx + sw; x += 10) { ctx.beginPath(); ctx.moveTo(x, sy); ctx.lineTo(x + 5, sy - 14); ctx.lineTo(x + 10, sy); ctx.fill(); }
+  ctx.fillStyle = S.coins.length ? "#1b2a30" : "#00D4E8"; ctx.fillRect(d.d[0], d.d[1], 36, 40);
+  ctx.fillStyle = "#070B0E"; ctx.fillRect(d.d[0] + 6, d.d[1] + 6, 24, 34);
+  ctx.fillStyle = "#FFD166";
+  for (const [x, y] of S.coins) { ctx.beginPath(); ctx.arc(x, y + Math.sin(t * 4 + x) * 2, 9, 0, 7); ctx.fill(); }
+  for (const e of S.en) if (e.alive) {
+    ctx.fillStyle = "#ff6b6b"; ctx.fillRect(e.x, e.y, 28, 24);
+    ctx.fillStyle = "#fff"; ctx.fillRect(e.x + 5, e.y + 6, 6, 6); ctx.fillRect(e.x + 17, e.y + 6, 6, 6);
+  }
+  if (S.inv % 10 < 5) {
+    ctx.fillStyle = "#B9DCE5"; ctx.fillRect(S.x, S.y, PW, PH);
+    ctx.fillStyle = "#070B0E"; ctx.beginPath(); ctx.arc(S.x + (S.face > 0 ? 22 : 8), S.y + 12, 4, 0, 7); ctx.fill();
+  }
+  for (const p of parts) { ctx.globalAlpha = Math.max(0, p.life / 30); ctx.fillStyle = p.col; ctx.fillRect(p.x, p.y, 4, 4); p.x += p.vx; p.y += p.vy; p.vy += .3; p.life--; }
+  ctx.globalAlpha = 1; for (let i = parts.length - 1; i >= 0; i--) if (parts[i].life <= 0) parts.splice(i, 1);
+
+  ctx.fillStyle = "#B9DCE5"; ctx.font = "bold 18px system-ui"; ctx.textAlign = "left";
+  ctx.fillText("Level " + (lvl + 1) + "/" + L.length + "   Score " + score + "   Best " + best, 12, 26);
+  ctx.fillStyle = "#ff4d6d"; ctx.fillText("♥".repeat(Math.max(lives, 0)), 12, 50);
+  ctx.fillStyle = "#B9DCE5"; ctx.fillText("Coins left: " + S.coins.length, 12, 74);
+  ctx.fillStyle = "#00D4E8"; ctx.font = "bold 14px system-ui";
+  const mv = moveInput();
+  ctx.fillText(landmarker ? (!hand ? "no hand" : fist ? "FIST: JUMP" : mv < 0 ? "<< LEFT" : mv > 0 ? "RIGHT >>" : "STOP") : "", 12, 96);
+  ctx.globalAlpha = .6; ctx.font = "12px system-ui"; ctx.fillText(fps + " FPS", 12, H - 10); if (warn) { ctx.fillStyle = "#FFD166"; ctx.fillText("Low FPS: close other tabs or turn on Battery saver", 62, H - 10); } ctx.globalAlpha = 1;
+
+  if (landmarker && showPv) {                                    // draggable camera preview
+    const mir = facing === "user", { x:cx, y:cy } = pv;
+    ctx.globalAlpha = .85;
+    if (video.readyState >= 2) { ctx.save(); ctx.translate(mir ? cx + PVW : cx, cy); ctx.scale(mir ? -1 : 1, 1); ctx.drawImage(video, 0, 0, PVW, PVH); ctx.restore(); }
+    ctx.strokeStyle = "rgba(0,212,232,.7)"; ctx.lineWidth = 1;
+    for (const f of [0.42, 0.58]) { ctx.beginPath(); ctx.moveTo(cx + PVW * f, cy); ctx.lineTo(cx + PVW * f, cy + PVH); ctx.stroke(); }
+    if (hand) { ctx.fillStyle = "#00D4E8"; for (const p of hand) { ctx.beginPath(); ctx.arc(cx + (mir ? 1 - p.x : p.x) * PVW, cy + p.y * PVH, 2.2, 0, 7); ctx.fill(); } }
+    ctx.globalAlpha = 1; ctx.strokeStyle = drag ? "#00D4E8" : "#0B5965"; ctx.strokeRect(cx, cy, PVW, PVH);
+  }
+  if (touchSeen) {                                               // touch controls
+    ctx.globalAlpha = .4; ctx.strokeStyle = "#00D4E8"; ctx.fillStyle = "#00D4E8"; ctx.lineWidth = 2;
+    const j = tc.joy, bx = j ? j.ox : 90, by = j ? j.oy : 390;
+    ctx.beginPath(); ctx.arc(bx, by, 50, 0, 7); ctx.stroke();
+    ctx.beginPath(); ctx.arc(j ? bx + clamp(j.x - bx, -50, 50) : bx, j ? by + clamp(j.y - by, -50, 50) : by, 22, 0, 7); ctx.fill();
+    ctx.beginPath(); ctx.arc(710, 390, 45, 0, 7); tc.jump ? ctx.fill() : ctx.stroke();
+    ctx.fillStyle = "#B9DCE5"; ctx.font = "bold 16px system-ui"; ctx.textAlign = "center"; ctx.fillText("JUMP", 710, 396); ctx.globalAlpha = 1;
+  }
+  ctx.textAlign = "center";
+  if (st === "over") panel("GAME OVER", "Score " + score + " · tap / R / fist to retry", true);
+  else if (st === "win") panel("YOU WIN!", "Score " + score + (naming ? " · enter your name below" : " · tap / R / fist to play again"), true);
+  else if (mode === 2) panel("Paused to save battery", "Show your hand, tap, or press a key to resume", false);
+  else if (mode === 1) panel("Show your hand", "Game paused until the camera sees it", false);
+  ctx.textAlign = "start";
+}
+
+// ---------- loop ----------
+let last = 0, acc = 0, frame = 0, fpsN = 0, fpsT = 0, fps = 0;
+function loop(t) {
+  if (document.hidden) { last = t; requestAnimationFrame(loop); return; }          // paused while the tab is hidden
+  frame++;
+  if (hand || !landmarker || keys.left || keys.right || keys.jump || tc.joy || tc.jump) lostSince = t;
+  const lostMs = t - lostSince, mode = st !== "play" ? 0 : lostMs > 3000 ? 2 : lostMs > 700 ? 1 : 0;
+  if (mode === 2 && frame % 15) { last = t; requestAnimationFrame(loop); return; }
+  acc += Math.min(t - last, 100); last = t;
+  fpsN++; if (t - fpsT >= 1000) { fps = fpsN; fpsN = 0; fpsT = t; lowFps = fps < 30 ? lowFps + 1 : 0; warn = lowFps >= 3; }
+  if (!saver || t - lastDet >= 33) { readHand(); lastDet = t; }                    // battery saver: detect at ~30 fps
+  if (st !== "play" && jumpEdge) { if (!naming) reset(); jumpEdge = false; }
+  while (acc >= 1000 / 60) { if (st === "play" && !mode) update(); acc -= 1000 / 60; }
+  draw(mode, fps);
+  requestAnimationFrame(loop);
+}
+
+// ---------- camera ----------
+function camMsg(e) {
+  if (e.name === "NotAllowedError") return "Camera permission was blocked. Allow camera access for this site in the browser settings, then try again.";
+  if (e.name === "NotFoundError" || e.name === "NotReadableError")
+    return "Camera not available. Close other apps using it and check the laptop's camera shutter/privacy key (on some HP models: Fn+F12), then try again.";
+  return "Couldn't start the camera: " + e.message;
+}
+async function openCam() {
+  if (stream) stream.getTracks().forEach(t => t.stop());
+  let err;
+  for (const v of [{ width:{ exact:640 }, height:{ exact:480 } }, { width:{ exact:320 }, height:{ exact:240 } }, {}]) {   // fallback chain
+    try {
+      stream = await navigator.mediaDevices.getUserMedia({ video:{ ...v, facingMode:facing } });
+      video.srcObject = stream; await video.play(); return;
+    } catch (e) { err = e; if (e.name === "NotAllowedError") break; }
+  }
+  throw err;
+}
+const idb = () => new Promise((res, rej) => { const r = indexedDB.open("hcp", 1); r.onupgradeneeded = () => r.result.createObjectStore("m"); r.onsuccess = () => res(r.result); r.onerror = () => rej(r.error); });
+const idbGet = async k => { try { const d = await idb(); return await new Promise(res => { const q = d.transaction("m").objectStore("m").get(k); q.onsuccess = () => res(q.result); q.onerror = () => res(); }); } catch (e) {} };
+const idbPut = async (k, v) => { try { (await idb()).transaction("m", "readwrite").objectStore("m").put(v, k); } catch (e) {} };
+async function getModel(url, onP) {                                  // IndexedDB cache: 2nd visit loads instantly
+  const hit = await idbGet(url); if (hit) return hit;
+  const r = await fetch(url); if (!r.ok) throw new Error("model download failed (" + r.status + ")");
+  const total = +r.headers.get("content-length") || 0, rd = r.body.getReader(), chunks = []; let got = 0;
+  for (;;) { const { done, value } = await rd.read(); if (done) break; chunks.push(value); got += value.length; onP(total ? got / total : 0, (got / 1048576).toFixed(1)); }
+  const buf = new Uint8Array(got); let o = 0; for (const c of chunks) { buf.set(c, o); o += c.length; }
+  idbPut(url, buf); return buf;
+}
+function setProg(p, txt) { if (p < 0) { prog.style.display = "none"; return; } prog.style.display = "block"; prog.firstElementChild.style.width = Math.round(p * 100) + "%"; prog.lastElementChild.textContent = txt; }
+async function loadHands() {                                         // lazy: only after the user taps Start
+  let phase = "cam"; bCam.disabled = true; status.textContent = "";
+  try {
+    setProg(0, "Starting camera…"); await openCam(); phase = "model";
+    setProg(0, "Loading engine…");
+    const { HandLandmarker, FilesetResolver } = await import(VISION + "/vision_bundle.mjs");
+    const files = await FilesetResolver.forVisionTasks(VISION + "/wasm");
+    const buf = await getModel(MODEL, (p, mb) => setProg(p, "Loading hand model " + (p ? Math.round(p * 100) + "%" : mb + " MB")));
+    setProg(1, "Starting hand tracking…");
+    landmarker = await HandLandmarker.createFromOptions(files, { baseOptions:{ modelAssetBuffer:buf }, runningMode:"VIDEO", numHands:1 });
+    bCam.textContent = "Switch camera"; setProg(-1);
+  } catch (e) {
+    setProg(-1); bCam.textContent = "Retry camera";
+    status.textContent = (phase === "cam" ? camMsg(e) : "Couldn't load hand tracking: " + e.message) + " You can keep playing with keyboard or touch.";
+  }
+  bCam.disabled = false;
+}
+async function begin(useCam) {
+  btnCam.disabled = btnKbd.disabled = true;
+  try { ac = new (window.AudioContext || window.webkitAudioContext)(); } catch (e) {}
+  overlay.style.display = "none"; started = true; reset(); post("started", { camera:useCam });           // playable right away while the model loads
+  requestAnimationFrame(t => { last = t; lostSince = t; loop(t); });
+  if (useCam) loadHands();
+}
+btnCam.onclick = () => begin(true);
+btnKbd.onclick = () => begin(false);
+bPv.onclick = () => { showPv = !showPv; bPv.textContent = showPv ? "Hide camera" : "Show camera"; };
+bCam.onclick = async () => {
+  if (!landmarker) { loadHands(); return; }
+  const prev = facing; facing = facing === "user" ? "environment" : "user"; status.textContent = "";
+  try { await openCam(); hand = null; } catch (e) { facing = prev; status.textContent = camMsg(e); try { await openCam(); } catch (_) {} }
+};
+
+// ---------- keyboard / touch ----------
+const setKey = (e, v) => {
+  const k = e.key.toLowerCase();
+  if (k === "arrowleft" || k === "a") keys.left = v;
+  else if (k === "arrowright" || k === "d") keys.right = v;
+  else if (k === " " || k === "arrowup" || k === "w") { if (v && !keys.jump) jumpEdge = true; keys.jump = v; e.preventDefault(); }
+};
+addEventListener("keydown", e => {
+  if (e.key === "Escape") post("escape");
+  if (e.target.tagName === "INPUT") return;
+  setKey(e, true); const k = e.key.toLowerCase();
+  if (started && k === "r") reset(); if (k === "m") muted = !muted; lostSince = performance.now();
+});
+addEventListener("keyup", e => { if (e.target.tagName !== "INPUT") setKey(e, false); });
+
+const pos = e => { const r = cv.getBoundingClientRect(), k = Math.min(r.width / W, r.height / H);   // object-fit: contain letterbox
+  return [(e.clientX - r.left - (r.width - W * k) / 2) / k, (e.clientY - r.top - (r.height - H * k) / 2) / k]; };
+cv.addEventListener("pointerdown", e => {
+  const [x, y] = pos(e); lostSince = performance.now();
+  if (e.pointerType === "touch") touchSeen = true;
+  if (started && st !== "play" && !naming) { reset(); return; }
+  if (landmarker && showPv && x >= pv.x && x <= pv.x + PVW && y >= pv.y && y <= pv.y + PVH) {
+    drag = { id:e.pointerId, dx:x - pv.x, dy:y - pv.y }; cv.setPointerCapture(e.pointerId); return;
+  }
+  if (e.pointerType === "mouse") return;
+  if (x < W * .3 && !tc.joy) { tc.joy = { id:e.pointerId, ox:x, oy:y, x, y }; cv.setPointerCapture(e.pointerId); }
+  else if (x > W * .7 && !tc.jump) { tc.jump = { id:e.pointerId }; jumpEdge = true; cv.setPointerCapture(e.pointerId); }
+});
+cv.addEventListener("pointermove", e => {
+  const [x, y] = pos(e);
+  if (drag && drag.id === e.pointerId) { pv.x = clamp(x - drag.dx, 0, W - PVW); pv.y = clamp(y - drag.dy, 0, H - PVH); }
+  else if (tc.joy && tc.joy.id === e.pointerId) { tc.joy.x = x; tc.joy.y = y; }
+});
+const up = e => {
+  if (drag && drag.id === e.pointerId) drag = null;
+  if (tc.joy && tc.joy.id === e.pointerId) tc.joy = null;
+  if (tc.jump && tc.jump.id === e.pointerId) tc.jump = null;
+};
+cv.addEventListener("pointerup", up); cv.addEventListener("pointercancel", up);
+
+bSave.onclick = () => { saver = !saver; bSave.textContent = "Battery saver: " + (saver ? "on" : "off"); };
+navigator.getBattery?.().then(b => { const f = () => { if (!b.charging && b.level <= .2 && !saver) bSave.onclick(); }; f(); b.onlevelchange = b.onchargingchange = f; }).catch(() => {});
+addEventListener("pagehide", () => { if (stream) stream.getTracks().forEach(t => t.stop()); });
+document.addEventListener("visibilitychange", () => {
+  if (ac) document.hidden ? ac.suspend() : ac.resume();
+  if (!document.hidden) { acc = 0; last = lostSince = performance.now(); }
+});
+addEventListener("beforeinstallprompt", e => { e.preventDefault(); deferredPrompt = e; bInst.style.display = ""; });
+bInst.onclick = async () => { if (!deferredPrompt) return; deferredPrompt.prompt(); await deferredPrompt.userChoice; deferredPrompt = null; bInst.style.display = "none"; };
+addEventListener("appinstalled", () => { bInst.style.display = "none"; });
+if ("serviceWorker" in navigator && (location.protocol === "https:" || location.hostname === "localhost")) navigator.serviceWorker.register("service-worker.js").catch(() => {});
+
+reset(); draw(0, 0); post("ready");
+</script>
+</body>
+</html>
