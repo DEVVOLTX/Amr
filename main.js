@@ -81,6 +81,7 @@ const ISL_ICONS = { /* 24x24 stroke icons (Lucide-style) */
   sun:      '<circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2M6.34 17.66l-1.41 1.41M19.07 4.93l-1.41 1.41"/>',
   globe:    '<circle cx="12" cy="12" r="10"/><path d="M12 2a14.5 14.5 0 0 0 0 20 14.5 14.5 0 0 0 0-20"/><path d="M2 12h20"/>',
   external: '<path d="M7 7h10v10"/><path d="M7 17 17 7"/>',
+  gamepad:  '<line x1="6" x2="10" y1="12" y2="12"/><line x1="8" x2="8" y1="10" y2="14"/><line x1="15" x2="15.01" y1="13" y2="13"/><line x1="18" x2="18.01" y1="11" y2="11"/><rect width="20" height="12" x="2" y="6" rx="2"/>',
   sparkles: '<path d="M9.94 15.5A2 2 0 0 0 8.5 14.06l-6.13-1.58a.5.5 0 0 1 0-.96L8.5 9.94A2 2 0 0 0 9.94 8.5l1.58-6.13a.5.5 0 0 1 .96 0L14.06 8.5a2 2 0 0 0 1.44 1.44l6.13 1.58a.5.5 0 0 1 0 .96L15.5 14.06a2 2 0 0 0-1.44 1.44l-1.58 6.13a.5.5 0 0 1-.96 0z"/>',
 };
 const svgIcon = name => `<svg viewBox="0 0 24 24" aria-hidden="true">${ISL_ICONS[name]}</svg>`;
@@ -406,3 +407,86 @@ addEventListener('scroll', onScroll, { passive: true }); onScroll();
   addEventListener('resize', spy);
   spy();
 }
+
+/* ---------- Playable game: HAND PLATFORMER ----------
+   The game lives in play/hand-platformer/ (same origin) and opens in an overlay. It talks to this page with postMessage:
+   level / over / win / saved / escape. Scores and the leaderboard are shared through localStorage (same origin),
+   so the card above always shows the latest results, even from another tab. Nothing loads until the first click. */
+const GAME_URL = 'play/hand-platformer/index.html?embed=1';
+const gm = $('#game-modal'), gmFrame = $('#gm-frame'), gmStage = $('#gm-stage'), gmLive = $('#gm-live');
+const gmLoad = $('#gm-loading'), gmClose = $('#gm-close'), gmFull = $('#gm-full');
+const gmBackground = () => $$('nav, main, footer, #top');
+let gmOpener = null;
+
+function readGame() {
+  try {
+    const lb = JSON.parse(localStorage.getItem('hcp_lb'));
+    return { best: +localStorage.getItem('hcp_best') || 0, lb: Array.isArray(lb) ? lb : [] };
+  } catch (e) { return { best: 0, lb: [] }; }
+}
+function renderBoard() {
+  const { best, lb } = readGame();
+  $$('[data-game-best]').forEach(el => { el.textContent = best; });
+  $$('[data-game-chip]').forEach(el => { el.hidden = !best; });
+  const list = $('#gm-lb');
+  list.replaceChildren(...lb.slice(0, 5).map(r => {
+    const li = document.createElement('li'), name = document.createElement('span'), pts = document.createElement('b');
+    name.textContent = String(r.n ?? 'Player').slice(0, 12); pts.textContent = +r.s || 0;
+    li.append(name, pts); return li;
+  }));
+  $('#gm-none').hidden = lb.length > 0;
+}
+
+function openGame(from) {
+  if (!gm.hidden) return;
+  gmOpener = from || document.activeElement;
+  gmLive.textContent = '';
+  gmLoad.hidden = false;
+  gm.hidden = false;
+  document.body.classList.add('game-open');
+  gmBackground().forEach(el => { el.inert = true; });
+  gmFull.hidden = !document.fullscreenEnabled;
+  gmFrame.src = GAME_URL; // the game (and MediaPipe) only download now
+  gmClose.focus();
+}
+function closeGame() {
+  if (gm.hidden) return;
+  if (document.fullscreenElement) document.exitFullscreen();
+  gm.hidden = true;
+  gmFrame.src = 'about:blank'; // unloading the frame also switches the camera off
+  document.body.classList.remove('game-open');
+  gmBackground().forEach(el => { el.inert = false; });
+  if (gmOpener && gmOpener.focus) gmOpener.focus();
+  renderBoard();
+}
+gmFrame.addEventListener('load', () => {
+  if (gm.hidden || gmFrame.getAttribute('src') !== GAME_URL) return;
+  gmLoad.hidden = true;
+  gmFrame.focus();
+  try { gmFrame.contentWindow.focus(); } catch (e) {}
+});
+$$('[data-play]').forEach(b => b.addEventListener('click', () => openGame(b)));
+gmClose.addEventListener('click', closeGame);
+gmFull.addEventListener('click', () => { if (document.fullscreenElement) document.exitFullscreen(); else gmStage.requestFullscreen?.(); });
+gm.addEventListener('click', e => { if (e.target === gm) closeGame(); });
+document.addEventListener('keydown', e => { if (e.key === 'Escape' && !gm.hidden && !document.fullscreenElement) closeGame(); });
+
+addEventListener('message', e => {
+  const m = e.data;
+  if (e.origin !== location.origin || e.source !== gmFrame.contentWindow || !m || m.src !== 'hcp') return;
+  const t = MSG[lang];
+  const toast = (key, type, score) => showIsland({ type, icon: 'gamepad', title: t[key][0], text: `${t[key][1]}${score != null ? ': ' + score : ''}`, duration: 4200 });
+  switch (m.type) {
+    case 'ready': gmLoad.hidden = true; break;
+    case 'level': gmLive.textContent = `🎮 ${m.level}/${m.of}  ★ ${m.score}`; break;
+    case 'over': renderBoard(); (m.score > 0 && m.score >= m.best) ? toast('gameBest', 'success', m.score) : toast('gameOver', 'error', m.score); break;
+    case 'win': renderBoard(); (m.score >= m.best) ? toast('gameBest', 'success', m.score) : toast('gameWin', 'success', m.score); break;
+    case 'saved': renderBoard(); toast('gameSaved', 'success'); break;
+    case 'best': renderBoard(); break;
+    case 'escape': closeGame(); break;
+  }
+});
+addEventListener('storage', e => { if (e.key === 'hcp_best' || e.key === 'hcp_lb') renderBoard(); });
+renderBoard();
+/* share link: https://…/#play opens the game straight away */
+if (location.hash === '#play') setTimeout(() => openGame(), 1500);

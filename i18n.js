@@ -140,6 +140,17 @@ const TITLES = {
 };
 const TR = {
  "ar": {
+  "hero_play": "▶ العب لعبتي",
+  "p6_h": "لعبة منصّات تلعبها بيدك العارية.",
+  "p6_p": "تتبّع الكاميرا يدك لحظةً بلحظة: حرّكها لتجري، وأغلق قبضتك لتقفز. خمس مراحل فيها أعداء وأشواك ولوحة متصدّرين محلية. كل شيء يعمل داخل المتصفح ولا يُرفع أي فيديو. جرّبها هنا مباشرة.",
+  "btn_play": "▶ العب الآن",
+  "btn_open": "↗ افتح في صفحة كاملة",
+  "t_gamecv": "لعبة / رؤية حاسوبية",
+  "gm_best": "أفضل نتيجة",
+  "gm_top": "أفضل اللاعبين",
+  "gm_none": "لا توجد نتائج بعد. كن الأول في اللوحة!",
+  "gm_note": "تُعالَج الكاميرا محليًا داخل المتصفح ولا يُرفع شيء. لا توجد كاميرا؟ العب بلوحة المفاتيح أو باللمس.",
+  "gm_loading": "جارٍ تحميل اللعبة…",
   "nav_about": "نبذة",
   "nav_projects": "المشاريع",
   "nav_skills": "المهارات",
@@ -202,6 +213,17 @@ const TR = {
   "loader": "ع.<span>عصام</span>"
  },
  "it": {
+  "hero_play": "▶ GIOCA AL MIO GIOCO",
+  "p6_h": "Un platform che giochi a mani nude.",
+  "p6_p": "La webcam segue la tua mano in tempo reale: muovila per correre, chiudi il pugno per saltare. Cinque livelli con nemici, spuntoni e una classifica locale. Tutto gira nel browser e nessun video viene caricato. Provalo qui.",
+  "btn_play": "▶ GIOCA ORA",
+  "btn_open": "↗ APRI A PAGINA INTERA",
+  "t_gamecv": "Gioco / Visione artificiale",
+  "gm_best": "MIGLIOR PUNTEGGIO",
+  "gm_top": "MIGLIORI GIOCATORI",
+  "gm_none": "Ancora nessun punteggio. Sii il primo in classifica!",
+  "gm_note": "La fotocamera viene elaborata in locale nel browser e non viene caricato nulla. Niente fotocamera? Usa tastiera o touch.",
+  "gm_loading": "Caricamento del gioco…",
   "nav_about": "CHI SONO",
   "nav_projects": "PROGETTI",
   "nav_skills": "COMPETENZE",
@@ -264,6 +286,17 @@ const TR = {
   "loader": "A.<span>ESSAM</span>"
  },
  "es": {
+  "hero_play": "▶ JUEGA MI JUEGO",
+  "p6_h": "Un plataformas que se juega con la mano desnuda.",
+  "p6_p": "La cámara web sigue tu mano en tiempo real: muévela para correr, cierra el puño para saltar. Cinco niveles con enemigos, pinchos y una clasificación local. Todo funciona en el navegador y no se sube ningún vídeo. Pruébalo aquí mismo.",
+  "btn_play": "▶ JUGAR AHORA",
+  "btn_open": "↗ ABRIR EN PÁGINA COMPLETA",
+  "t_gamecv": "Juego / Visión por computador",
+  "gm_best": "MEJOR PUNTUACIÓN",
+  "gm_top": "MEJORES JUGADORES",
+  "gm_none": "Aún no hay puntuaciones. ¡Sé el primero en la tabla!",
+  "gm_note": "La cámara se procesa en local, dentro del navegador, y no se sube nada. ¿Sin cámara? Usa el teclado o el tacto.",
+  "gm_loading": "Cargando el juego…",
   "nav_about": "SOBRE MÍ",
   "nav_projects": "PROYECTOS",
   "nav_skills": "HABILIDADES",
@@ -326,6 +359,17 @@ const TR = {
   "loader": "A.<span>ESSAM</span>"
  },
  "ko": {
+  "hero_play": "▶ 내 게임 플레이",
+  "p6_h": "맨손으로 즐기는 플랫포머 게임.",
+  "p6_p": "웹캠이 손을 실시간으로 추적합니다. 손을 움직이면 달리고, 주먹을 쥐면 점프합니다. 적과 가시, 로컬 리더보드가 있는 5개의 스테이지. 모든 처리는 브라우저에서 이루어지며 영상은 업로드되지 않습니다. 여기서 바로 해보세요.",
+  "btn_play": "▶ 지금 플레이",
+  "btn_open": "↗ 전체 페이지로 열기",
+  "t_gamecv": "게임 / 컴퓨터 비전",
+  "gm_best": "최고 점수",
+  "gm_top": "상위 플레이어",
+  "gm_none": "아직 점수가 없습니다. 첫 번째로 이름을 올려 보세요!",
+  "gm_note": "카메라는 브라우저 안에서만 처리되며 아무것도 업로드되지 않습니다. 카메라가 없나요? 키보드나 터치로 플레이하세요.",
+  "gm_loading": "게임 불러오는 중…",
   "nav_about": "소개",
   "nav_projects": "프로젝트",
   "nav_skills": "기술",
@@ -388,6 +432,17 @@ const TR = {
   "loader": "암.<span>에삼</span>"
  },
  "ja": {
+  "hero_play": "▶ ゲームをプレイ",
+  "p6_h": "素手で遊ぶプラットフォーマー。",
+  "p6_p": "ウェブカメラがリアルタイムで手を追跡します。手を動かして走り、拳を握ってジャンプ。敵やトゲ、ローカルのランキングがある全5ステージ。処理はすべてブラウザ内で行われ、映像はアップロードされません。ここですぐ遊べます。",
+  "btn_play": "▶ 今すぐプレイ",
+  "btn_open": "↗ 全画面ページで開く",
+  "t_gamecv": "ゲーム / コンピュータビジョン",
+  "gm_best": "ベストスコア",
+  "gm_top": "トッププレイヤー",
+  "gm_none": "まだスコアがありません。最初に名前を載せよう！",
+  "gm_note": "カメラ映像はブラウザ内でのみ処理され、何もアップロードされません。カメラがない場合はキーボードやタッチで遊べます。",
+  "gm_loading": "ゲームを読み込み中…",
   "nav_about": "自己紹介",
   "nav_projects": "プロジェクト",
   "nav_skills": "スキル",
@@ -450,6 +505,17 @@ const TR = {
   "loader": "ア.<span>エサーム</span>"
  },
  "zh": {
+  "hero_play": "▶ 玩我的游戏",
+  "p6_h": "用空手操控的平台跳跃游戏。",
+  "p6_p": "摄像头实时追踪你的手：移动手来奔跑，握拳来跳跃。共五关，有敌人、尖刺和本地排行榜。一切都在浏览器中运行，不会上传任何视频。在这里就能直接玩。",
+  "btn_play": "▶ 立即游玩",
+  "btn_open": "↗ 全页面打开",
+  "t_gamecv": "游戏 / 计算机视觉",
+  "gm_best": "最高分",
+  "gm_top": "最佳玩家",
+  "gm_none": "还没有成绩，来当第一名吧！",
+  "gm_note": "摄像头画面仅在浏览器本地处理，不会上传任何内容。没有摄像头？可以用键盘或触摸来玩。",
+  "gm_loading": "游戏加载中…",
   "nav_about": "关于我",
   "nav_projects": "项目",
   "nav_skills": "技能",
@@ -512,6 +578,17 @@ const TR = {
   "loader": "阿.<span>埃萨姆</span>"
  },
  "de": {
+  "hero_play": "▶ MEIN SPIEL SPIELEN",
+  "p6_h": "Ein Plattformer, den du mit bloßer Hand spielst.",
+  "p6_p": "Die Webcam verfolgt deine Hand in Echtzeit: Bewege sie, um zu laufen, balle die Faust, um zu springen. Fünf Level mit Gegnern, Stacheln und lokaler Bestenliste. Alles läuft im Browser, es wird kein Video hochgeladen. Probier es direkt hier aus.",
+  "btn_play": "▶ JETZT SPIELEN",
+  "btn_open": "↗ ALS VOLLE SEITE ÖFFNEN",
+  "t_gamecv": "Spiel / Computer Vision",
+  "gm_best": "BESTER SCORE",
+  "gm_top": "BESTE SPIELER",
+  "gm_none": "Noch keine Ergebnisse. Sei der Erste in der Liste!",
+  "gm_note": "Die Kamera wird lokal im Browser verarbeitet, es wird nichts hochgeladen. Keine Kamera? Nutze Tastatur oder Touch.",
+  "gm_loading": "Spiel wird geladen…",
   "nav_about": "ÜBER MICH",
   "nav_projects": "PROJEKTE",
   "nav_skills": "SKILLS",
@@ -574,6 +651,17 @@ const TR = {
   "loader": "A.<span>ESSAM</span>"
  },
  "fr": {
+  "hero_play": "▶ JOUER À MON JEU",
+  "p6_h": "Un jeu de plateforme qui se joue à mains nues.",
+  "p6_p": "La webcam suit ta main en temps réel : bouge-la pour courir, ferme le poing pour sauter. Cinq niveaux avec ennemis, pics et classement local. Tout tourne dans le navigateur et aucune vidéo n’est envoyée. Essaie-le ici.",
+  "btn_play": "▶ JOUER MAINTENANT",
+  "btn_open": "↗ OUVRIR EN PLEINE PAGE",
+  "t_gamecv": "Jeu / Vision par ordinateur",
+  "gm_best": "MEILLEUR SCORE",
+  "gm_top": "MEILLEURS JOUEURS",
+  "gm_none": "Aucun score pour l’instant. Sois le premier du classement !",
+  "gm_note": "La caméra est traitée en local dans le navigateur et rien n’est envoyé. Pas de caméra ? Utilise le clavier ou le tactile.",
+  "gm_loading": "Chargement du jeu…",
   "nav_about": "À PROPOS",
   "nav_projects": "PROJETS",
   "nav_skills": "COMPÉTENCES",
@@ -636,6 +724,17 @@ const TR = {
   "loader": "A.<span>ESSAM</span>"
  },
  "ru": {
+  "hero_play": "▶ ИГРАТЬ В МОЮ ИГРУ",
+  "p6_h": "Платформер, в который играют голой рукой.",
+  "p6_p": "Веб-камера отслеживает вашу руку в реальном времени: двигайте ею, чтобы бежать, сожмите кулак, чтобы прыгнуть. Пять уровней с врагами, шипами и локальной таблицей лидеров. Всё работает в браузере, видео никуда не загружается. Попробуйте прямо здесь.",
+  "btn_play": "▶ ИГРАТЬ",
+  "btn_open": "↗ ОТКРЫТЬ НА ВСЮ СТРАНИЦУ",
+  "t_gamecv": "Игра / Компьютерное зрение",
+  "gm_best": "ЛУЧШИЙ РЕЗУЛЬТАТ",
+  "gm_top": "ЛУЧШИЕ ИГРОКИ",
+  "gm_none": "Результатов пока нет. Станьте первым в таблице!",
+  "gm_note": "Камера обрабатывается локально в браузере, ничего не загружается. Нет камеры? Играйте с клавиатуры или касаниями.",
+  "gm_loading": "Загрузка игры…",
   "nav_about": "ОБО МНЕ",
   "nav_projects": "ПРОЕКТЫ",
   "nav_skills": "НАВЫКИ",
@@ -700,6 +799,10 @@ const TR = {
 };
 const MSG = {
  "en": {
+  "gameOver": ["Game over", "Score"],
+  "gameWin": ["You finished the game!", "Final score"],
+  "gameBest": ["New high score!", "Score"],
+  "gameSaved": ["Score saved", "You are on the leaderboard."],
   "site": [
    "Opening official site",
    ""
@@ -746,6 +849,10 @@ const MSG = {
   ]
  },
  "ar": {
+  "gameOver": ["انتهت اللعبة", "النتيجة"],
+  "gameWin": ["أنهيت اللعبة!", "النتيجة النهائية"],
+  "gameBest": ["رقم قياسي جديد!", "النتيجة"],
+  "gameSaved": ["تم حفظ النتيجة", "أنت الآن في لوحة المتصدّرين."],
   "site": [
    "فتح الموقع الرسمي",
    ""
@@ -792,6 +899,10 @@ const MSG = {
   ]
  },
  "it": {
+  "gameOver": ["Game over", "Punteggio"],
+  "gameWin": ["Hai finito il gioco!", "Punteggio finale"],
+  "gameBest": ["Nuovo record!", "Punteggio"],
+  "gameSaved": ["Punteggio salvato", "Sei in classifica."],
   "site": [
    "Apertura del sito ufficiale",
    ""
@@ -838,6 +949,10 @@ const MSG = {
   ]
  },
  "es": {
+  "gameOver": ["Fin del juego", "Puntuación"],
+  "gameWin": ["¡Has terminado el juego!", "Puntuación final"],
+  "gameBest": ["¡Nuevo récord!", "Puntuación"],
+  "gameSaved": ["Puntuación guardada", "Estás en la clasificación."],
   "site": [
    "Abriendo el sitio oficial",
    ""
@@ -884,6 +999,10 @@ const MSG = {
   ]
  },
  "ko": {
+  "gameOver": ["게임 오버", "점수"],
+  "gameWin": ["게임을 클리어했습니다!", "최종 점수"],
+  "gameBest": ["최고 기록 갱신!", "점수"],
+  "gameSaved": ["점수 저장됨", "리더보드에 올랐습니다."],
   "site": [
    "공식 사이트 여는 중",
    ""
@@ -930,6 +1049,10 @@ const MSG = {
   ]
  },
  "ja": {
+  "gameOver": ["ゲームオーバー", "スコア"],
+  "gameWin": ["クリアおめでとう！", "最終スコア"],
+  "gameBest": ["ハイスコア更新！", "スコア"],
+  "gameSaved": ["スコアを保存しました", "ランキングに載りました。"],
   "site": [
    "公式サイトを開いています",
    ""
@@ -976,6 +1099,10 @@ const MSG = {
   ]
  },
  "zh": {
+  "gameOver": ["游戏结束", "得分"],
+  "gameWin": ["通关了！", "最终得分"],
+  "gameBest": ["新纪录！", "得分"],
+  "gameSaved": ["成绩已保存", "你已登上排行榜。"],
   "site": [
    "正在打开官方网站",
    ""
@@ -1022,6 +1149,10 @@ const MSG = {
   ]
  },
  "de": {
+  "gameOver": ["Game Over", "Punkte"],
+  "gameWin": ["Du hast das Spiel geschafft!", "Endpunktzahl"],
+  "gameBest": ["Neuer Highscore!", "Punkte"],
+  "gameSaved": ["Ergebnis gespeichert", "Du stehst in der Bestenliste."],
   "site": [
    "Offizielle Seite wird geöffnet",
    ""
@@ -1068,6 +1199,10 @@ const MSG = {
   ]
  },
  "fr": {
+  "gameOver": ["Game over", "Score"],
+  "gameWin": ["Tu as terminé le jeu !", "Score final"],
+  "gameBest": ["Nouveau record !", "Score"],
+  "gameSaved": ["Score enregistré", "Tu es dans le classement."],
   "site": [
    "Ouverture du site officiel",
    ""
@@ -1114,6 +1249,10 @@ const MSG = {
   ]
  },
  "ru": {
+  "gameOver": ["Игра окончена", "Счёт"],
+  "gameWin": ["Вы прошли игру!", "Итоговый счёт"],
+  "gameBest": ["Новый рекорд!", "Счёт"],
+  "gameSaved": ["Результат сохранён", "Вы в таблице лидеров."],
   "site": [
    "Открываю официальный сайт",
    ""

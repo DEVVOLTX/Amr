@@ -13,6 +13,7 @@ Based in **Kafr El Dawar, Egypt** 🇪🇬
 - **Mobile menu**, scroll-progress bar and active-section highlight in the nav
 - **Typing role switcher**, animated stats counters and a skills ticker
 - **Collapsible project cards** (native `<details>`, no JS)
+- **Playable game inside the portfolio** — HAND PLATFORMER (hand-tracking platformer) opens in an overlay from the hero button or the project card (`/#play` opens it directly). The page and the game talk via `postMessage`: live level/score in the overlay header, score toasts in the notification island, and a best-score + top-5 board on the project card shared through `localStorage`
 - **Certificates** with verify links, a front/back flip card and a fullscreen viewer
 - **Galleries** (logos, car posters, client work) with a keyboard- and swipe-friendly lightbox
 - **CV download** with a live progress "island" notification
@@ -31,6 +32,7 @@ main.js          language switcher, theme, menu, galleries, lightbox, CV downloa
 404.html          custom not-found page (uses root-absolute paths)
 favicon/          icons + web manifest
 images/           project, certificate, logo and poster images
+play/hand-platformer/   the game (index.html, PWA manifest, service worker, icons), embedded with ?embed=1
 sitemap.xml  robots.txt  CNAME
 ```
 
@@ -42,6 +44,7 @@ sitemap.xml  robots.txt  CNAME
 | 03 | **CAR-WASH BOOKING** | Full-stack web app | PHP, JS, MySQL |
 | 04 | **SALAH STORE** | Gaming top-up storefront | HTML/CSS, JS (Arabic UI) |
 | 05 | **AGE CALCULATOR** | Arabic age & Hijri tool | Vanilla JS |
+| 06 | **HAND PLATFORMER** | Webcam hand-controlled platformer (playable on the site) | MediaPipe, Canvas, JS, PWA |
 
 ## 🎓 Certificates
 1. **TOFAS JavaScript Level 1 & 2** — Sprix Inc. & Hiroshima University
