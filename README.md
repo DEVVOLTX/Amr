@@ -16,7 +16,7 @@ Based in **Kafr El Dawar, Egypt** 🇪🇬
 - **Playable game inside the portfolio** — HAND PLATFORMER (hand-tracking platformer) opens in an overlay from the hero button or the project card (`/#play` opens it directly). The page and the game talk via `postMessage`: live level/score in the overlay header, score toasts in the notification island, and a best-score + top-5 board on the project card shared through `localStorage`
 - **Certificates** with verify links, a front/back flip card and a fullscreen viewer
 - **Galleries** (logos, car posters, client work) with a keyboard- and swipe-friendly lightbox
-- **CV download** with a live progress "island" notification
+- **Two CV versions** — the Download CV buttons open a chooser: `amr_essam_cv.pdf` (plain ATS / HR, single column) and `amr_essam_cv_designed.pdf` (dark, in the style of the site); the download shows a live progress "island" notification
 - **SEO ready** — Open Graph / Twitter cards, JSON-LD, sitemap, robots, web manifest
 - **Accessible** — skip link, visible focus, reduced-motion support, print stylesheet
 
