@@ -388,9 +388,12 @@ dialog[hidden], dialog .icon-btn[hidden] { display: none; }
 }
 
 /* ===== Playable game: poster, scoreboard, modal ===== */
-.btn.play { position: relative; border-color: var(--accent); color: var(--accent); }
-.btn.play::before { content: ''; width: 7px; height: 7px; border-radius: 50%; background: var(--accent); box-shadow: 0 0 8px var(--accent); animation: gp-blink 1.6s ease-in-out infinite; }
-@keyframes gp-blink { 50% { opacity: .25; } }
+/* Cyber-void arc button: dark glass pill, glowing teal border, lightning that chases the pointer (see main.js) */
+.btn.arc { position: relative; overflow: hidden; isolation: isolate; color: var(--fg); background: color-mix(in srgb, var(--bg2) 72%, transparent); border: 1px solid color-mix(in srgb, var(--accent) 38%, transparent); box-shadow: 0 0 0 0 transparent; transition: border-color .25s, box-shadow .3s, transform .2s, background .3s; }
+.btn.arc::before { content: ''; position: absolute; inset-inline: 0; top: 58%; height: 1px; z-index: -1; opacity: .55; background: linear-gradient(90deg, transparent, color-mix(in srgb, var(--accent) 45%, transparent), transparent); }
+.btn.arc canvas { position: absolute; inset: 0; width: 100%; height: 100%; z-index: -1; pointer-events: none; }
+.btn.arc:hover, .btn.arc:focus-visible { border-color: var(--accent); background: color-mix(in srgb, var(--bg) 82%, transparent); transform: translateY(-2px); box-shadow: 0 0 0 1px color-mix(in srgb, var(--accent) 30%, transparent), 0 0 22px color-mix(in srgb, var(--accent) 38%, transparent), inset 0 0 16px color-mix(in srgb, var(--accent) 16%, transparent); }
+.btn.arc:active { transform: translateY(0); }
 
 .game-poster { position: relative; display: block; width: 100%; padding: 0; margin-bottom: 1.3rem; aspect-ratio: 8 / 5; overflow: hidden; cursor: pointer; border: 1px solid var(--border); border-radius: var(--r); background: #070B0E; color: inherit; }
 .game-poster > svg { display: block; width: 100%; height: 100%; transition: transform .5s; }
@@ -436,4 +439,27 @@ body.game-open { overflow: hidden; }
 .gm-loading[hidden] { display: none; }
 .gm-note { margin: 0; padding: 0 .3rem .1rem; text-align: center; font-size: .72rem; color: var(--dim); }
 @media (max-height: 560px) { .gm-note { display: none; } .gm-stage { width: min(100%, calc((100dvh - 4.2rem) * 1.481)); } .gm-box { padding: .4rem; gap: .3rem; } }
-@media (prefers-reduced-motion: reduce) { .gp-play i, .btn.play::before, #game-modal { animation: none; } .game-poster > svg { transition: none; } }
+@media (prefers-reduced-motion: reduce) { .gp-play i, #game-modal { animation: none; } .game-poster > svg { transition: none; } }
+
+/* ===== CV chooser modal ===== */
+.cv-modal { position: fixed; inset: 0; z-index: 85; display: flex; align-items: center; justify-content: center; padding: 1rem; background: rgba(4,7,9,.78); -webkit-backdrop-filter: blur(8px); backdrop-filter: blur(8px); animation: gm-in .22s ease; }
+.cv-modal[hidden] { display: none; }
+.cv-modal-content { position: relative; width: min(520px, 100%); max-height: 100%; overflow: auto; padding: 1.6rem 1.4rem 1.4rem; border: 1px solid var(--teal); border-radius: 14px; background: var(--bg2); box-shadow: 0 30px 80px -20px rgba(0,0,0,.7); animation: cvm-pop .28s cubic-bezier(.2,.8,.2,1); }
+@keyframes cvm-pop { from { opacity: 0; transform: translateY(14px) scale(.97); } }
+.cvm-x { position: absolute; top: .7rem; inset-inline-end: .7rem; }
+.cv-modal h3 { margin: 0 2.2rem .3rem 0; font-size: 1.15rem; font-weight: 800; }
+[dir="rtl"] .cv-modal h3 { margin: 0 0 .3rem 2.2rem; }
+.cvm-sub { margin: 0 0 1.1rem; font-size: .85rem; color: var(--dim); }
+.cv-options { display: grid; gap: .75rem; }
+.cv-option { display: flex; align-items: center; gap: 1rem; width: 100%; padding: .9rem 1rem; text-align: start; color: var(--fg); font: inherit; cursor: pointer; border: 1px solid var(--border); border-radius: 10px; background: color-mix(in srgb, var(--bg) 55%, transparent); transition: border-color .2s, transform .2s, box-shadow .25s, background .2s; }
+.cv-option:hover, .cv-option:focus-visible { border-color: var(--accent); transform: translateY(-2px); box-shadow: 0 0 20px color-mix(in srgb, var(--accent) 22%, transparent); background: color-mix(in srgb, var(--accent) 7%, transparent); outline: none; }
+.cvo-txt { display: grid; gap: .25rem; min-width: 0; }
+.cvo-txt b { font: 700 .82rem var(--mono); letter-spacing: .08em; text-transform: uppercase; color: var(--accent); }
+.cvo-txt small { font-size: .8rem; line-height: 1.5; color: var(--dim); }
+.cvo-txt em { font: normal .6rem var(--mono); letter-spacing: .14em; color: var(--dim); opacity: .75; }
+.cvo-doc { flex: none; width: 46px; height: 60px; padding: 8px 6px; display: grid; align-content: start; gap: 4px; border-radius: 4px; box-shadow: 0 6px 14px -6px rgba(0,0,0,.6); }
+.cvo-doc i { display: block; height: 3px; border-radius: 2px; }
+.cvo-doc i:nth-child(1) { width: 60%; height: 4px; } .cvo-doc i:nth-child(2) { width: 85%; } .cvo-doc i:nth-child(3) { width: 100%; } .cvo-doc i:nth-child(4) { width: 90%; } .cvo-doc i:nth-child(5) { width: 70%; }
+.cvo-doc.ats { background: #fff; border: 1px solid #cfd8dc; } .cvo-doc.ats i { background: #2b2f33; opacity: .8; }
+.cvo-doc.des { background: #070B0E; border: 1px solid var(--teal); } .cvo-doc.des i { background: #00D4E8; opacity: .75; } .cvo-doc.des i:nth-child(3) { background: #0B5965; opacity: 1; }
+@media (prefers-reduced-motion: reduce) { .cv-modal, .cv-modal-content { animation: none; } .cv-option { transition: none; } }
