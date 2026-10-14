@@ -90,7 +90,7 @@
         <ul class="lang-menu" id="lang-menu" role="listbox" aria-label="Language" hidden></ul>
       </div>
       <button class="icon-btn" id="theme" aria-label="Toggle light / dark theme">🌙</button>
-      <a class="btn sm" href="amr_essam_cv.pdf" download data-i18n="nav_cv">CV ↓</a>
+      <a class="btn sm" href="amr_essam_cv.pdf" download data-cv-choose aria-haspopup="dialog" data-i18n="nav_cv">CV ▾</a>
     </div>
   </nav>
 
@@ -105,9 +105,9 @@
         <p class="lead" data-rise style="--i:3" data-i18n="lead">Software Engineering student based in Kafr El Dawar, Egypt. Building immersive digital experiences, secure systems, and creative visual projects.</p>
         <div class="row" data-rise style="--i:4">
           <a class="btn" href="mailto:amrt6509@gmail.com?subject=Project%20inquiry%20from%20your%20portfolio" data-i18n="hire">HIRE ME ✉</a>
-          <a class="btn ghost" href="amr_essam_cv.pdf" download data-i18n="download_cv">DOWNLOAD CV ↓</a>
+          <a class="btn ghost" href="amr_essam_cv.pdf" download data-cv-choose aria-haspopup="dialog" data-i18n="download_cv">DOWNLOAD CV ▾</a>
           <a class="btn ghost" href="#projects" data-i18n="view_work">VIEW WORK →</a>
-          <button class="btn ghost play" type="button" data-play data-i18n="hero_play">▶ PLAY MY GAME</button>
+          <button class="btn arc" type="button" data-play data-i18n="hero_play">▶ PLAY MY GAME</button>
         </div>
         <div class="stats" data-rise style="--i:5">
           <div><b data-count="6">6</b><span data-i18n="stat_projects">PROJECTS</span></div>
@@ -223,7 +223,7 @@
             <h4 data-i18n="p6_h">A platformer you play with your bare hand.</h4>
             <p data-i18n="p6_p">Your webcam tracks your hand in real time: move it to run, close your fist to jump. Five levels with enemies, spikes and a local leaderboard. Everything runs in your browser and no video is ever uploaded. Play it right here.</p>
             <div class="row">
-              <button class="btn sm" type="button" data-play data-i18n="btn_play">▶ PLAY NOW</button>
+              <button class="btn sm arc" type="button" data-play data-i18n="btn_play">▶ PLAY NOW</button>
               <a class="btn ghost sm" href="play/hand-platformer/" target="_blank" rel="noopener" data-i18n="btn_open">↗ OPEN FULL PAGE</a>
               <a class="btn ghost sm" href="https://github.com/DEVVOLTX" target="_blank" rel="noopener" data-i18n="btn_gh">⬡ GITHUB PROFILE</a>
             </div>
@@ -364,6 +364,24 @@
   <footer data-i18n="footer">&copy; 2026 <span>AMR ESSAM</span> &bull; KAFR EL DAWAR, EGYPT</footer>
   <button class="icon-btn" id="top" aria-label="Back to top">↑</button>
 
+
+  <div id="cvModal" class="cv-modal" role="dialog" aria-modal="true" aria-labelledby="cvm-title" hidden>
+    <div class="cv-modal-content">
+      <button class="icon-btn cvm-x" id="cvm-close" type="button" aria-label="Close">✕</button>
+      <h3 id="cvm-title" data-i18n="cvm_title">Choose a CV version</h3>
+      <p class="cvm-sub" data-i18n="cvm_sub">Same content, two formats. Pick what fits.</p>
+      <div class="cv-options">
+        <button class="cv-option" type="button" data-cv="amr_essam_cv.pdf">
+          <span class="cvo-doc ats" aria-hidden="true"><i></i><i></i><i></i><i></i><i></i></span>
+          <span class="cvo-txt"><b data-i18n="cvm_ats">ATS / HR version</b><small data-i18n="cvm_ats_d">Plain white, single column. Best for job applications, HR systems and LinkedIn Easy Apply.</small><em>PDF · A4</em></span>
+        </button>
+        <button class="cv-option" type="button" data-cv="amr_essam_cv_designed.pdf">
+          <span class="cvo-doc des" aria-hidden="true"><i></i><i></i><i></i><i></i><i></i></span>
+          <span class="cvo-txt"><b data-i18n="cvm_des">Designed version</b><small data-i18n="cvm_des_d">Dark, in the style of this portfolio. Best for clients and a visual first impression.</small><em>PDF · A4</em></span>
+        </button>
+      </div>
+    </div>
+  </div>
 
   <div id="game-modal" role="dialog" aria-modal="true" aria-labelledby="gm-title" hidden>
     <div class="gm-box">
