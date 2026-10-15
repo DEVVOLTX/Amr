@@ -183,23 +183,62 @@ const clients = [
   { src: 'images/client2.jpg', alt: 'Mohammed cinematic edit by Amr Essam', tag: 'PHOTO EDITING', caption: 'MOHAMMED — EDIT BY AMR', desc: 'Cinematic character edit with neon lighting effects' },
 ];
 
-const lightbox = $('#lightbox');
-const lbImg = $('img', lightbox);
+const lightbox = $('#lightbox'), lbImg = $('#lb-img'), lbStage = $('#lb-stage'), lbFrame = $('#lb-frame'), lbThumbs = $('#lb-thumbs');
 let current = [], index = 0;
+const lbReduce = matchMedia('(prefers-reduced-motion: reduce)').matches;
+const isRtl = () => getComputedStyle(document.documentElement).direction === 'rtl';
+const pad2 = n => String(n).padStart(2, '0');
 
-function showSlide() {
-  const item = current[index];
-  lbImg.src = item.src;
-  lbImg.alt = item.alt;
-  $('#lb-count').textContent = current.length > 1 ? `${index + 1} / ${current.length}` : '';
-  $('#lb-prev').hidden = $('#lb-next').hidden = current.length < 2;
-  [1, -1].forEach(d => { const n = current[(index + d + current.length) % current.length]; if (n) new Image().src = n.src; });
+/* zoom + pan: scale and offset (px) from the centre of the stage */
+const Z = { s: 1, x: 0, y: 0 };
+const zoomed = () => Z.s > 1.01;
+function clampPan() {
+  const mx = Math.max(0, (lbImg.offsetWidth * Z.s - lbStage.clientWidth) / 2), my = Math.max(0, (lbImg.offsetHeight * Z.s - lbStage.clientHeight) / 2);
+  Z.x = Math.min(mx, Math.max(-mx, Z.x)); Z.y = Math.min(my, Math.max(-my, Z.y));
+}
+function paintZoom(animate) {
+  lbImg.style.transition = animate && !lbReduce ? 'transform .25s cubic-bezier(.2,.8,.2,1)' : 'none';
+  lbImg.style.transform = `translate(${Z.x}px, ${Z.y}px) scale(${Z.s})`;
+  lightbox.classList.toggle('zoomed', zoomed());
+  $('#lb-zoom').setAttribute('aria-label', zoomed() ? 'Zoom out' : 'Zoom in');
+}
+function zoomAt(cx, cy, ns, animate = true) {           // keeps the point under (cx, cy) fixed
+  ns = Math.min(5, Math.max(1, ns));
+  if (ns === 1) { Z.s = 1; Z.x = Z.y = 0; paintZoom(animate); return; }
+  const r = lbStage.getBoundingClientRect(), px = cx - (r.left + r.width / 2), py = cy - (r.top + r.height / 2), k = ns / Z.s;
+  Z.x = px - (px - Z.x) * k; Z.y = py - (py - Z.y) * k; Z.s = ns; clampPan(); paintZoom(animate);
+}
+const zoomCentre = ns => { const r = lbStage.getBoundingClientRect(); zoomAt(r.left + r.width / 2, r.top + r.height / 2, ns); };
+
+function showSlide(dir = 0) {                            // dir: -1 / +1 = slide direction on screen, 0 = no motion
+  const it = current[index], n = current.length;
+  Z.s = 1; Z.x = Z.y = 0; paintZoom(false);
+  lightbox.classList.add('loading');
+  lbImg.onload = lbImg.onerror = () => lightbox.classList.remove('loading');
+  lbImg.src = it.src; lbImg.alt = it.alt || '';
+  if (lbImg.complete && lbImg.naturalWidth) lightbox.classList.remove('loading');
+  if (dir && !lbReduce) lbFrame.animate([{ opacity: 0, transform: `translateX(${dir * 36}px)` }, { opacity: 1, transform: 'none' }], { duration: 280, easing: 'cubic-bezier(.2,.8,.2,1)' });
+  $('#lb-count').innerHTML = n > 1 ? `<b>${pad2(index + 1)}</b> / ${pad2(n)}` : '';
+  const tag = $('#lb-tag'), desc = $('#lb-desc');
+  tag.textContent = it.tag || ''; tag.hidden = !it.tag;
+  $('#lb-title').textContent = it.caption || it.alt || '';
+  desc.textContent = it.desc || ''; desc.hidden = !it.desc;
+  $('#lb-prev').hidden = $('#lb-next').hidden = n < 2;
+  $$('.lb-th', lbThumbs).forEach((b, i) => {
+    const on = i === index; b.classList.toggle('on', on); b.setAttribute('aria-current', on);
+    if (on) lbThumbs.scrollTo({ left: b.offsetLeft - (lbThumbs.clientWidth - b.offsetWidth) / 2, behavior: lbReduce ? 'auto' : 'smooth' });
+  });
+  [1, -1].forEach(d => { const nx = current[(index + d + n) % n]; if (nx) new Image().src = nx.src; });
 }
 function openLightbox(items, i) {
-  current = items; index = i; showSlide();
-  if (lightbox.showModal) lightbox.showModal(); else window.open(items[i].src);
+  current = items; index = i;
+  lbThumbs.innerHTML = items.length > 1 ? items.map((it, k) => `<button class="lb-th" type="button" data-i="${k}" aria-label="Show ${it.alt}"><img src="${it.src}" alt="" loading="lazy" decoding="async"></button>`).join('') : '';
+  lbThumbs.hidden = items.length < 2;
+  showSlide();
+  if (lightbox.showModal) { lightbox.showModal(); document.body.classList.add('lb-open'); } else window.open(items[i].src);
 }
-const step = dir => { index = (index + dir + current.length) % current.length; showSlide(); };
+const goTo = i => { if (i === index || i < 0 || i >= current.length) return; const d = i > index ? 1 : -1; index = i; showSlide(d * (isRtl() ? -1 : 1)); };
+const step = dir => { if (current.length > 1) goTo((index + dir + current.length) % current.length); };
 
 function renderGallery(id, items) {
   const box = $(id);
@@ -217,21 +256,78 @@ renderGallery('#logos', logos);
 renderGallery('#cars', cars);
 renderGallery('#clients', clients);
 
-let touchX = null;
-lightbox.addEventListener('touchstart', e => { touchX = e.touches[0].clientX; }, { passive: true });
-lightbox.addEventListener('touchend', e => {
-  if (touchX === null || current.length < 2) return;
-  const dx = e.changedTouches[0].clientX - touchX; touchX = null;
-  if (Math.abs(dx) > 50) step(dx < 0 ? 1 : -1);
-}, { passive: true });
+/* pointer gestures on the stage: tap = zoom (or close on the backdrop), drag = pan when zoomed / swipe when not,
+   pinch and wheel = zoom, swipe down = close */
+const ptrs = new Map();
+let drag = null, pinch = 0;
+const resetFrame = animate => { lbFrame.style.transition = animate ? 'transform .25s, opacity .25s' : 'none'; lbFrame.style.transform = ''; lbFrame.style.opacity = ''; };
+lbStage.addEventListener('pointerdown', e => {
+  if (e.button > 0) return;
+  lbStage.setPointerCapture(e.pointerId); ptrs.set(e.pointerId, { x: e.clientX, y: e.clientY });
+  if (ptrs.size === 1) drag = { x0: e.clientX, y0: e.clientY, ox: Z.x, oy: Z.y, moved: false, t: e.target };
+  else if (ptrs.size === 2) { drag = null; const [a, b] = [...ptrs.values()]; pinch = Math.hypot(a.x - b.x, a.y - b.y); resetFrame(false); }
+});
+lbStage.addEventListener('pointermove', e => {
+  if (!ptrs.has(e.pointerId)) return;
+  ptrs.set(e.pointerId, { x: e.clientX, y: e.clientY });
+  if (ptrs.size === 2) {
+    const [a, b] = [...ptrs.values()], d = Math.hypot(a.x - b.x, a.y - b.y);
+    if (pinch) zoomAt((a.x + b.x) / 2, (a.y + b.y) / 2, Z.s * d / pinch, false);
+    pinch = d; return;
+  }
+  if (!drag) return;
+  const dx = e.clientX - drag.x0, dy = e.clientY - drag.y0;
+  if (!drag.moved && Math.hypot(dx, dy) > 6) { drag.moved = true; lightbox.classList.add('dragging'); }
+  if (!drag.moved) return;
+  if (zoomed()) { Z.x = drag.ox + dx; Z.y = drag.oy + dy; clampPan(); paintZoom(false); }
+  else {
+    lbFrame.style.transition = 'none';
+    lbFrame.style.transform = `translate(${dx}px, ${Math.max(0, dy) * .6}px)`;
+    lbFrame.style.opacity = 1 - Math.min(.5, Math.abs(dx) / 600 + Math.max(0, dy) / 500);
+  }
+});
+const endPointer = (e, cancelled) => {
+  if (!ptrs.delete(e.pointerId)) return;
+  lightbox.classList.remove('dragging');
+  if (ptrs.size > 0) return;                              // still a finger down (end of a pinch)
+  const d = drag; drag = null;
+  if (!d) { pinch = 0; if (Z.s < 1.05) zoomAt(0, 0, 1); return; }
+  if (cancelled) { resetFrame(true); return; }
+  const dx = e.clientX - d.x0, dy = e.clientY - d.y0;
+  if (!d.moved) {                                         // a tap or click
+    if (d.t === lbImg) zoomed() ? zoomAt(0, 0, 1) : zoomAt(e.clientX, e.clientY, 2.4);
+    else lightbox.close();
+    return;
+  }
+  if (zoomed()) return;
+  if (Math.abs(dx) > 70 && Math.abs(dx) > Math.abs(dy)) { resetFrame(false); step((dx < 0 ? 1 : -1) * (isRtl() ? -1 : 1)); }
+  else if (dy > 110) lightbox.close();
+  else resetFrame(true);
+};
+lbStage.addEventListener('pointerup', e => endPointer(e, false));
+lbStage.addEventListener('pointercancel', e => endPointer(e, true));
+lbStage.addEventListener('wheel', e => { e.preventDefault(); zoomAt(e.clientX, e.clientY, Z.s * Math.exp(-e.deltaY * .002), false); }, { passive: false });
+
+lbThumbs.addEventListener('click', e => { const b = e.target.closest('.lb-th'); if (b) goTo(+b.dataset.i); });
 $('#lb-prev').addEventListener('click', () => step(-1));
 $('#lb-next').addEventListener('click', () => step(1));
+$('#lb-zoom').addEventListener('click', () => zoomed() ? zoomAt(0, 0, 1) : zoomCentre(2.4));
 $('#lb-close').addEventListener('click', () => lightbox.close());
 lightbox.addEventListener('click', e => { if (e.target === lightbox) lightbox.close(); });
+lightbox.addEventListener('close', () => { document.body.classList.remove('lb-open'); resetFrame(false); ptrs.clear(); drag = null; });
 document.addEventListener('keydown', e => {
   if (!lightbox.open) return;
-  if (e.key === 'ArrowLeft') step(-1);
-  if (e.key === 'ArrowRight') step(1);
+  const k = e.key, rtl = isRtl();
+  if (k === 'ArrowLeft' || k === 'ArrowRight') {
+    const sign = k === 'ArrowRight' ? 1 : -1;
+    if (zoomed()) { Z.x -= sign * 80; clampPan(); paintZoom(true); } else step(sign * (rtl ? -1 : 1));
+  } else if (k === 'ArrowUp' || k === 'ArrowDown') {
+    if (zoomed()) { Z.y += (k === 'ArrowUp' ? 1 : -1) * 80; clampPan(); paintZoom(true); }
+  } else if (k === 'Home') goTo(0);
+  else if (k === 'End') goTo(current.length - 1);
+  else if (k === '+' || k === '=') zoomCentre(Z.s * 1.5);
+  else if (k === '-') zoomCentre(Z.s / 1.5);
+  else if (k === '0') zoomAt(0, 0, 1);
 });
 
 /* ---------- Certificate flip (front / back) ---------- */
