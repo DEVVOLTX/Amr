@@ -42,7 +42,6 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;700&family=Inter:wght@400;700;900&family=Cairo:wght@400;700;900&display=swap">
   <link rel="stylesheet" href="style.css">
-  <link rel="stylesheet" href="chat.css">
   <script>
     /* runs before paint: restores theme + language (first visit follows the system / browser), enables reveal animations */
     var de = document.documentElement, st = {};
@@ -108,6 +107,7 @@
           <a class="btn" href="mailto:amrt6509@gmail.com?subject=Project%20inquiry%20from%20your%20portfolio" data-i18n="hire">HIRE ME ✉</a>
           <a class="btn ghost" href="amr_essam_cv.pdf" download data-cv-choose aria-haspopup="dialog" data-i18n="download_cv">DOWNLOAD CV ▾</a>
           <a class="btn ghost" href="#projects" data-i18n="view_work">VIEW WORK →</a>
+          <button class="btn arc" type="button" data-play data-i18n="hero_play">▶ PLAY MY GAME</button>
         </div>
         <div class="stats" data-rise style="--i:5">
           <div><b data-count="6">6</b><span data-i18n="stat_projects">PROJECTS</span></div>
@@ -143,6 +143,7 @@
           <div class="proj-body">
             <h4 data-i18n="p1_h">A challenging 2D platformer built for precision and skill.</h4>
             <p data-i18n="p1_p">Designed all mechanics, levels, and artwork solo using Godot 4.6 and GDScript. Published on GitHub.</p>
+            <a class="btn ghost sm" href="https://github.com/DEVVOLTX" target="_blank" rel="noopener" data-i18n="btn_gh">⬡ GITHUB PROFILE</a>
             <dl class="meta"><div><dt data-i18n="m_year">YEAR</dt><dd>2024</dd></div><div><dt data-i18n="m_type">TYPE</dt><dd data-i18n="t_game">Game Development</dd></div></dl>
             <ul class="tags"><li>GODOT 4.6</li><li>GDSCRIPT</li><li>2D PLATFORMER</li><li>SOLO DEV</li></ul>
           </div>
@@ -153,6 +154,7 @@
           <div class="proj-body">
             <h4 data-i18n="p2_h">A multiplayer game of strategy and deception.</h4>
             <p data-i18n="p2_p">Players outwit each other using misdirection and timing. Co-developed with a partner for real-time multiplayer. Live on Itch.io.</p>
+            <a class="btn ghost sm" href="https://github.com/DEVVOLTX" target="_blank" rel="noopener" data-i18n="btn_gh">⬡ GITHUB PROFILE</a>
             <dl class="meta"><div><dt data-i18n="m_year">YEAR</dt><dd>2024</dd></div><div><dt data-i18n="m_type">TYPE</dt><dd data-i18n="t_game">Game Development</dd></div></dl>
             <ul class="tags"><li>MULTIPLAYER</li><li>CO-DEV</li><li>GAME DESIGN</li><li>ITCH.IO</li></ul>
           </div>
@@ -163,6 +165,7 @@
           <div class="proj-body">
             <h4 data-i18n="p3_h">A full-stack reservation system.</h4>
             <p data-i18n="p3_p">Customers book slots, staff manage schedules. Built with PHP, JavaScript, and MySQL, with a full admin panel.</p>
+            <a class="btn ghost sm" href="https://github.com/DEVVOLTX" target="_blank" rel="noopener" data-i18n="btn_gh">⬡ GITHUB PROFILE</a>
             <dl class="meta"><div><dt data-i18n="m_year">YEAR</dt><dd>2024</dd></div><div><dt data-i18n="m_type">TYPE</dt><dd data-i18n="t_full">Full-Stack Web</dd></div></dl>
             <ul class="tags"><li>PHP</li><li>JAVASCRIPT</li><li>MYSQL</li><li>HTML/CSS</li></ul>
           </div>
@@ -406,6 +409,5 @@
 
   <script src="i18n.js" defer></script>
   <script src="main.js" defer></script>
-  <script src="chat.js" defer></script>
 </body>
 </html>
