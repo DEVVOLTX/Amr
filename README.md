@@ -8,6 +8,7 @@
 Based in **Kafr El Dawar, Egypt** 🇪🇬
 
 ## ✨ Features
+
 - **Dark / light theme** — follows the system on the first visit, then remembers the choice
 - **10 languages with a flag dropdown** — English, Arabic (RTL), Italian, Spanish, German, French, Russian, Korean, Japanese and Chinese; follows the browser language on the first visit, then remembers the choice
 - **Mobile menu**, scroll-progress bar and active-section highlight in the nav
@@ -21,9 +22,11 @@ Based in **Kafr El Dawar, Egypt** 🇪🇬
 - **Accessible** — skip link, visible focus, reduced-motion support, print stylesheet
 
 ## 🛠️ Tech
+
 Plain HTML5, CSS3 and vanilla JavaScript — no build step, no dependencies.
 
 ## 📂 Structure
+
 ```
 index.html        page markup
 style.css         all styles (themes, RTL, print)
@@ -37,28 +40,33 @@ sitemap.xml  robots.txt  CNAME
 ```
 
 ## 🚀 Projects
-| # | Project | Type | Tech |
-| --- | --- | --- | --- |
-| 01 | **ANDERMAGIC** | 2D platformer | Godot 4.6, GDScript |
-| 02 | **HIDE AND SINK** | Multiplayer game | Game design, Itch.io |
-| 03 | **CAR-WASH BOOKING** | Full-stack web app | PHP, JS, MySQL |
-| 04 | **SALAH STORE** | Gaming top-up storefront | HTML/CSS, JS (Arabic UI) |
-| 05 | **AGE CALCULATOR** | Arabic age & Hijri tool | Vanilla JS |
-| 06 | **HAND PLATFORMER** | Webcam hand-controlled platformer (playable on the site) | MediaPipe, Canvas, JS, PWA |
+
+| #   | Project              | Type                                                     | Tech                       |
+| --- | -------------------- | -------------------------------------------------------- | -------------------------- |
+| 01  | **ANDERMAGIC**       | 2D platformer                                            | Godot 4.6, GDScript        |
+| 02  | **HIDE AND SINK**    | Multiplayer game                                         | Game design, Itch.io       |
+| 03  | **CAR-WASH BOOKING** | Full-stack web app                                       | PHP, JS, MySQL             |
+| 04  | **SALAH STORE**      | Gaming top-up storefront                                 | HTML/CSS, JS (Arabic UI)   |
+| 05  | **AGE CALCULATOR**   | Arabic age & Hijri tool                                  | Vanilla JS                 |
+| 06  | **HAND PLATFORMER**  | Webcam hand-controlled platformer (playable on the site) | MediaPipe, Canvas, JS, PWA |
 
 ## 🎓 Certificates
+
 1. **TOFAS JavaScript Level 1 & 2** — Sprix Inc. & Hiroshima University
 2. **Networking Basics** — Cisco Networking Academy
 3. **EF SET English Certificate** — B1 Intermediate
 4. **Cybersecurity Fundamentals** — IBM SkillsBuild
 
 ## 💻 Run locally
+
 ```bash
 python -m http.server 8000   # then open http://localhost:8000
 ```
+
 (Use a server rather than opening the file directly so the CV download and fonts behave like production.)
 
 ## 📬 Contact
+
 - **Email**: amrt6509@gmail.com
 - **GitHub**: [@DEVVOLTX](https://github.com/DEVVOLTX)
 - **Instagram**: [@3am_our1430](https://www.instagram.com/3am_our1430)
@@ -68,4 +76,5 @@ python -m http.server 8000   # then open http://localhost:8000
 - **Telegram**: [@Amour_64x](https://t.me/Amour_64x)
 
 ## 📜 License
+
 © 2026 AMR ESSAM. All rights reserved.
