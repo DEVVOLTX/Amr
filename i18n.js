@@ -901,6 +901,8 @@ const MSG = {
     cvStarted: ["Download started", "Check your downloads."],
     dark: ["Dark mode", "Easy on the eyes."],
     light: ["Light mode", "Bright and clean."],
+    matrix: ["Matrix mode", "Green terminal vibes."],
+    volt: ["VoltX mode", "Electric and sharp."],
     lang: ["Language: English", "Switched to English."],
   },
   ar: {
@@ -918,6 +920,8 @@ const MSG = {
     cvStarted: ["بدأ التحميل", "شوف التنزيلات."],
     dark: ["الوضع الداكن", "مريح للعين."],
     light: ["الوضع الفاتح", "ساطع ونظيف."],
+    matrix: ["وضع Matrix", "أجواء الطرفية الخضراء."],
+    volt: ["وضع VoltX", "كهربائي وحاد."],
     lang: ["اللغة: العربية", "تم التبديل إلى العربية."],
   },
   it: {
@@ -935,6 +939,8 @@ const MSG = {
     cvStarted: ["Download avviato", "Controlla i download."],
     dark: ["Modalità scura", "Riposante per gli occhi."],
     light: ["Modalità chiara", "Luminosa e pulita."],
+    matrix: ["Modalità Matrix", "Atmosfera da terminale verde."],
+    volt: ["Modalità VoltX", "Elettrica e incisiva."],
     lang: ["Lingua: Italiano", "Passato all'italiano."],
   },
   es: {
@@ -955,6 +961,8 @@ const MSG = {
     cvStarted: ["Descarga iniciada", "Revisa tus descargas."],
     dark: ["Modo oscuro", "Cómodo para la vista."],
     light: ["Modo claro", "Luminoso y limpio."],
+    matrix: ["Modo Matrix", "Aire de terminal verde."],
+    volt: ["Modo VoltX", "Eléctrico y afilado."],
     lang: ["Idioma: Español", "Cambiado a español."],
   },
   ko: {
@@ -975,6 +983,8 @@ const MSG = {
     cvStarted: ["다운로드 시작", "다운로드 폴더를 확인하세요."],
     dark: ["다크 모드", "눈이 편안합니다."],
     light: ["라이트 모드", "밝고 깔끔합니다."],
+    matrix: ["매트릭스 모드", "초록빛 터미널 감성."],
+    volt: ["볼트X 모드", "짜릿하고 선명하게."],
     lang: ["언어: 한국어", "한국어로 전환되었습니다."],
   },
   ja: {
@@ -1001,6 +1011,8 @@ const MSG = {
     ],
     dark: ["ダークモード", "目にやさしい表示です。"],
     light: ["ライトモード", "明るくすっきり。"],
+    matrix: ["マトリックスモード", "グリーンのターミナル風。"],
+    volt: ["VoltXモード", "電撃のようにシャープ。"],
     lang: ["言語: 日本語", "日本語に切り替えました。"],
   },
   zh: {
@@ -1018,6 +1030,8 @@ const MSG = {
     cvStarted: ["已开始下载", "请查看下载文件夹。"],
     dark: ["深色模式", "更护眼。"],
     light: ["浅色模式", "明亮清爽。"],
+    matrix: ["矩阵模式", "绿色终端风格。"],
+    volt: ["VoltX 模式", "电光般锐利。"],
     lang: ["语言：中文", "已切换为中文。"],
   },
   de: {
@@ -1041,6 +1055,8 @@ const MSG = {
     cvStarted: ["Download gestartet", "Sieh in deinen Downloads nach."],
     dark: ["Dunkelmodus", "Schonend für die Augen."],
     light: ["Hellmodus", "Hell und klar."],
+    matrix: ["Matrix-Modus", "Grüne Terminal-Optik."],
+    volt: ["VoltX-Modus", "Elektrisch und scharf."],
     lang: ["Sprache: Deutsch", "Zu Deutsch gewechselt."],
   },
   fr: {
@@ -1061,6 +1077,8 @@ const MSG = {
     cvStarted: ["Téléchargement lancé", "Consultez vos téléchargements."],
     dark: ["Mode sombre", "Reposant pour les yeux."],
     light: ["Mode clair", "Lumineux et net."],
+    matrix: ["Mode Matrix", "Ambiance terminal vert."],
+    volt: ["Mode VoltX", "Électrique et net."],
     lang: ["Langue : Français", "Passé en français."],
   },
   ru: {
@@ -1078,6 +1096,8 @@ const MSG = {
     cvStarted: ["Загрузка началась", "Проверьте папку загрузок."],
     dark: ["Тёмная тема", "Приятна для глаз."],
     light: ["Светлая тема", "Светло и чисто."],
+    matrix: ["Тема Matrix", "Зелёный терминал."],
+    volt: ["Тема VoltX", "Электрично и резко."],
     lang: ["Язык: Русский", "Переключено на русский."],
   },
 };
