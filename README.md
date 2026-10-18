@@ -9,9 +9,10 @@ Based in **Kafr El Dawar, Egypt** 🇪🇬
 
 ## ✨ Features
 
-- **Dark / light theme** — follows the system on the first visit, then remembers the choice
+- **4 themes — Midnight, Matrix, VoltX and Light** — picked from flat pill buttons in the header (icon-only circles on small screens); follows the system dark / light on the first visit, then remembers the choice
 - **10 languages with a flag dropdown** — English, Arabic (RTL), Italian, Spanish, German, French, Russian, Korean, Japanese and Chinese; follows the browser language on the first visit, then remembers the choice
 - **Mobile menu**, scroll-progress bar and active-section highlight in the nav
+- **Skills as fanned neon glass cards** — three horizontal boards (languages, tools & engines, cybersecurity): swipe on touch, drag with the mouse, arrows or ← → keys, snap to a card, and the fan tilts and re-centres as you scroll; each card links to the tool's official site
 - **Typing role switcher**, animated stats counters and a skills ticker
 - **Collapsible project cards** (native `<details>`, no JS)
 - **Playable game inside the portfolio** — HAND PLATFORMER (hand-tracking platformer) opens in an overlay from the hero button or the project card (`/#play` opens it directly). The page and the game talk via `postMessage`: live level/score in the overlay header, score toasts in the notification island, and a best-score + top-5 board on the project card shared through `localStorage`
