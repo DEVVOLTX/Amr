@@ -4,23 +4,60 @@ const $$ = (sel, root = document) => [...root.querySelectorAll(sel)];
 const EMAIL = "amrt6509@gmail.com";
 const SITE = "https://amressam.is-a.dev/";
 
-/* ---------- Theme ---------- */
+/* ---------- Theme (Midnight / Matrix / VoltX / Light) ---------- */
 const themeBtn = $("#theme");
+const themeMenu = $("#theme-menu");
 const root = document.documentElement;
-const syncTheme = () => {
-  themeBtn.textContent = root.dataset.theme === "dark" ? "🌙" : "☀️";
+const THEME_ICO = {
+  moon: '<path d="M12 3a6 6 0 0 0 9 9 9 9 0 1 1-9-9Z"/>',
+  shield: '<path d="M20 13c0 5-3.5 7.5-7.66 8.95a1 1 0 0 1-.67-.01C7.5 20.5 4 18 4 13V6a1 1 0 0 1 1-1c2 0 4.5-1.2 6.24-2.72a1.17 1.17 0 0 1 1.52 0C14.51 3.81 17 5 19 5a1 1 0 0 1 1 1z"/>',
+  zap: '<path d="M4 14a1 1 0 0 1-.78-1.63l9.9-10.2a.5.5 0 0 1 .86.46l-1.92 6.02A1 1 0 0 0 13 10h7a1 1 0 0 1 .78 1.63l-9.9 10.2a.5.5 0 0 1-.86-.46l1.92-6.02A1 1 0 0 0 11 14z"/>',
+  sun: '<circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2M6.34 17.66l-1.41 1.41M19.07 4.93l-1.41 1.41"/>',
 };
-themeBtn.addEventListener("click", () => {
-  root.dataset.theme = root.dataset.theme === "dark" ? "light" : "dark";
+const THEMES = {
+  dark: { name: "Midnight", icon: "moon", color: "#070B0E" },
+  matrix: { name: "Matrix", icon: "shield", color: "#030A05" },
+  volt: { name: "VoltX", icon: "zap", color: "#0A0A05" },
+  light: { name: "Light", icon: "sun", color: "#EEF5F7" },
+};
+const setThemeMenu = (open) => {
+  themeMenu.hidden = !open;
+  themeBtn.setAttribute("aria-expanded", String(open));
+};
+const syncTheme = () => {
+  const t = THEMES[root.dataset.theme] ? root.dataset.theme : "dark";
+  themeBtn.innerHTML = `<svg viewBox="0 0 24 24" aria-hidden="true">${THEME_ICO[THEMES[t].icon]}</svg>`;
+  themeBtn.setAttribute("aria-label", "Theme: " + THEMES[t].name);
+  $$("[data-theme-opt]").forEach((b) =>
+    b.setAttribute("aria-checked", String(b.dataset.themeOpt === t)),
+  );
+  $$('meta[name="theme-color"]').forEach((el) => {
+    el.removeAttribute("media");
+    el.setAttribute("content", THEMES[t].color);
+  });
+};
+themeBtn.addEventListener("click", () => setThemeMenu(themeMenu.hidden));
+themeMenu.addEventListener("click", (e) => {
+  const opt = e.target.closest("[data-theme-opt]");
+  if (!opt) return;
+  const t = opt.dataset.themeOpt;
+  root.dataset.theme = t;
   try {
-    localStorage.setItem("theme", root.dataset.theme);
-  } catch (e) {}
+    localStorage.setItem("theme", t);
+  } catch (err) {}
   syncTheme();
+  setThemeMenu(false);
   if (typeof say === "function")
-    say(root.dataset.theme, "message", {
-      icon: root.dataset.theme === "dark" ? "moon" : "sun",
-      duration: 1800,
-    });
+    say(t, "message", { icon: THEMES[t].icon, duration: 1800 });
+});
+document.addEventListener("click", (e) => {
+  if (!themeMenu.hidden && !e.target.closest(".theme-wrap")) setThemeMenu(false);
+});
+document.addEventListener("keydown", (e) => {
+  if (e.key === "Escape" && !themeMenu.hidden) {
+    setThemeMenu(false);
+    themeBtn.focus();
+  }
 });
 syncTheme();
 
@@ -107,6 +144,8 @@ setLang(lang, false);
 const island = $("#island");
 const islCard = $(".isl-card", island);
 const ISL_ICONS = {
+  shield: THEME_ICO.shield,
+  zap: THEME_ICO.zap,
   /* 24x24 stroke icons (Lucide-style) */ check: '<path d="M20 6 9 17l-5-5"/>',
   up: '<path d="M12 19V5"/><path d="m5 12 7-7 7 7"/>',
   down: '<path d="M12 5v14"/><path d="m19 12-7 7-7-7"/>',
@@ -766,7 +805,7 @@ async function downloadCV(href) {
   cvBusy = false;
 }
 /* skill cards open the tool's official site; the island says where */
-$$("a.skill").forEach((a) =>
+$$("a.fan-card").forEach((a) =>
   a.addEventListener("click", () => {
     showIsland({
       type: "message",
@@ -1193,3 +1232,124 @@ cvModal.addEventListener("click", (e) => {
 document.addEventListener("keydown", (e) => {
   if (e.key === "Escape" && !cvModal.hidden) closeCvModal();
 });
+
+/* skills boards: swipe / drag horizontally, snap to a card, fan reshapes as it scrolls */
+(function () {
+  const reduce = matchMedia("(prefers-reduced-motion: reduce)").matches;
+  $$(".fan-stage").forEach((stage) => {
+    const wrap = stage.parentElement;
+    const cards = Array.from(stage.querySelectorAll(".fan-card"));
+    if (!cards.length) return;
+
+    const mk = (dir) => {
+      const b = document.createElement("button");
+      b.type = "button";
+      b.className = "fan-nav " + dir;
+      b.setAttribute("aria-label", dir === "prev" ? "Previous" : "Next");
+      b.innerHTML =
+        '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="' +
+        (dir === "prev" ? "M15 5l-7 7 7 7" : "M9 5l7 7-7 7") +
+        '"/></svg>';
+      wrap.appendChild(b);
+      return b;
+    };
+    const prev = mk("prev");
+    const next = mk("next");
+
+    const centerOf = (c) => c.offsetLeft + c.offsetWidth / 2;
+    const target = (i) => centerOf(cards[i]) - stage.clientWidth / 2;
+    const nearest = () => {
+      const mid = stage.scrollLeft + stage.clientWidth / 2;
+      let best = 0, bd = Infinity;
+      cards.forEach((c, i) => {
+        const d = Math.abs(centerOf(c) - mid);
+        if (d < bd) { bd = d; best = i; }
+      });
+      return best;
+    };
+    const goTo = (i) =>
+      stage.scrollTo({
+        left: target(Math.max(0, Math.min(cards.length - 1, i))),
+        behavior: reduce ? "auto" : "smooth",
+      });
+
+    /* scroll-linked fan: cards tilt, drop and dim with their distance from the centre */
+    let raf = 0;
+    const update = () => {
+      raf = 0;
+      const mid = stage.scrollLeft + stage.clientWidth / 2;
+      const step = cards.length > 1 ? cards[1].offsetLeft - cards[0].offsetLeft : cards[0].offsetWidth;
+      cards.forEach((c) => {
+        let d = (centerOf(c) - mid) / step;
+        d = Math.max(-3, Math.min(3, d));
+        const a = Math.abs(d);
+        c.style.setProperty("--r", (d * 6).toFixed(2) + "deg");
+        c.style.setProperty("--y", (0.6 * d * d).toFixed(2) + "em");
+        c.style.setProperty("--s", (1.04 - a * 0.05).toFixed(3));
+        c.style.setProperty("--o", (1 - a * 0.14).toFixed(3));
+        c.style.setProperty("--z", String(30 - Math.round(a * 5)));
+      });
+      const max = stage.scrollWidth - stage.clientWidth;
+      prev.hidden = stage.scrollLeft <= 4;
+      next.hidden = stage.scrollLeft >= max - 4;
+    };
+    const queue = () => { if (!raf) raf = requestAnimationFrame(update); };
+    stage.addEventListener("scroll", queue, { passive: true });
+    addEventListener("resize", queue);
+    prev.addEventListener("click", () => goTo(nearest() - 1));
+    next.addEventListener("click", () => goTo(nearest() + 1));
+    stage.addEventListener("keydown", (e) => {
+      if (e.key === "ArrowRight" || e.key === "ArrowLeft") {
+        e.preventDefault();
+        goTo(nearest() + (e.key === "ArrowRight" ? 1 : -1));
+      }
+    });
+
+    /* mouse drag (touch / trackpad already scroll natively and snap) */
+    let down = false, dragging = false, suppress = false;
+    let startX = 0, startLeft = 0, startIdx = 0, lastX = 0, lastT = 0, vel = 0;
+    stage.addEventListener("pointerdown", (e) => {
+      if (e.pointerType !== "mouse" || e.button !== 0) return;
+      down = true; dragging = false;
+      startX = lastX = e.clientX; startLeft = stage.scrollLeft;
+      startIdx = nearest(); lastT = performance.now(); vel = 0;
+    });
+    stage.addEventListener("pointermove", (e) => {
+      if (!down) return;
+      const dx = e.clientX - startX;
+      if (!dragging && Math.abs(dx) > 5) {
+        dragging = true;
+        stage.setPointerCapture(e.pointerId);
+        stage.classList.add("dragging");
+      }
+      if (!dragging) return;
+      const now = performance.now();
+      vel = (e.clientX - lastX) / Math.max(1, now - lastT);
+      lastX = e.clientX; lastT = now;
+      stage.scrollLeft = startLeft - dx;
+    });
+    const end = () => {
+      if (!down) return;
+      down = false;
+      if (!dragging) return;
+      dragging = false;
+      suppress = true;
+      setTimeout(() => (suppress = false), 60);
+      stage.classList.remove("dragging");
+      let i = nearest();
+      if (Math.abs(vel) > 0.5 && i === startIdx) i += vel < 0 ? 1 : -1;
+      goTo(i);
+    };
+    stage.addEventListener("pointerup", end);
+    stage.addEventListener("pointercancel", end);
+    stage.addEventListener("click", (e) => {
+      if (suppress) { e.preventDefault(); e.stopPropagation(); suppress = false; }
+    }, true);
+    stage.addEventListener("dragstart", (e) => e.preventDefault());
+
+    /* start with the middle card centred, so the fan looks balanced */
+    stage.classList.add("live");
+    stage.scrollLeft = target(Math.floor((cards.length - 1) / 2));
+    update();
+  });
+})();
