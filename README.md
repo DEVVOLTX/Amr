@@ -9,6 +9,7 @@ Based in **Kafr El Dawar, Egypt** 🇪🇬
 
 ## ✨ Features
 
+- **Contact profile card** — a neumorphic card with the avatar, name and role; its button fans the social icons (Instagram, GitHub, TikTok, X, Discord, Telegram) out in an arc
 - **4 themes — Midnight, Matrix, VoltX and Light** — picked from flat pill buttons in the header (icon-only circles on small screens); follows the system dark / light on the first visit, then remembers the choice
 - **10 languages with a flag dropdown** — English, Arabic (RTL), Italian, Spanish, German, French, Russian, Korean, Japanese and Chinese; follows the browser language on the first visit, then remembers the choice
 - **Mobile menu**, scroll-progress bar and active-section highlight in the nav
