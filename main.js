@@ -1353,3 +1353,25 @@ document.addEventListener("keydown", (e) => {
     update();
   });
 })();
+
+/* contact profile card: the button fans the social icons out in an arc */
+(function () {
+  const pc = $("#pc");
+  if (!pc) return;
+  const btn = $(".pc-toggle", pc);
+  const set = (open) => {
+    pc.classList.toggle("open", open);
+    btn.setAttribute("aria-expanded", String(open));
+    btn.setAttribute("aria-label", open ? "Hide social links" : "Show social links");
+  };
+  btn.addEventListener("click", () => set(!pc.classList.contains("open")));
+  document.addEventListener("click", (e) => {
+    if (pc.classList.contains("open") && !e.target.closest("#pc")) set(false);
+  });
+  document.addEventListener("keydown", (e) => {
+    if (e.key === "Escape" && pc.classList.contains("open")) {
+      set(false);
+      btn.focus();
+    }
+  });
+})();
