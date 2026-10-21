@@ -15,7 +15,7 @@
   --ice-rgb: 185, 220, 229;
   --mono: "JetBrains Mono", ui-monospace, monospace;
   --sans: "Inter", system-ui, sans-serif;
-  --r: 12px;
+  --r: 16px;
 }
 [data-theme="light"] {
   --bg: #eef5f7;
@@ -450,15 +450,17 @@ nav {
   margin-right: 0.5rem;
 }
 .card {
-  background: var(--card);
+  background: linear-gradient(160deg, rgba(255, 255, 255, 0.05), rgba(255, 255, 255, 0) 45%), var(--card);
   border: 1px solid var(--border);
   border-radius: var(--r);
   transition:
     border-color 0.25s,
-    transform 0.25s;
+    transform 0.25s,
+    box-shadow 0.25s;
 }
 .card:hover {
   border-color: var(--teal);
+  box-shadow: 0 18px 40px -24px rgba(var(--accent-rgb), 0.5);
 }
 .grid {
   display: grid;
@@ -1076,23 +1078,6 @@ body.lb-open {
 #contact .row {
   justify-content: center;
   margin-top: 1.5rem;
-}
-.socials {
-  margin-top: 2rem;
-}
-.socials a {
-  font: 0.7rem var(--mono);
-  letter-spacing: 0.1em;
-  padding: 0.55rem 1.1rem;
-  border: 1px solid var(--border);
-  border-radius: 30px;
-  color: var(--dim);
-  transition: 0.2s;
-}
-.socials a:hover {
-  color: var(--accent);
-  border-color: var(--accent);
-  transform: translateY(-3px);
 }
 footer {
   text-align: center;
@@ -1805,7 +1790,6 @@ body.menu-open {
 [lang="ar"] .badge,
 [lang="ar"] .cert small,
 [lang="ar"] footer,
-[lang="ar"] .socials a,
 [lang="ar"] .tag-line {
   letter-spacing: 0;
 }
@@ -1844,7 +1828,7 @@ dialog .icon-btn[hidden] {
   .ticker,
   .stats,
   .row,
-  .socials,
+  .pc-wrap,
   dialog,
   .cert-preview,
   .flip,
@@ -2389,8 +2373,8 @@ body.game-open {
 
 /* ===== Skills: fanned neon glass cards — horizontal boards (drag / swipe / snap) ===== */
 .fan-wrap{position:relative;margin:0 0 .5rem}
-.fan-stage{container-type:inline-size;position:relative;direction:ltr;border-radius:clamp(24px,4vw,36px);border:1px solid rgba(255,255,255,.08);
-  background:radial-gradient(ellipse 60% 70% at 50% 40%,rgba(120,90,255,.10),transparent 70%),#05060a;
+.fan-stage{container-type:inline-size;position:relative;direction:ltr;border-radius:clamp(24px,4vw,36px);border:1px solid rgba(var(--ice-rgb),.14);
+  background:radial-gradient(ellipse 60% 70% at 50% 40%,rgba(var(--accent-rgb),.12),transparent 70%),#05060a;
   box-shadow:inset 0 1px 0 rgba(255,255,255,.06),0 30px 60px -30px rgba(0,0,0,.85);
   overflow-x:auto;overflow-y:hidden;overscroll-behavior-x:contain;scroll-snap-type:x mandatory;
   scrollbar-width:none;-webkit-overflow-scrolling:touch}
@@ -2525,6 +2509,216 @@ body.game-open {
     animation: none;
   }
   .theme-pill {
+    transition: none;
+  }
+}
+
+/* ===== Contact: profile card (button fans the socials out in an arc) ===== */
+.pc-wrap {
+  display: flex;
+  justify-content: center;
+  margin-top: 3rem;
+}
+.pc {
+  --R: 5.2rem;
+  --ico: 2.6rem;
+  --pc-bg: var(--bg2);
+  --pc-ink: var(--fg);
+  --pc-dim: var(--dim);
+  --pc-sh-d: rgba(0, 0, 0, 0.55);
+  --pc-sh-l: rgba(255, 255, 255, 0.045);
+  --pc-btn: var(--accent);
+  --pc-btn-ink: var(--bg);
+  --pc-ring: var(--bg);
+  position: relative;
+  direction: ltr;
+  width: min(22rem, calc(100% - 4rem));
+  text-align: start;
+}
+[data-theme="light"] .pc {
+  --pc-bg: #f6fafb;
+  --pc-sh-d: rgba(110, 145, 155, 0.38);
+  --pc-sh-l: rgba(255, 255, 255, 0.95);
+  --pc-btn: #070b0e;
+  --pc-btn-ink: #fff;
+  --pc-ring: #fff;
+}
+.pc-card {
+  position: relative;
+  z-index: 1;
+  height: 5rem;
+  display: flex;
+  align-items: center;
+  padding: 0 1.2rem 0 6.1rem;
+  border-radius: 2.5rem 1rem 1rem 2.5rem;
+  background: var(--pc-bg);
+  box-shadow: 8px 8px 20px var(--pc-sh-d), -6px -6px 16px var(--pc-sh-l);
+}
+.pc-avatar {
+  position: absolute;
+  left: -0.9rem;
+  top: 50%;
+  width: 5.6rem;
+  height: 5.6rem;
+  margin-top: -2.8rem;
+  border-radius: 50%;
+  object-fit: cover;
+  image-rendering: pixelated;
+  background: #000;
+  border: 3px solid var(--pc-ring);
+  box-shadow: 4px 4px 12px var(--pc-sh-d);
+}
+.pc-info {
+  display: flex;
+  flex-direction: column;
+  gap: 0.15rem;
+  min-width: 0;
+  margin-inline-end: auto;
+  unicode-bidi: plaintext;
+}
+.pc-name {
+  font: 800 1.05rem/1.2 var(--sans);
+  color: var(--pc-ink);
+}
+.pc-role {
+  font: 500 0.78rem/1.3 var(--sans);
+  color: var(--pc-dim);
+}
+.pc-toggle {
+  flex: none;
+  position: relative;
+  width: 2.6rem;
+  height: 2.6rem;
+  margin-left: 0.6rem;
+  border: 0;
+  border-radius: 50%;
+  background: var(--pc-btn);
+  color: var(--pc-btn-ink);
+  cursor: pointer;
+  transition: transform 0.2s;
+}
+.pc-toggle:hover {
+  transform: scale(1.06);
+}
+.pc-toggle:focus-visible,
+.pc-ico:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 3px;
+}
+.pc-toggle i {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  width: 1.1rem;
+  height: 2px;
+  margin-left: -0.55rem;
+  border-radius: 2px;
+  background: currentColor;
+  transition: transform 0.3s, opacity 0.2s;
+}
+.pc-toggle i:nth-child(1) {
+  transform: translateY(-5px);
+}
+.pc-toggle i:nth-child(3) {
+  transform: translateY(5px);
+}
+.pc.open .pc-toggle i:nth-child(1) {
+  transform: rotate(45deg);
+}
+.pc.open .pc-toggle i:nth-child(2) {
+  opacity: 0;
+}
+.pc.open .pc-toggle i:nth-child(3) {
+  transform: rotate(-45deg);
+}
+/* halo behind the button + the arc of icons, both centred on the button */
+.pc-halo {
+  position: absolute;
+  z-index: 0;
+  top: 50%;
+  right: calc(2.5rem - 3.4rem);
+  width: 6.8rem;
+  height: 6.8rem;
+  margin-top: -3.4rem;
+  border-radius: 50%;
+  background: var(--pc-bg);
+  box-shadow: 6px 6px 16px var(--pc-sh-d), -4px -4px 12px var(--pc-sh-l);
+  opacity: 0;
+  transform: scale(0.4);
+  transition: transform 0.4s cubic-bezier(0.34, 1.56, 0.64, 1), opacity 0.3s;
+}
+.pc.open .pc-halo {
+  opacity: 0.85;
+  transform: scale(1);
+}
+.pc-social {
+  position: absolute;
+  z-index: 2;
+  top: 50%;
+  right: 2.5rem;
+  width: 0;
+  height: 0;
+  list-style: none;
+}
+.pc-social li {
+  position: absolute;
+  left: calc(var(--ico) / -2);
+  top: calc(var(--ico) / -2);
+  width: var(--ico);
+  height: var(--ico);
+  opacity: 0;
+  visibility: hidden;
+  transform: translate(0, 0) scale(0.3);
+  transition:
+    transform 0.45s cubic-bezier(0.34, 1.56, 0.64, 1) calc((5 - var(--i)) * 35ms),
+    opacity 0.25s calc((5 - var(--i)) * 35ms),
+    visibility 0s linear 0.5s;
+}
+.pc.open .pc-social li {
+  opacity: 1;
+  visibility: visible;
+  transform: translate(calc(var(--cx) * var(--R)), calc(var(--cy) * var(--R))) scale(1);
+  transition-delay: calc(var(--i) * 45ms), calc(var(--i) * 45ms), 0s;
+}
+.pc-ico {
+  width: 100%;
+  height: 100%;
+  display: grid;
+  place-items: center;
+  border-radius: 50%;
+  color: var(--pc-ink);
+  background: var(--pc-bg);
+  box-shadow: 4px 4px 10px var(--pc-sh-d), -3px -3px 8px var(--pc-sh-l);
+  transition: background 0.2s, color 0.2s, transform 0.2s;
+}
+.pc-ico:hover {
+  background: var(--pc-btn);
+  color: var(--pc-btn-ink);
+  transform: scale(1.1);
+}
+.pc-svg {
+  width: 1.15rem;
+  height: 1.15rem;
+}
+@media (max-width: 520px) {
+  .pc {
+    --R: 4rem;
+    --ico: 2.3rem;
+    width: calc(100% - 4rem);
+  }
+  .pc-halo {
+    right: calc(2.5rem - 2.9rem);
+    width: 5.8rem;
+    height: 5.8rem;
+    margin-top: -2.9rem;
+  }
+}
+@media (prefers-reduced-motion: reduce) {
+  .pc-halo,
+  .pc-social li,
+  .pc-toggle i,
+  .pc-ico,
+  .pc-toggle {
     transition: none;
   }
 }
