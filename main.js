@@ -363,6 +363,8 @@ function paintZoom(animate) {
   lbImg.style.transform = `translate(${Z.x}px, ${Z.y}px) scale(${Z.s})`;
   lightbox.classList.toggle("zoomed", zoomed());
   $("#lb-zoom").setAttribute("aria-label", zoomed() ? "Zoom out" : "Zoom in");
+  $("#lb-zlevel").textContent = `${Math.round(Z.s * 100)}%`;
+  if (lightbox.open) schedule(); // slideshow waits while zoomed in
 }
 function zoomAt(cx, cy, ns, animate = true) {
   // keeps the point under (cx, cy) fixed
@@ -399,6 +401,10 @@ function showSlide(dir = 0) {
   lbImg.onload = lbImg.onerror = () => lightbox.classList.remove("loading");
   lbImg.src = it.src;
   lbImg.alt = it.alt || "";
+  lightbox.style.setProperty("--lb-bg", `url("${it.src}")`);
+  const dl = $("#lb-dl");
+  dl.href = it.src;
+  dl.setAttribute("download", it.src.split("/").pop());
   if (lbImg.complete && lbImg.naturalWidth)
     lightbox.classList.remove("loading");
   if (dir && !lbReduce)
@@ -433,7 +439,42 @@ function showSlide(dir = 0) {
     const nx = current[(index + d + n) % n];
     if (nx) new Image().src = nx.src;
   });
+  $("#lb-play").hidden = n < 2;
+  schedule();
 }
+
+/* slideshow: auto-advance every few seconds, waits while zoomed, stops on close */
+const SLIDE_MS = 3500;
+let playing = false,
+  slideTimer = 0;
+function schedule() {
+  clearTimeout(slideTimer);
+  lightbox.classList.toggle("playing", playing);
+  if (!playing || !lightbox.open || zoomed() || current.length < 2) return;
+  lightbox.style.setProperty("--lb-dur", `${SLIDE_MS}ms`);
+  // restart the progress bar animation
+  const bar = $("#lb-bar");
+  bar.style.animation = "none";
+  void bar.offsetWidth;
+  bar.style.animation = "";
+  slideTimer = setTimeout(() => step(1), SLIDE_MS);
+}
+const setPlaying = (on) => {
+  playing = on && current.length > 1;
+  $("#lb-play").setAttribute(
+    "aria-label",
+    playing ? "Pause slideshow" : "Start slideshow",
+  );
+  schedule();
+};
+const toggleFullscreen = () => {
+  if (!document.fullscreenEnabled) return;
+  if (document.fullscreenElement) document.exitFullscreen();
+  else document.documentElement.requestFullscreen().catch(() => {});
+};
+if (!document.fullscreenEnabled) $("#lb-fs").hidden = true;
+$("#lb-play").addEventListener("click", () => setPlaying(!playing));
+$("#lb-fs").addEventListener("click", toggleFullscreen);
 function openLightbox(items, i) {
   current = items;
   index = i;
@@ -447,6 +488,7 @@ function openLightbox(items, i) {
           .join("")
       : "";
   lbThumbs.hidden = items.length < 2;
+  playing = false;
   showSlide();
   if (lightbox.showModal) {
     lightbox.showModal();
@@ -464,19 +506,73 @@ const step = (dir) => {
 };
 
 function renderGallery(id, items) {
-  const box = $(id);
-  box.innerHTML = items
-    .map(
-      (it, i) => `
-    <button class="shot${it.wide ? " wide" : ""}" data-i="${i}" aria-label="Open ${it.alt}">
-      <img src="${it.src}" alt="${it.alt}" loading="lazy" decoding="async">
+  const box = $(id),
+    n = items.length,
+    isCar = box.classList.contains("cars");
+  const tile = (it, i, dup) => `
+    <button class="shot${it.wide ? " wide" : ""}" data-i="${i}"${dup ? ' data-dup aria-hidden="true" tabindex="-1"' : ""} aria-label="Open ${it.alt}">
+      <img src="${it.src}" alt="${dup ? "" : it.alt}" loading="lazy" decoding="async">
       <span class="cap">${it.tag ? `<small>${it.tag}</small>` : ""}${it.caption || "⤢ VIEW"}${it.desc ? `<em>${it.desc}</em>` : ""}</span>
-    </button>`,
-    )
-    .join("");
+    </button>`;
+  const all = items.map((it, i) => tile(it, i, false)).join("");
+  // car carousel: the set is rendered twice so the CSS loop (-50%) is seamless
+  box.innerHTML = isCar
+    ? `<div class="track">${all}${items.map((it, i) => tile(it, i, true)).join("")}</div>`
+    : all;
+  if (isCar) box.style.setProperty("--dur", `${n * 5}s`);
+  // skeleton shimmer on each tile until its image has loaded
+  box.querySelectorAll(".shot").forEach((s) => {
+    const img = s.querySelector("img"),
+      ok = () => s.classList.add("ready");
+    if (img.complete && img.naturalWidth) ok();
+    else {
+      img.addEventListener("load", ok, { once: true });
+      img.addEventListener("error", ok, { once: true });
+    }
+  });
+  let raised = null,
+    ptype = "mouse";
+  const raise = (b) => {
+    if (raised && raised !== b) raised.classList.remove("hv");
+    raised = b;
+    if (b) b.classList.add("hv");
+    if (isCar) box.classList.toggle("paused", !!b);
+  };
+  const shotOf = (e) => e.target.closest(".shot");
+  const reset = () => raise(null);
+  box.addEventListener("pointerdown", (e) => (ptype = e.pointerType));
+  // mouse: hover raises a card (and pauses the carousel); double-click opens the lightbox
+  box.addEventListener("pointerover", (e) => {
+    if (e.pointerType !== "mouse") return;
+    const b = shotOf(e);
+    if (b) raise(b);
+  });
+  box.addEventListener("pointerleave", (e) => {
+    if (e.pointerType === "mouse") reset();
+  });
+  box.addEventListener("dblclick", (e) => {
+    const b = shotOf(e);
+    if (b) openLightbox(items, +b.dataset.i);
+  });
+  // touch/pen: 1st tap raises a card (carousel pauses), tapping the raised card again opens the lightbox.
+  // keyboard (Enter/Space, detail 0): opens straight away
   box.addEventListener("click", (e) => {
-    const btn = e.target.closest(".shot");
-    if (btn) openLightbox(items, +btn.dataset.i);
+    const b = shotOf(e);
+    if (!b) return;
+    if (e.detail === 0) return openLightbox(items, +b.dataset.i);
+    if (ptype === "mouse") return;
+    if (b === raised) openLightbox(items, +b.dataset.i);
+    else raise(b);
+  });
+  box.addEventListener("focusin", (e) => {
+    const b = shotOf(e);
+    if (b && e.target.matches(":focus-visible")) raise(b);
+  });
+  box.addEventListener("focusout", (e) => {
+    if (!box.contains(e.relatedTarget)) reset();
+  });
+  document.addEventListener("pointerdown", (e) => {
+    if (!box.contains(e.target)) reset();
   });
 }
 renderGallery("#logos", logos);
@@ -600,6 +696,8 @@ lightbox.addEventListener("click", (e) => {
   if (e.target === lightbox) lightbox.close();
 });
 lightbox.addEventListener("close", () => {
+  setPlaying(false);
+  if (document.fullscreenElement) document.exitFullscreen().catch(() => {});
   document.body.classList.remove("lb-open");
   resetFrame(false);
   ptrs.clear();
@@ -627,6 +725,11 @@ document.addEventListener("keydown", (e) => {
   else if (k === "+" || k === "=") zoomCentre(Z.s * 1.5);
   else if (k === "-") zoomCentre(Z.s / 1.5);
   else if (k === "0") zoomAt(0, 0, 1);
+  else if (k === "f" || k === "F") toggleFullscreen();
+  else if (k === "s" || k === "S" || (k === " " && !e.target.closest("button, a"))) {
+    e.preventDefault();
+    setPlaying(!playing);
+  } else if (k === "d" || k === "D") $("#lb-dl").click();
 });
 
 /* ---------- Certificate flip (front / back) ---------- */
@@ -1374,4 +1477,19 @@ document.addEventListener("keydown", (e) => {
       btn.focus();
     }
   });
+})();
+
+
+/* ---------- Skeleton loader: fade out once the page has loaded (min ~0.9s so it never flashes) ---------- */
+(() => {
+  const L = $("#loader");
+  if (!L) return;
+  const hide = () => {
+    L.classList.add("done");
+    setTimeout(() => L.remove(), 700);
+  };
+  const go = () => setTimeout(hide, Math.max(0, 900 - performance.now()));
+  if (document.readyState === "complete") go();
+  else addEventListener("load", go, { once: true });
+  setTimeout(hide, 5000); // safety net on very slow connections
 })();

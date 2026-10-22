@@ -150,8 +150,30 @@
     <div id="progress" aria-hidden="true"></div>
     <div id="menu-backdrop" aria-hidden="true"></div>
     <div id="loader" aria-hidden="true">
-      <b data-i18n="loader">A.<span>ESSAM</span></b
-      ><i></i>
+      <div class="sk-nav">
+        <i class="sk sk-logo"></i>
+        <span class="sk-links"
+          ><i class="sk"></i><i class="sk"></i><i class="sk"></i
+          ><i class="sk"></i
+        ></span>
+        <i class="sk sk-pill"></i>
+      </div>
+      <div class="sk-page">
+        <div class="sk-hero">
+          <i class="sk sk-avatar"></i>
+          <i class="sk sk-tag"></i>
+          <i class="sk sk-h1"></i>
+          <i class="sk sk-h1 w70"></i>
+          <i class="sk sk-line"></i>
+          <i class="sk sk-line w80"></i>
+          <div class="sk-row"><i class="sk sk-btn"></i><i class="sk sk-btn"></i></div>
+          <div class="sk-stats"><i class="sk sk-stat"></i><i class="sk sk-stat"></i><i class="sk sk-stat"></i><i class="sk sk-stat"></i></div>
+        </div>
+        <i class="sk sk-label"></i>
+        <div class="sk-cards"><i class="sk sk-card"></i><i class="sk sk-card"></i><i class="sk sk-card"></i></div>
+        <i class="sk sk-label"></i>
+        <div class="sk-tiles"><i class="sk"></i><i class="sk"></i><i class="sk"></i><i class="sk"></i><i class="sk"></i><i class="sk"></i></div>
+      </div>
     </div>
     <div id="island" role="status" aria-live="polite" aria-atomic="true">
       <div class="isl-card">
@@ -1255,11 +1277,16 @@
     <dialog id="lightbox" aria-label="Image viewer">
       <div class="lb-top">
         <span id="lb-count" aria-live="polite"></span>
+        <button class="icon-btn" id="lb-play" type="button" aria-label="Start slideshow" title="Slideshow (S)">
+          <svg class="i-play" viewBox="0 0 24 24" width="19" height="19" fill="currentColor" aria-hidden="true"><path d="M8 5.5v13l11-6.5z" /></svg>
+          <svg class="i-pause" viewBox="0 0 24 24" width="19" height="19" fill="currentColor" aria-hidden="true"><path d="M7 5h3.5v14H7zM13.5 5H17v14h-3.5z" /></svg>
+        </button>
         <button
           class="icon-btn"
           id="lb-zoom"
           type="button"
           aria-label="Zoom in"
+          title="Zoom (+ / -)"
         >
           <svg
             viewBox="0 0 24 24"
@@ -1276,9 +1303,16 @@
             <path class="lb-plus" d="M11 8v6" />
           </svg>
         </button>
-        <button class="icon-btn" id="lb-close" type="button" aria-label="Close">
+        <button class="icon-btn" id="lb-fs" type="button" aria-label="Full screen" title="Full screen (F)">
+          <svg viewBox="0 0 24 24" width="19" height="19" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 9V4h5M20 9V4h-5M4 15v5h5M20 15v5h-5" /></svg>
+        </button>
+        <a class="icon-btn" id="lb-dl" download aria-label="Download image" title="Download (D)">
+          <svg viewBox="0 0 24 24" width="19" height="19" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 4v11M7.5 10.5L12 15l4.5-4.5M5 19.5h14" /></svg>
+        </a>
+        <button class="icon-btn" id="lb-close" type="button" aria-label="Close" title="Close (Esc)">
           ✕
         </button>
+        <span class="lb-bar" id="lb-bar" aria-hidden="true"></span>
       </div>
       <button
         class="icon-btn lb-nav"
@@ -1290,6 +1324,7 @@
       </button>
       <figure class="lb-stage" id="lb-stage">
         <span class="lb-spin" aria-hidden="true"></span>
+        <span class="lb-zlevel" id="lb-zlevel" aria-hidden="true"></span>
         <div class="lb-frame" id="lb-frame">
           <img id="lb-img" alt="" draggable="false" />
         </div>
