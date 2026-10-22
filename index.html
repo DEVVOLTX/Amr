@@ -1,9 +1,9 @@
 <!doctype html>
-<html lang="en" data-theme="dark">
+<html lang="en">
   <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <title>Amr Essam — Full-Stack Developer & Creative Designer</title>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+<title>Amr Essam | Full-Stack Developer, Game Dev &amp; Cybersecurity</title>
     <meta
       name="description"
       content="Amr Essam is a Software Engineering student from Kafr El Dawar, Egypt. Full-Stack Developer, Game Developer, Cybersecurity Enthusiast & Graphic Designer."
@@ -102,9 +102,25 @@
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link
+      rel="preload"
+      as="image"
+      href="images/avatar-250.webp"
+      imagesrcset="images/avatar-250.webp 1x, images/avatar-500.webp 2x"
+      fetchpriority="high"
+    />
+    <!-- fonts load without blocking first paint (system fonts show until they arrive) -->
+    <link
       rel="stylesheet"
       href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;700&family=Inter:wght@400;700;900&family=Cairo:wght@400;700;900&display=swap"
+      media="print"
+      onload="this.media='all'"
     />
+    <noscript>
+      <link
+        rel="stylesheet"
+        href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;700&family=Inter:wght@400;700;900&family=Cairo:wght@400;700;900&display=swap"
+      />
+    </noscript>
     <link rel="stylesheet" href="style.css" />
     <script>
       /* runs before paint: restores theme + language (first visit follows the system / browser), enables reveal animations */
@@ -144,6 +160,7 @@
       } catch (e) {}
       de.classList.add("js");
     </script>
+
   </head>
   <body>
     <a class="skip" href="#hero">Skip to content</a>
@@ -280,7 +297,8 @@
       <section class="wrap hero" id="hero">
         <div class="avatar" data-rise style="--i: 4">
           <img
-            src="images/avatar.png"
+            src="images/avatar-250.webp"
+            srcset="images/avatar-250.webp 1x, images/avatar-500.webp 2x"
             alt="Amr Essam profile photo"
             width="250"
             height="250"
@@ -389,239 +407,12 @@
       <!-- 02 PROJECTS -->
       <section class="wrap" id="projects">
         <h2 class="label" data-i18n="lbl_projects"><b>02 /</b>PROJECTS</h2>
-        <div class="reveal">
-          <details class="card project" open>
+        <div class="reveal" id="project-list">
+          <details class="card project" id="game-project" open>
             <summary>
               <span class="num">01</span>
-              <h3>ANDERMAGIC</h3>
-            </summary>
-            <div class="proj-body">
-              <h4 data-i18n="p1_h">
-                A challenging 2D platformer built for precision and skill.
-              </h4>
-              <p data-i18n="p1_p">
-                Designed all mechanics, levels, and artwork solo using Godot 4.6
-                and GDScript. Published on GitHub.
-              </p>
-              <a
-                class="btn ghost sm"
-                href="https://github.com/DEVVOLTX"
-                target="_blank"
-                rel="noopener"
-                data-i18n="btn_gh"
-                >⬡ GITHUB PROFILE</a
-              >
-              <dl class="meta">
-                <div>
-                  <dt data-i18n="m_year">YEAR</dt>
-                  <dd>2024</dd>
-                </div>
-                <div>
-                  <dt data-i18n="m_type">TYPE</dt>
-                  <dd data-i18n="t_game">Game Development</dd>
-                </div>
-              </dl>
-              <ul class="tags">
-                <li>GODOT 4.6</li>
-                <li>GDSCRIPT</li>
-                <li>2D PLATFORMER</li>
-                <li>SOLO DEV</li>
-              </ul>
-            </div>
-          </details>
-
-          <details class="card project">
-            <summary>
-              <span class="num">02</span>
-              <h3>HIDE AND SINK</h3>
-            </summary>
-            <div class="proj-body">
-              <h4 data-i18n="p2_h">
-                A multiplayer game of strategy and deception.
-              </h4>
-              <p data-i18n="p2_p">
-                Players outwit each other using misdirection and timing.
-                Co-developed with a partner for real-time multiplayer. Live on
-                Itch.io.
-              </p>
-              <a
-                class="btn ghost sm"
-                href="https://github.com/DEVVOLTX"
-                target="_blank"
-                rel="noopener"
-                data-i18n="btn_gh"
-                >⬡ GITHUB PROFILE</a
-              >
-              <dl class="meta">
-                <div>
-                  <dt data-i18n="m_year">YEAR</dt>
-                  <dd>2024</dd>
-                </div>
-                <div>
-                  <dt data-i18n="m_type">TYPE</dt>
-                  <dd data-i18n="t_game">Game Development</dd>
-                </div>
-              </dl>
-              <ul class="tags">
-                <li>MULTIPLAYER</li>
-                <li>CO-DEV</li>
-                <li>GAME DESIGN</li>
-                <li>ITCH.IO</li>
-              </ul>
-            </div>
-          </details>
-
-          <details class="card project">
-            <summary>
-              <span class="num">03</span>
-              <h3>CAR-WASH BOOKING</h3>
-            </summary>
-            <div class="proj-body">
-              <h4 data-i18n="p3_h">A full-stack reservation system.</h4>
-              <p data-i18n="p3_p">
-                Customers book slots, staff manage schedules. Built with PHP,
-                JavaScript, and MySQL, with a full admin panel.
-              </p>
-              <a
-                class="btn ghost sm"
-                href="https://github.com/DEVVOLTX"
-                target="_blank"
-                rel="noopener"
-                data-i18n="btn_gh"
-                >⬡ GITHUB PROFILE</a
-              >
-              <dl class="meta">
-                <div>
-                  <dt data-i18n="m_year">YEAR</dt>
-                  <dd>2024</dd>
-                </div>
-                <div>
-                  <dt data-i18n="m_type">TYPE</dt>
-                  <dd data-i18n="t_full">Full-Stack Web</dd>
-                </div>
-              </dl>
-              <ul class="tags">
-                <li>PHP</li>
-                <li>JAVASCRIPT</li>
-                <li>MYSQL</li>
-                <li>HTML/CSS</li>
-              </ul>
-            </div>
-          </details>
-
-          <details class="card project">
-            <summary>
-              <span class="num">04</span>
-              <h3>SALAH STORE</h3>
-            </summary>
-            <div class="proj-body">
-              <a
-                class="preview"
-                href="https://devvoltx.github.io/TR_SALAH_Gaming_Site_v2/"
-                target="_blank"
-                rel="noopener"
-                aria-label="Open SALAH STORE live demo (opens in a new tab)"
-              >
-                <img
-                  src="images/salahstore.jpg"
-                  alt="SALAH STORE gaming top-up website preview"
-                  loading="lazy"
-                  decoding="async"
-                />
-              </a>
-              <h4 data-i18n="p4_h">
-                A gaming top-up storefront with instant delivery.
-              </h4>
-              <p data-i18n="p4_p">
-                Free Fire, eFootball and more. Arabic-first dark UI with a live
-                status indicator, animated ticker, and direct WhatsApp ordering.
-              </p>
-              <a
-                class="btn ghost sm"
-                href="https://devvoltx.github.io/TR_SALAH_Gaming_Site_v2/"
-                target="_blank"
-                rel="noopener"
-                data-i18n="btn_demo"
-                >↗ LIVE DEMO</a
-              >
-              <dl class="meta">
-                <div>
-                  <dt data-i18n="m_year">YEAR</dt>
-                  <dd>2026</dd>
-                </div>
-                <div>
-                  <dt data-i18n="m_type">TYPE</dt>
-                  <dd data-i18n="t_store">Web / Storefront</dd>
-                </div>
-              </dl>
-              <ul class="tags">
-                <li>HTML/CSS</li>
-                <li>JAVASCRIPT</li>
-                <li>ARABIC UI</li>
-                <li>GAMING</li>
-              </ul>
-            </div>
-          </details>
-
-          <details class="card project">
-            <summary>
-              <span class="num">05</span>
-              <h3>AGE CALCULATOR</h3>
-            </summary>
-            <div class="proj-body">
-              <a
-                class="preview"
-                href="https://devvoltx.github.io/Age-Calculator-v1/"
-                target="_blank"
-                rel="noopener"
-                aria-label="Open AGE CALCULATOR live demo (opens in a new tab)"
-              >
-                <img
-                  src="images/age-calculator.jpg"
-                  alt="Age Calculator Arabic web app preview"
-                  loading="lazy"
-                  decoding="async"
-                />
-              </a>
-              <h4 data-i18n="p5_h">
-                An Arabic age calculator with Gregorian and Hijri dates.
-              </h4>
-              <p data-i18n="p5_p">
-                Live birthday countdown, pet-to-human age converter, and a
-                date-difference tool. Dark and light themes, fully responsive,
-                built with vanilla JavaScript.
-              </p>
-              <a
-                class="btn ghost sm"
-                href="https://devvoltx.github.io/Age-Calculator-v1/"
-                target="_blank"
-                rel="noopener"
-                data-i18n="btn_demo"
-                >↗ LIVE DEMO</a
-              >
-              <dl class="meta">
-                <div>
-                  <dt data-i18n="m_year">YEAR</dt>
-                  <dd>2026</dd>
-                </div>
-                <div>
-                  <dt data-i18n="m_type">TYPE</dt>
-                  <dd data-i18n="t_tool">Web / Tool</dd>
-                </div>
-              </dl>
-              <ul class="tags">
-                <li>HTML/CSS</li>
-                <li>JAVASCRIPT</li>
-                <li>ARABIC UI</li>
-                <li>HIJRI CALENDAR</li>
-              </ul>
-            </div>
-          </details>
-
-          <details class="card project" id="game-project">
-            <summary>
-              <span class="num">06</span>
               <h3>HAND PLATFORMER</h3>
+              <span class="sum-meta"><span class="pill" data-i18n="t_gamecv">Game / Computer Vision</span><time datetime="2026">2026</time></span>
             </summary>
             <div class="proj-body">
               <button
@@ -833,6 +624,249 @@
               </ul>
             </div>
           </details>
+
+          <details class="card project">
+            <summary>
+              <span class="num">02</span>
+              <h3>AGE CALCULATOR</h3>
+              <span class="sum-meta"><span class="pill" data-i18n="t_tool">Web / Tool</span><time datetime="2026">2026</time></span>
+            </summary>
+            <div class="proj-body">
+              <a
+                class="preview"
+                href="https://devvoltx.github.io/Age-Calculator-v1/"
+                target="_blank"
+                rel="noopener"
+                aria-label="Open AGE CALCULATOR live demo (opens in a new tab)"
+              >
+                <img
+                  src="images/age-calculator.webp"
+                  alt="Age Calculator Arabic web app preview"
+                  loading="lazy"
+                  decoding="async"
+                />
+              </a>
+              <h4 data-i18n="p5_h">
+                An Arabic age calculator with Gregorian and Hijri dates.
+              </h4>
+              <p data-i18n="p5_p">
+                Live birthday countdown, pet-to-human age converter, and a
+                date-difference tool. Dark and light themes, fully responsive,
+                built with vanilla JavaScript.
+              </p>
+              <div class="proj-actions">
+              <a
+                class="btn ghost sm"
+                href="https://devvoltx.github.io/Age-Calculator-v1/"
+                target="_blank"
+                rel="noopener"
+                data-i18n="btn_demo"
+                >↗ LIVE DEMO</a
+              >
+              </div>
+              <dl class="meta">
+                <div>
+                  <dt data-i18n="m_year">YEAR</dt>
+                  <dd>2026</dd>
+                </div>
+                <div>
+                  <dt data-i18n="m_type">TYPE</dt>
+                  <dd data-i18n="t_tool">Web / Tool</dd>
+                </div>
+              </dl>
+              <ul class="tags">
+                <li>HTML/CSS</li>
+                <li>JAVASCRIPT</li>
+                <li>ARABIC UI</li>
+                <li>HIJRI CALENDAR</li>
+              </ul>
+            </div>
+          </details>
+
+          <details class="card project">
+            <summary>
+              <span class="num">03</span>
+              <h3>SALAH STORE</h3>
+              <span class="sum-meta"><span class="pill" data-i18n="t_store">Web / Storefront</span><time datetime="2026">2026</time></span>
+            </summary>
+            <div class="proj-body">
+              <a
+                class="preview"
+                href="https://devvoltx.github.io/TR_SALAH_Gaming_Site_v2/"
+                target="_blank"
+                rel="noopener"
+                aria-label="Open SALAH STORE live demo (opens in a new tab)"
+              >
+                <img
+                  src="images/salahstore.webp"
+                  alt="SALAH STORE gaming top-up website preview"
+                  loading="lazy"
+                  decoding="async"
+                />
+              </a>
+              <h4 data-i18n="p4_h">
+                A gaming top-up storefront with instant delivery.
+              </h4>
+              <p data-i18n="p4_p">
+                Free Fire, eFootball and more. Arabic-first dark UI with a live
+                status indicator, animated ticker, and direct WhatsApp ordering.
+              </p>
+              <div class="proj-actions">
+              <a
+                class="btn ghost sm"
+                href="https://devvoltx.github.io/TR_SALAH_Gaming_Site_v2/"
+                target="_blank"
+                rel="noopener"
+                data-i18n="btn_demo"
+                >↗ LIVE DEMO</a
+              >
+              </div>
+              <dl class="meta">
+                <div>
+                  <dt data-i18n="m_year">YEAR</dt>
+                  <dd>2026</dd>
+                </div>
+                <div>
+                  <dt data-i18n="m_type">TYPE</dt>
+                  <dd data-i18n="t_store">Web / Storefront</dd>
+                </div>
+              </dl>
+              <ul class="tags">
+                <li>HTML/CSS</li>
+                <li>JAVASCRIPT</li>
+                <li>ARABIC UI</li>
+                <li>GAMING</li>
+              </ul>
+            </div>
+          </details>
+
+          <details class="card project">
+            <summary>
+              <span class="num">04</span>
+              <h3>CAR-WASH BOOKING</h3>
+              <span class="sum-meta"><span class="pill" data-i18n="t_full">Full-Stack Web</span><time datetime="2024">2024</time></span>
+            </summary>
+            <div class="proj-body">
+              <h4 data-i18n="p3_h">A full-stack reservation system.</h4>
+              <p data-i18n="p3_p">
+                Customers book slots, staff manage schedules. Built with PHP,
+                JavaScript, and MySQL, with a full admin panel.
+              </p>
+              <div class="proj-actions">
+              <a
+                class="btn ghost sm"
+                href="https://github.com/DEVVOLTX"
+                target="_blank"
+                rel="noopener"
+                data-i18n="btn_gh"
+                >⬡ GITHUB PROFILE</a
+              >
+              </div>
+              <dl class="meta">
+                <div>
+                  <dt data-i18n="m_year">YEAR</dt>
+                  <dd>2024</dd>
+                </div>
+                <div>
+                  <dt data-i18n="m_type">TYPE</dt>
+                  <dd data-i18n="t_full">Full-Stack Web</dd>
+                </div>
+              </dl>
+              <ul class="tags">
+                <li>PHP</li>
+                <li>JAVASCRIPT</li>
+                <li>MYSQL</li>
+                <li>HTML/CSS</li>
+              </ul>
+            </div>
+          </details>
+
+          <details class="card project">
+            <summary>
+              <span class="num">05</span>
+              <h3>HIDE AND SINK</h3>
+              <span class="sum-meta"><span class="pill" data-i18n="t_game">Game Development</span><time datetime="2024">2024</time></span>
+            </summary>
+            <div class="proj-body">
+              <h4 data-i18n="p2_h">
+                A multiplayer game of strategy and deception.
+              </h4>
+              <p data-i18n="p2_p">
+                Players outwit each other using misdirection and timing.
+                Co-developed with a partner for real-time multiplayer. Live on
+                Itch.io.
+              </p>
+              <div class="proj-actions">
+              <a
+                class="btn ghost sm"
+                href="https://github.com/DEVVOLTX"
+                target="_blank"
+                rel="noopener"
+                data-i18n="btn_gh"
+                >⬡ GITHUB PROFILE</a
+              >
+              </div>
+              <dl class="meta">
+                <div>
+                  <dt data-i18n="m_year">YEAR</dt>
+                  <dd>2024</dd>
+                </div>
+                <div>
+                  <dt data-i18n="m_type">TYPE</dt>
+                  <dd data-i18n="t_game">Game Development</dd>
+                </div>
+              </dl>
+              <ul class="tags">
+                <li>MULTIPLAYER</li>
+                <li>CO-DEV</li>
+                <li>GAME DESIGN</li>
+                <li>ITCH.IO</li>
+              </ul>
+            </div>
+          </details>
+
+          <details class="card project">
+            <summary>
+              <span class="num">06</span>
+              <h3>ANDERMAGIC</h3>
+              <span class="sum-meta"><span class="pill" data-i18n="t_game">Game Development</span><time datetime="2024">2024</time></span>
+            </summary>
+            <div class="proj-body">
+              <h4 data-i18n="p1_h">
+                A challenging 2D platformer built for precision and skill.
+              </h4>
+              <p data-i18n="p1_p">
+                Designed all mechanics, levels, and artwork solo using Godot 4.6
+                and GDScript. Published on GitHub.
+              </p>
+              <div class="proj-actions">
+              <a
+                class="btn ghost sm"
+                href="https://github.com/DEVVOLTX"
+                target="_blank"
+                rel="noopener"
+                data-i18n="btn_gh"
+                >⬡ GITHUB PROFILE</a
+              >
+              </div>
+              <dl class="meta">
+                <div>
+                  <dt data-i18n="m_year">YEAR</dt>
+                  <dd>2024</dd>
+                </div>
+                <div>
+                  <dt data-i18n="m_type">TYPE</dt>
+                  <dd data-i18n="t_game">Game Development</dd>
+                </div>
+              </dl>
+              <ul class="tags">
+                <li>GODOT 4.6</li>
+                <li>GDSCRIPT</li>
+                <li>2D PLATFORMER</li>
+                <li>SOLO DEV</li>
+              </ul>
+            </div>
+          </details>
         </div>
       </section>
 
@@ -925,185 +959,94 @@
       <!-- 04 CERTIFICATES -->
       <section class="wrap" id="certificates">
         <h2 class="label" data-i18n="lbl_certs"><b>04 /</b>CERTIFICATES</h2>
-        <div class="grid reveal">
-          <article class="card cert cert-with-preview">
-            <small>TOFAS / SPRIX INC. & HIROSHIMA UNIVERSITY</small>
+        <div class="grid reveal" id="cert-list">
+          <article class="card cert">
+            <div class="cert-head">
+              <small>TOFAS / SPRIX INC. &amp; HIROSHIMA UNIVERSITY</small>
+              <span class="cert-cat" data-i18n="f_prog">PROGRAMMING</span>
+            </div>
             <h3>JavaScript Level 1</h3>
-            <time>April 2026</time>
-            <p>ID: 0019d4b64cc2f9ed1c2452c78adbd1f23</p>
-            <div class="cert-preview">
-              <img
-                src="images/tofas-js1.jpg"
-                alt="TOFAS JavaScript Level 1 certificate"
-                loading="lazy"
-                decoding="async"
-              />
+            <time datetime="2026-04">April 2026</time>
+            <button class="cert-preview" type="button" data-cert-img="images/tofas-js1.webp" data-cert-alt="TOFAS JavaScript Level 1 certificate" aria-label="View certificate: JavaScript Level 1">
+              <img src="images/tofas-js1.webp" alt="TOFAS JavaScript Level 1 certificate" loading="lazy" decoding="async" />
+              <span class="cert-zoom" aria-hidden="true" data-i18n="btn_view">⤢ VIEW CERTIFICATE</span>
+            </button>
+            <div class="cert-id">
+              <code>ID: 0019d4b64cc2f9ed1c2452c78adbd1f23</code>
+              <button class="copy-id" type="button" data-copy="0019d4b64cc2f9ed1c2452c78adbd1f23" data-i18n="btn_copyid" aria-label="Copy credential ID">⧉ COPY ID</button>
             </div>
             <div class="row cert-actions">
-              <a
-                class="btn ghost sm"
-                href="https://result.egy.programming-testing.com/certificate-check/0019d4b64cc2f9ed1c2452c78adbd1f23"
-                target="_blank"
-                rel="noopener"
-                data-i18n="btn_verify"
-                >↗ VERIFY</a
-              >
-              <button
-                class="btn ghost sm"
-                type="button"
-                data-i18n="btn_view"
-                data-cert-img="images/tofas-js1.jpg"
-                data-cert-alt="TOFAS JavaScript Level 1 certificate"
-              >
-                ⤢ VIEW CERTIFICATE
-              </button>
-            </div>
-          </article>
-          <article class="card cert cert-with-preview">
-            <small>TOFAS / SPRIX INC. & HIROSHIMA UNIVERSITY</small>
-            <h3>JavaScript Level 2</h3>
-            <time>June 2026</time>
-            <p>ID: 0019f0d371ef7f9e586b0ad84890bae40</p>
-            <div class="cert-preview">
-              <img
-                src="images/tofas-js2.jpg"
-                alt="TOFAS JavaScript Level 2 certificate"
-                loading="lazy"
-                decoding="async"
-              />
-            </div>
-            <div class="row cert-actions">
-              <a
-                class="btn ghost sm"
-                href="https://result.egy.programming-testing.com/certificate-check/0019f0d371ef7f9e586b0ad84890bae40"
-                target="_blank"
-                rel="noopener"
-                data-i18n="btn_verify"
-                >↗ VERIFY</a
-              >
-              <button
-                class="btn ghost sm"
-                type="button"
-                data-i18n="btn_view"
-                data-cert-img="images/tofas-js2.jpg"
-                data-cert-alt="TOFAS JavaScript Level 2 certificate"
-              >
-                ⤢ VIEW CERTIFICATE
-              </button>
+              <a class="btn ghost sm" href="https://result.egy.programming-testing.com/certificate-check/0019d4b64cc2f9ed1c2452c78adbd1f23" target="_blank" rel="noopener" data-i18n="btn_verify">↗ VERIFY</a>
             </div>
           </article>
           <article class="card cert">
-            <small>CISCO NETWORKING ACADEMY</small>
+            <div class="cert-head">
+              <small>TOFAS / SPRIX INC. &amp; HIROSHIMA UNIVERSITY</small>
+              <span class="cert-cat" data-i18n="f_prog">PROGRAMMING</span>
+            </div>
+            <h3>JavaScript Level 2</h3>
+            <time datetime="2026-06">June 2026</time>
+            <button class="cert-preview" type="button" data-cert-img="images/tofas-js2.webp" data-cert-alt="TOFAS JavaScript Level 2 certificate" aria-label="View certificate: JavaScript Level 2">
+              <img src="images/tofas-js2.webp" alt="TOFAS JavaScript Level 2 certificate" loading="lazy" decoding="async" />
+              <span class="cert-zoom" aria-hidden="true" data-i18n="btn_view">⤢ VIEW CERTIFICATE</span>
+            </button>
+            <div class="cert-id">
+              <code>ID: 0019f0d371ef7f9e586b0ad84890bae40</code>
+              <button class="copy-id" type="button" data-copy="0019f0d371ef7f9e586b0ad84890bae40" data-i18n="btn_copyid" aria-label="Copy credential ID">⧉ COPY ID</button>
+            </div>
+            <div class="row cert-actions">
+              <a class="btn ghost sm" href="https://result.egy.programming-testing.com/certificate-check/0019f0d371ef7f9e586b0ad84890bae40" target="_blank" rel="noopener" data-i18n="btn_verify">↗ VERIFY</a>
+            </div>
+          </article>
+          <article class="card cert">
+            <div class="cert-head">
+              <small>CISCO NETWORKING ACADEMY</small>
+              <span class="cert-cat" data-i18n="f_net">NETWORKING</span>
+            </div>
             <h3>Networking Basics</h3>
-            <time>May 2026</time>
-            <p>Issued by Lynn Bloomer, Director — Cisco Networking Academy</p>
-            <div
-              class="flip"
-              id="certFlip"
-              aria-label="Cisco Networking Basics certificate, front and back"
-            >
+            <time datetime="2026-05">May 2026</time>
+            <p class="cert-note">Issued by Lynn Bloomer, Director — Cisco Networking Academy</p>
+            <div class="flip" id="certFlip" aria-label="Cisco Networking Basics certificate, front and back">
               <div class="flip-in">
-                <img
-                  class="face front"
-                  src="images/cisco-front.jpg"
-                  alt="Cisco Networking Basics certificate, front"
-                  loading="lazy"
-                  decoding="async"
-                />
-                <img
-                  class="face back"
-                  src="images/cisco-back.jpg"
-                  alt="Cisco Networking Basics certificate, back"
-                  loading="lazy"
-                  decoding="async"
-                />
+                <img class="face front" src="images/cisco-front.webp" alt="Cisco Networking Basics certificate, front" loading="lazy" decoding="async" />
+                <img class="face back" src="images/cisco-back.webp" alt="Cisco Networking Basics certificate, back" loading="lazy" decoding="async" />
               </div>
             </div>
-            <div class="row">
-              <button
-                class="btn ghost sm"
-                id="cert-flip-btn"
-                type="button"
-                data-i18n="btn_flip"
-              >
-                ↻ FLIP
-              </button>
-              <button
-                class="btn ghost sm"
-                id="cert-full-btn"
-                type="button"
-                data-i18n="btn_full"
-              >
-                ⤢ FULLSCREEN
-              </button>
+            <div class="row cert-actions">
+              <button class="btn ghost sm" id="cert-flip-btn" type="button" data-i18n="btn_flip">↻ FLIP</button>
+              <button class="btn ghost sm" id="cert-full-btn" type="button" data-i18n="btn_full">⤢ FULLSCREEN</button>
             </div>
           </article>
-          <article class="card cert cert-with-preview">
-            <small>EF EDUCATION FIRST</small>
+          <article class="card cert">
+            <div class="cert-head">
+              <small>EF EDUCATION FIRST</small>
+              <span class="cert-cat" data-i18n="f_lang">LANGUAGE</span>
+            </div>
             <h3>EF SET English Certificate</h3>
-            <time>June 2026</time>
-            <p>
-              Score: 50/100 · B1 Intermediate (CEFR) · Reading: C2 · Writing: B2
-            </p>
-            <div class="cert-preview">
-              <img
-                src="images/EF%20ENG%20CERT.jpg"
-                alt="EF SET English Certificate, B1 Intermediate"
-                loading="lazy"
-                decoding="async"
-              />
-            </div>
+            <time datetime="2026-06">June 2026</time>
+            <ul class="tags cert-tags"><li>SCORE 50/100</li><li>B1 INTERMEDIATE</li><li>READING C2</li><li>WRITING B2</li></ul>
+            <button class="cert-preview" type="button" data-cert-img="images/EF%20ENG%20CERT.webp" data-cert-alt="EF SET English Certificate, B1 Intermediate" aria-label="View certificate: EF SET English Certificate">
+              <img src="images/EF%20ENG%20CERT.webp" alt="EF SET English Certificate, B1 Intermediate" loading="lazy" decoding="async" />
+              <span class="cert-zoom" aria-hidden="true" data-i18n="btn_view">⤢ VIEW CERTIFICATE</span>
+            </button>
             <div class="row cert-actions">
-              <a
-                class="btn ghost sm"
-                href="https://cert.efset.org/9oACW4"
-                target="_blank"
-                rel="noopener"
-                data-i18n="btn_verify"
-                >↗ VERIFY</a
-              >
-              <button
-                class="btn ghost sm"
-                type="button"
-                data-i18n="btn_view"
-                data-cert-img="images/EF%20ENG%20CERT.jpg"
-                data-cert-alt="EF SET English Certificate, B1 Intermediate"
-              >
-                ⤢ VIEW CERTIFICATE
-              </button>
+              <a class="btn ghost sm" href="https://cert.efset.org/9oACW4" target="_blank" rel="noopener" data-i18n="btn_verify">↗ VERIFY</a>
             </div>
           </article>
-          <article class="card cert cert-with-preview">
-            <small>IBM SKILLSBUILD</small>
-            <h3>Cybersecurity Fundamentals</h3>
-            <time>October 2026</time>
-            <p>Issued by IBM SkillsBuild · verifiable on Credly</p>
-            <div class="cert-preview">
-              <img
-                src="images/ibm-cybersecurity.jpg"
-                alt="IBM SkillsBuild Cybersecurity Fundamentals certificate"
-                loading="lazy"
-                decoding="async"
-              />
+          <article class="card cert">
+            <div class="cert-head">
+              <small>IBM SKILLSBUILD</small>
+              <span class="cert-cat" data-i18n="f_sec">SECURITY</span>
             </div>
+            <h3>Cybersecurity Fundamentals</h3>
+            <time datetime="2026-10">October 2026</time>
+            <p class="cert-note">Issued by IBM SkillsBuild · verifiable on Credly</p>
+            <button class="cert-preview" type="button" data-cert-img="images/ibm-cybersecurity.webp" data-cert-alt="IBM SkillsBuild Cybersecurity Fundamentals certificate" aria-label="View certificate: Cybersecurity Fundamentals">
+              <img src="images/ibm-cybersecurity.webp" alt="IBM SkillsBuild Cybersecurity Fundamentals certificate" loading="lazy" decoding="async" />
+              <span class="cert-zoom" aria-hidden="true" data-i18n="btn_view">⤢ VIEW CERTIFICATE</span>
+            </button>
             <div class="row cert-actions">
-              <a
-                class="btn ghost sm"
-                href="https://www.credly.com/badges/e6b4fecd-ad30-4e89-902c-7e02dfa97b36"
-                target="_blank"
-                rel="noopener"
-                data-i18n="btn_verify"
-                >↗ VERIFY</a
-              >
-              <button
-                class="btn ghost sm"
-                type="button"
-                data-i18n="btn_view"
-                data-cert-img="images/ibm-cybersecurity.jpg"
-                data-cert-alt="IBM SkillsBuild Cybersecurity Fundamentals certificate"
-              >
-                ⤢ VIEW CERTIFICATE
-              </button>
+              <a class="btn ghost sm" href="https://www.credly.com/badges/e6b4fecd-ad30-4e89-902c-7e02dfa97b36" target="_blank" rel="noopener" data-i18n="btn_verify">↗ VERIFY</a>
             </div>
           </article>
         </div>
@@ -1150,7 +1093,7 @@
           <div class="pc" id="pc">
             <div class="pc-halo" aria-hidden="true"></div>
             <div class="pc-card">
-              <img class="pc-avatar" src="images/avatar.png" alt="Amr Essam" width="120" height="120" loading="lazy" decoding="async" />
+              <img class="pc-avatar" src="images/avatar-240.webp" alt="Amr Essam" width="120" height="120" loading="lazy" decoding="async" />
               <div class="pc-info">
                 <b class="pc-name">Amr Essam</b>
                 <span class="pc-role" data-i18n="pc_role">Full-Stack Developer</span>

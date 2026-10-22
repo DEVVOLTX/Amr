@@ -301,7 +301,7 @@ ticker.innerHTML += ticker.innerHTML;
 
 /* ---------- Galleries + lightbox ---------- */
 const logos = [1, 2, 3, 4, 5, 6].map((n) => ({
-  src: `images/logo${n}.jpg`,
+  src: `images/logo${n}.webp`,
   alt: `Logo design ${n}`,
 }));
 const cars = [
@@ -314,21 +314,21 @@ const cars = [
   ["McLaren 750S"],
   ["Koenigsegg Jesko Attack", true],
 ].map(([name, wide], i) => ({
-  src: `images/car${i + 1}.jpg`,
+  src: `images/car${i + 1}.webp`,
   alt: name,
   caption: name,
   wide,
 }));
 const clients = [
   {
-    src: "images/client1.jpg",
+    src: "images/client1.webp",
     alt: "Hamo Samy artist poster",
     tag: "GRAPHIC DESIGN",
     caption: "HAMO SAMY — ARTIST",
     desc: "Personal branding poster with Photoshop & Illustrator",
   },
   {
-    src: "images/client2.jpg",
+    src: "images/client2.webp",
     alt: "Mohammed cinematic edit by Amr Essam",
     tag: "PHOTO EDITING",
     caption: "MOHAMMED — EDIT BY AMR",
@@ -736,11 +736,11 @@ document.addEventListener("keydown", (e) => {
 const certFlip = $("#certFlip");
 const certPages = [
   {
-    src: "images/cisco-front.jpg",
+    src: "images/cisco-front.webp",
     alt: "Cisco Networking Basics certificate, front",
   },
   {
-    src: "images/cisco-back.jpg",
+    src: "images/cisco-back.webp",
     alt: "Cisco Networking Basics certificate, back",
   },
 ];
@@ -1480,16 +1480,54 @@ document.addEventListener("keydown", (e) => {
 })();
 
 
-/* ---------- Skeleton loader: fade out once the page has loaded (min ~0.9s so it never flashes) ---------- */
+/* ---------- Skeleton loader: fades out as soon as the hero is ready (min ~350ms so it never flashes) ---------- */
 (() => {
   const L = $("#loader");
   if (!L) return;
+  let gone = false;
   const hide = () => {
+    if (gone) return;
+    gone = true;
     L.classList.add("done");
     setTimeout(() => L.remove(), 700);
   };
-  const go = () => setTimeout(hide, Math.max(0, 900 - performance.now()));
-  if (document.readyState === "complete") go();
-  else addEventListener("load", go, { once: true });
-  setTimeout(hide, 5000); // safety net on very slow connections
+  const go = () => setTimeout(hide, Math.max(0, 350 - performance.now()));
+  const av = $(".avatar img");
+  const ready = () =>
+    av && !av.complete
+      ? av.addEventListener("load", go, { once: true })
+      : go();
+  if (document.readyState === "loading")
+    addEventListener("DOMContentLoaded", ready, { once: true });
+  else ready();
+  setTimeout(hide, 2500); // safety net on very slow connections
 })();
+
+/* ---------- Single-open projects, copy credential ID ---------- */
+const projDetails = $$("#project-list > details");
+projDetails.forEach((d) =>
+  d.addEventListener("toggle", () => {
+    if (d.open) projDetails.forEach((o) => o !== d && (o.open = false));
+  }),
+);
+$$(".copy-id").forEach((b) => {
+  b.addEventListener("click", async () => {
+    try {
+      await navigator.clipboard.writeText(b.dataset.copy);
+    } catch (e) {
+      const t = document.createElement("textarea");
+      t.value = b.dataset.copy;
+      document.body.appendChild(t);
+      t.select();
+      try { document.execCommand("copy"); } catch (e2) {}
+      t.remove();
+    }
+    const prev = b.innerHTML;
+    b.classList.add("done");
+    b.textContent = "✓";
+    setTimeout(() => {
+      b.classList.remove("done");
+      b.innerHTML = prev;
+    }, 1400);
+  });
+});
