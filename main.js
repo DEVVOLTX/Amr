@@ -1509,3 +1509,134 @@ document.addEventListener("keydown", (e) => {
 (() => {
   const track = $("#feat-track"),
     dotsBox = $("#feat-dots"),
+    prev = $("#feat-prev"),
+    next = $("#feat-next");
+  if (track && dotsBox && prev && next) {
+    const cards = $$(".feat-card", track);
+    let cur = 0,
+      ticking = false;
+    const dots = cards.map((_, i) => {
+      const b = document.createElement("button");
+      b.type = "button";
+      b.className = "feat-dot";
+      b.setAttribute("aria-label", `Project ${i + 1} of ${cards.length}`);
+      b.addEventListener("click", () => go(i));
+      return b;
+    });
+    dotsBox.replaceChildren(...dots);
+    const paint = () => {
+      dots.forEach((d, i) => d.setAttribute("aria-current", String(i === cur)));
+      prev.disabled = cur === 0;
+      next.disabled = cur === cards.length - 1;
+    };
+    // distance from a card's start edge to the track's start edge (works in LTR and RTL)
+    const gap = (c) => {
+      const t = track.getBoundingClientRect(),
+        r = c.getBoundingClientRect();
+      return root.dir === "rtl" ? r.right - t.right : r.left - t.left;
+    };
+    function go(i) {
+      cur = Math.max(0, Math.min(cards.length - 1, i));
+      track.scrollBy({
+        left: gap(cards[cur]),
+        behavior: reduceMotion ? "auto" : "smooth",
+      });
+      paint();
+    }
+    track.addEventListener(
+      "scroll",
+      () => {
+        if (ticking) return;
+        ticking = true;
+        requestAnimationFrame(() => {
+          ticking = false;
+          let best = 0,
+            bd = Infinity;
+          cards.forEach((c, i) => {
+            const d = Math.abs(gap(c));
+            if (d < bd) {
+              bd = d;
+              best = i;
+            }
+          });
+          if (best !== cur) {
+            cur = best;
+            paint();
+          }
+        });
+      },
+      { passive: true },
+    );
+    prev.addEventListener("click", () => go(cur - 1));
+    next.addEventListener("click", () => go(cur + 1));
+    paint();
+  }
+
+  const moreBtn = $("#more-btn"),
+    more = $("#more-projects");
+  if (moreBtn && more) {
+    moreBtn.addEventListener("click", () => {
+      const open = more.hidden; // currently hidden => this click opens it
+      more.hidden = !open;
+      moreBtn.setAttribute("aria-expanded", String(open));
+      $(".t-all", moreBtn).hidden = open;
+      $(".t-less", moreBtn).hidden = !open;
+    });
+  }
+})();
+
+/* ---------- Website Updates (floating button + WhatsApp channel popup) ---------- */
+(() => {
+  const box = $("#wu"),
+    btn = $("#wu-btn"),
+    pop = $("#wu-pop"),
+    x = $("#wu-close");
+  if (!box || !btn || !pop || !x) return;
+  const set = (open) => {
+    pop.hidden = !open;
+    btn.setAttribute("aria-expanded", String(open));
+  };
+  btn.addEventListener("click", () => set(pop.hidden));
+  x.addEventListener("click", () => {
+    set(false);
+    btn.focus();
+  });
+  document.addEventListener("click", (e) => {
+    if (!pop.hidden && !e.target.closest("#wu")) set(false);
+  });
+  document.addEventListener("keydown", (e) => {
+    if (e.key === "Escape" && !pop.hidden) {
+      set(false);
+      btn.focus();
+    }
+  });
+})();
+
+/* ---------- Single-open projects, copy credential ID ---------- */
+const projDetails = $$("#more-projects > details");
+projDetails.forEach((d) =>
+  d.addEventListener("toggle", () => {
+    if (d.open) projDetails.forEach((o) => o !== d && (o.open = false));
+  }),
+);
+$$(".copy-id").forEach((b) => {
+  b.addEventListener("click", async () => {
+    try {
+      await navigator.clipboard.writeText(b.dataset.copy);
+    } catch (e) {
+      const t = document.createElement("textarea");
+      t.value = b.dataset.copy;
+      document.body.appendChild(t);
+      t.select();
+      try { document.execCommand("copy"); } catch (e2) {}
+      t.remove();
+    }
+    const prev = b.innerHTML;
+    b.classList.add("done");
+    b.textContent = "✓";
+    setTimeout(() => {
+      b.classList.remove("done");
+      b.innerHTML = prev;
+    }, 1400);
+  });
+});
