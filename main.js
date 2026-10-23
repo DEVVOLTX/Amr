@@ -1024,7 +1024,7 @@ const gm = $("#game-modal"),
 const gmLoad = $("#gm-loading"),
   gmClose = $("#gm-close"),
   gmFull = $("#gm-full");
-const gmBackground = () => $$("nav, main, footer, #top");
+const gmBackground = () => $$("nav, main, footer, #top, #wu");
 let gmOpener = null;
 
 function readGame() {
@@ -1301,7 +1301,7 @@ if (location.hash === "#play") setTimeout(() => openGame(), 1500);
 /* ---------- CV chooser modal ---------- */
 const cvModal = $("#cvModal");
 let cvOpener = null;
-const cvBackground = () => $$("nav, main, footer, #top");
+const cvBackground = () => $$("nav, main, footer, #top, #wu");
 function openCvModal(from) {
   if (!cvModal.hidden) return;
   cvOpener = from || document.activeElement;
@@ -1503,31 +1503,9 @@ document.addEventListener("keydown", (e) => {
   setTimeout(hide, 2500); // safety net on very slow connections
 })();
 
-/* ---------- Single-open projects, copy credential ID ---------- */
-const projDetails = $$("#project-list > details");
-projDetails.forEach((d) =>
-  d.addEventListener("toggle", () => {
-    if (d.open) projDetails.forEach((o) => o !== d && (o.open = false));
-  }),
-);
-$$(".copy-id").forEach((b) => {
-  b.addEventListener("click", async () => {
-    try {
-      await navigator.clipboard.writeText(b.dataset.copy);
-    } catch (e) {
-      const t = document.createElement("textarea");
-      t.value = b.dataset.copy;
-      document.body.appendChild(t);
-      t.select();
-      try { document.execCommand("copy"); } catch (e2) {}
-      t.remove();
-    }
-    const prev = b.innerHTML;
-    b.classList.add("done");
-    b.textContent = "✓";
-    setTimeout(() => {
-      b.classList.remove("done");
-      b.innerHTML = prev;
-    }, 1400);
-  });
-});
+/* ---------- Featured projects carousel + "View all projects" ----------
+   The three projects with previews sit in a scroll-snap carousel (all three side by side on desktop).
+   The other three stay hidden until the button is pressed, so nothing is ever shown twice. */
+(() => {
+  const track = $("#feat-track"),
+    dotsBox = $("#feat-dots"),
