@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl" data-theme="dark">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Launch Feedback — Age Calculator Pro | A.ESSAM</title>
+<meta name="description" content="Real reactions from the Age Calculator Pro launch post.">
+<link rel="canonical" href="https://amressam.is-a.dev/feedback.html">
+<link rel="icon" href="favicon/favicon.ico" sizes="any">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@500;600;700;800&family=Cairo:wght@500;700&display=swap" rel="stylesheet">
+<script>
+(function(){var d=document.documentElement;d.classList.add('js');
+try{var t=localStorage.getItem('theme');if(/^(dark|matrix|volt|light)$/.test(t))d.dataset.theme=t;
+var l=localStorage.getItem('lang');if(/^(en|ar|it|es|de|fr|ru|ko|ja|zh)$/.test(l)){d.lang=l;d.dir=l==='ar'?'rtl':'ltr'}}catch(e){}})();
+</script>
+<style>
+:root{--bg:#070b0e;--fg:#e8f4f6;--fg-rgb:232,244,246;--dim:#78939b;--accent:#00d4e8;--accent-rgb:0,212,232;--on-accent:#031318;--glow:.34;
+--en:"Poppins",system-ui,sans-serif;--ar:"Cairo","Poppins",system-ui,sans-serif;color-scheme:dark;box-sizing:border-box;
+padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}
+[data-theme=matrix]{--bg:#030a05;--fg:#dcffe6;--fg-rgb:220,255,230;--dim:#6f9a7c;--accent:#1fe06a;--accent-rgb:31,224,106}
+[data-theme=volt]{--bg:#0a0a05;--fg:#fbfbe8;--fg-rgb:251,251,232;--dim:#9a9a78;--accent:#f0e500;--accent-rgb:240,229,0}
+[data-theme=light]{--bg:#eef5f7;--fg:#070b0e;--fg-rgb:7,11,14;--dim:#4a646c;--accent:#0b7f8c;--accent-rgb:11,127,140;--on-accent:#fff;--glow:.16;color-scheme:light}
+*{box-sizing:border-box}html{scroll-padding-top:env(safe-area-inset-top,0px)}
+body{margin:0;min-height:100vh;color:var(--fg);font-family:var(--ar);background-color:var(--bg);background-attachment:fixed;
+background-image:radial-gradient(80% 38% at 50% 104%,rgba(var(--accent-rgb),var(--glow)),transparent 72%),radial-gradient(45% 30% at calc(var(--mx,50)*1%) calc(var(--my,20)*1%),rgba(var(--accent-rgb),.10),transparent 70%),repeating-linear-gradient(90deg,rgba(var(--fg-rgb),.025) 0 2px,transparent 2px 16px)}
+a{color:inherit}figure,blockquote{margin:0}
+.page{max-width:760px;margin:0 auto;padding:1.1rem 1.2rem 4rem}
+/* one glass style for everything */
+.glass{border:1px solid rgba(var(--fg-rgb),.16);background:linear-gradient(100deg,rgba(var(--fg-rgb),.07),rgba(var(--accent-rgb),.13));-webkit-backdrop-filter:blur(14px);backdrop-filter:blur(14px);box-shadow:0 12px 34px rgba(0,0,0,.3);border-radius:999px}
+[data-theme=light] .glass{box-shadow:0 10px 28px rgba(7,11,14,.12);background:linear-gradient(100deg,rgba(255,255,255,.8),rgba(var(--accent-rgb),.12))}
+.top{display:flex;justify-content:space-between;align-items:center;gap:.6rem;direction:ltr;margin-bottom:2rem;position:relative;z-index:5}
+.brand{padding:.5rem 1.1rem;font:800 .95rem var(--en);letter-spacing:.14em;text-decoration:none}
+.tools{display:flex;gap:.5rem}
+.wrap{position:relative}
+.tb{display:inline-flex;align-items:center;gap:.4rem;height:40px;padding:0 .95rem;font:700 .78rem var(--en);color:var(--fg);cursor:pointer}
+.menu{position:absolute;top:calc(100% + .5rem);right:0;min-width:150px;padding:.4rem;border-radius:20px;display:grid;gap:.15rem;background:rgba(var(--fg-rgb),.07)}
+.menu[hidden]{display:none}
+.menu{background:var(--bg);border:1px solid rgba(var(--fg-rgb),.16)}
+.menu button{font:600 .8rem var(--en);color:var(--fg);background:none;border:0;border-radius:14px;padding:.55rem .8rem;text-align:left;cursor:pointer;direction:ltr}
+.menu button:hover,.menu button[aria-checked=true]{background:rgba(var(--accent-rgb),.18);color:var(--accent)}
+.hero{position:relative;text-align:center;padding:2.2rem 1.4rem 1.8rem;border-radius:34px;margin:0 .6rem 1.2rem}
+.hero h1{margin:0;font:800 clamp(1.1rem,4vw,1.6rem)/1.3 var(--en)}
+.hero h1 span{display:block;font-size:clamp(2.4rem,9vw,3.8rem);color:var(--accent);letter-spacing:-.02em;line-height:1.15}
+.sub{margin:.9rem 0 0;line-height:1.9;font-size:1rem;opacity:.92}
+.chip{display:inline-flex;margin-top:1.1rem;padding:.5rem 1.2rem;font:600 .85rem var(--en);border-color:rgba(var(--accent-rgb),.45)}
+.thumb{position:absolute;height:auto;filter:drop-shadow(0 10px 20px rgba(var(--accent-rgb),.4));pointer-events:none}
+.thumb.a{width:84px;left:-26px;top:20px;transform:rotate(-6deg);inset-inline-start:auto}
+.thumb.b{width:72px;right:-18px;bottom:-40px;transform:scaleX(-1) rotate(-6deg)}
+.metrics{display:flex;flex-wrap:wrap;justify-content:center;gap:.5rem;margin:1.8rem 0 2.2rem;padding:0;list-style:none}
+.metrics li{font:700 .74rem var(--en);letter-spacing:.04em;color:var(--accent);padding:.5rem 1.05rem}
+.list{display:grid;gap:1.1rem}
+.pill{display:flex;align-items:center;gap:.9rem;padding:.95rem 1.4rem;transition:transform .3s,border-color .3s,box-shadow .3s}
+.pill:nth-child(odd){transform:rotate(-1.4deg);margin-inline-end:7%}
+.pill:nth-child(even){transform:rotate(1.1deg);margin-inline-start:7%}
+.pill:hover{transform:rotate(0) translateY(-3px);border-color:rgba(var(--accent-rgb),.6)}
+.pill.feat{background:linear-gradient(100deg,rgba(var(--fg-rgb),.08),rgba(var(--accent-rgb),.26))}
+.av{flex:none;width:40px;height:40px;border-radius:50%;display:grid;place-items:center;font:700 1rem var(--en);color:#0b1a1f;background:linear-gradient(160deg,#fff,#dfe6e9);border:1px solid rgba(var(--fg-rgb),.2)}
+.who{min-width:0;flex:1}
+.name{display:block;font:700 .95rem var(--en);color:var(--accent);direction:ltr;text-align:start}
+.txt{margin:.1rem 0 0;font:700 1.08rem/1.7 var(--ar);overflow-wrap:anywhere}
+.txt.en{font-family:var(--en);direction:ltr;text-align:right}
+.txt.emo{font-size:1.4rem;letter-spacing:.1em}
+.js .pill{opacity:0;translate:0 26px;transition:opacity .6s,translate .6s,transform .3s,border-color .3s}
+.js .pill.in{opacity:1;translate:0 0}
+.note{margin:2.2rem auto 0;max-width:34em;padding:.9rem 1.5rem;text-align:center;font-size:.8rem;line-height:1.9;color:var(--dim);border-radius:26px}
+.cta{display:flex;flex-wrap:wrap;justify-content:center;gap:.7rem;margin-top:1.5rem}
+.btn{padding:.8rem 1.4rem;font:700 .76rem var(--en);letter-spacing:.1em;text-decoration:none;transition:transform .2s}
+.btn:hover{transform:translateY(-2px)}
+.btn.main{background:var(--accent);color:var(--on-accent);border-color:var(--accent)}
+.foot{margin-top:2.4rem;text-align:center;font:500 .75rem var(--en);color:var(--dim)}
+@media(max-width:560px){.pill{padding:.8rem 1rem;gap:.7rem}.pill:nth-child(odd){margin-inline-end:3%}.pill:nth-child(even){margin-inline-start:3%}.thumb.a{width:60px;left:-10px;top:12px}.thumb.b{width:52px;right:-8px}.hero{margin-inline:.2rem}}
+@media(prefers-reduced-motion:reduce){.pill,.js .pill{transition:none;translate:0 0;opacity:1}.pill:hover{transform:none}}
+</style>
+</head>
+<body>
+<main class="page">
+  <div class="top">
+    <a class="brand glass" href="./" aria-label="A.ESSAM home">A.ESSAM</a>
+    <div class="tools">
+      <div class="wrap"><button class="tb glass" id="lang" aria-haspopup="true" aria-expanded="false" aria-label="Language">AR ▾</button><div class="menu" id="lang-menu" hidden></div></div>
+      <div class="wrap"><button class="tb glass" id="theme" aria-haspopup="true" aria-expanded="false" aria-label="Theme">Midnight ▾</button><div class="menu" id="theme-menu" hidden></div></div>
+    </div>
+  </div>
+
+  <header class="hero glass">
+    <img class="thumb a" src="images/thumb-chrome.webp" alt="" width="84" height="103" decoding="async">
+    <img class="thumb b" src="images/thumb-chrome.webp" alt="" width="72" height="88" decoding="async">
+    <h1><span>Feedback</span><i style="font-style:normal" data-t="h"></i></h1>
+    <p class="sub" data-t="sub"></p>
+    <span class="chip glass" data-t="chip"></span>
+  </header>
+
+  <ul class="metrics">
+    <li class="glass">1.8k <span data-t="v"></span></li><li class="glass">30 <span data-t="l"></span></li><li class="glass">41 <span data-t="c"></span></li><li class="glass">1 <span data-t="s"></span></li>
+  </ul>
+
+  <section class="list" id="list"></section>
+
+  <p class="note glass" data-t="note"></p>
+  <div class="cta">
+    <a class="btn glass main" href="https://devvoltx.github.io/Age-Calculator-v1/" target="_blank" rel="noopener noreferrer"><span data-t="demo"></span> ↗</a>
+    <a class="btn glass" href="https://github.com/DEVVOLTX/Age-Calculator-v1" target="_blank" rel="noopener noreferrer"><span data-t="repo"></span> ↗</a>
+    <a class="btn glass" href="./">← <span data-t="home"></span></a>
+  </div>
+  <p class="foot">amressam.is-a.dev</p>
+</main>
+<script>
+(function(){
+var T={
+en:{h:"Real reactions from my launch post",sub:"When I launched Age Calculator Pro — real reactions from a post with 1.8k views, 30 likes and 41 comments · July 2026",chip:"Community Reactions",v:"Views",l:"Likes",c:"Comments",s:"Share",note:"* Real comments from the launch post on Facebook, not made-up testimonials. Profile photos are replaced with initials for privacy.",demo:"LIVE DEMO",repo:"GITHUB REPO",home:"PORTFOLIO"},
+ar:{h:"ردود فعل حقيقية من بوست الإطلاق",sub:"لما نزلت Age Calculator Pro — ردود فعل حقيقية من بوست جاب 1.8k مشاهدة، 30 لايك، 41 كومنت · يوليو 2026",chip:"آراء المجتمع",v:"مشاهدة",l:"لايك",c:"كومنت",s:"مشاركة",note:"* تعليقات حقيقية من بوست الإطلاق على فيسبوك، مش آراء عملاء وهمية. صور البروفايل متشالة واتحطت مكانها الحروف الأولى للخصوصية.",demo:"التجربة المباشرة",repo:"الكود على GITHUB",home:"البورتفوليو"},
+it:{h:"Reazioni reali dal post di lancio",sub:"Al lancio di Age Calculator Pro — reazioni reali da un post con 1,8k visualizzazioni, 30 like e 41 commenti · luglio 2026",chip:"Reazioni della community",v:"Visualizzazioni",l:"Like",c:"Commenti",s:"Condivisione",note:"* Commenti reali dal post di lancio su Facebook, non testimonianze inventate. Le foto profilo sono sostituite dalle iniziali per privacy.",demo:"DEMO LIVE",repo:"REPO GITHUB",home:"PORTFOLIO"},
+es:{h:"Reacciones reales de mi post de lanzamiento",sub:"Al lanzar Age Calculator Pro — reacciones reales de un post con 1,8k vistas, 30 me gusta y 41 comentarios · julio de 2026",chip:"Reacciones de la comunidad",v:"Vistas",l:"Me gusta",c:"Comentarios",s:"Compartido",note:"* Comentarios reales del post de lanzamiento en Facebook, no testimonios inventados. Las fotos de perfil se sustituyen por iniciales por privacidad.",demo:"DEMO EN VIVO",repo:"REPO GITHUB",home:"PORTAFOLIO"},
+de:{h:"Echte Reaktionen auf meinen Launch-Post",sub:"Zum Start von Age Calculator Pro — echte Reaktionen auf einen Post mit 1,8k Aufrufen, 30 Likes und 41 Kommentaren · Juli 2026",chip:"Community-Reaktionen",v:"Aufrufe",l:"Likes",c:"Kommentare",s:"Share",note:"* Echte Kommentare vom Launch-Post auf Facebook, keine erfundenen Referenzen. Profilfotos sind aus Datenschutzgründen durch Initialen ersetzt.",demo:"LIVE-DEMO",repo:"GITHUB-REPO",home:"PORTFOLIO"},
+fr:{h:"Vraies réactions à mon post de lancement",sub:"Au lancement d’Age Calculator Pro — de vraies réactions à un post avec 1,8k vues, 30 j’aime et 41 commentaires · juillet 2026",chip:"Réactions de la communauté",v:"Vues",l:"J’aime",c:"Commentaires",s:"Partage",note:"* Vrais commentaires du post de lancement sur Facebook, pas des témoignages inventés. Les photos de profil sont remplacées par des initiales pour la confidentialité.",demo:"DÉMO EN LIGNE",repo:"DÉPÔT GITHUB",home:"PORTFOLIO"},
+ru:{h:"Живые отзывы под постом о запуске",sub:"Запуск Age Calculator Pro — живые реакции под постом: 1,8 тыс. просмотров, 30 лайков и 41 комментарий · июль 2026",chip:"Реакции сообщества",v:"просмотров",l:"лайков",c:"комментариев",s:"репост",note:"* Настоящие комментарии из поста о запуске на Facebook, а не выдуманные отзывы. Фото профилей заменены инициалами ради приватности.",demo:"ЖИВАЯ ДЕМО",repo:"РЕПОЗИТОРИЙ",home:"ПОРТФОЛИО"},
+ko:{h:"런칭 게시물에 달린 실제 반응",sub:"Age Calculator Pro 출시 — 조회수 1.8k, 좋아요 30, 댓글 41개를 기록한 게시물의 실제 반응 · 2026년 7월",chip:"커뮤니티 반응",v:"조회",l:"좋아요",c:"댓글",s:"공유",note:"* 페이스북 런칭 게시물의 실제 댓글이며 지어낸 후기가 아닙니다. 개인정보 보호를 위해 프로필 사진은 이니셜로 대체했습니다.",demo:"라이브 데모",repo:"GITHUB 저장소",home:"포트폴리오"},
+ja:{h:"ローンチ投稿へのリアルな反応",sub:"Age Calculator Pro 公開時の投稿（1.8k 回表示、いいね 30、コメント 41）に寄せられたリアルな反応 · 2026年7月",chip:"コミュニティの反応",v:"表示",l:"いいね",c:"コメント",s:"シェア",note:"* Facebook のローンチ投稿にあった本物のコメントです。創作した感想ではありません。プライバシー保護のためプロフィール写真はイニシャルに置き換えています。",demo:"ライブデモ",repo:"GITHUB リポジトリ",home:"ポートフォリオ"},
+zh:{h:"来自发布帖的真实反馈",sub:"Age Calculator Pro 发布时 — 一条获得 1.8k 浏览、30 个赞和 41 条评论的帖子带来的真实反馈 · 2026 年 7 月",chip:"社区反馈",v:"浏览",l:"点赞",c:"评论",s:"分享",note:"* 来自 Facebook 发布帖的真实评论，并非编造的评价。出于隐私考虑，头像已替换为姓名首字母。",demo:"在线演示",repo:"GITHUB 仓库",home:"作品集"}};
+var THEMES={dark:"Midnight",matrix:"Matrix",volt:"VoltX",light:"Light"};
+var NAMES={en:"English",ar:"العربية",it:"Italiano",es:"Español",de:"Deutsch",fr:"Français",ru:"Русский",ko:"한국어",ja:"日本語",zh:"中文"};
+var d=document.documentElement,$=function(i){return document.getElementById(i)};
+function save(k,v){try{localStorage.setItem(k,v)}catch(e){}}
+function setLang(l){d.lang=l;d.dir=l==='ar'?'rtl':'ltr';
+ [].forEach.call(document.querySelectorAll('[data-t]'),function(e){e.textContent=T[l][e.dataset.t]});
+ $('lang').textContent=l.toUpperCase()+' ▾';
+ [].forEach.call($('lang-menu').children,function(b){b.setAttribute('aria-checked',b.dataset.v===l)})}
+function setTheme(t){d.dataset.theme=t;$('theme').textContent=THEMES[t]+' ▾';
+ [].forEach.call($('theme-menu').children,function(b){b.setAttribute('aria-checked',b.dataset.v===t)})}
+function menu(id,btn,map,fn,key){var m=$(id);
+ Object.keys(map).forEach(function(k){var b=document.createElement('button');b.type='button';b.dataset.v=k;b.textContent=map[k];b.setAttribute('role','menuitemradio');m.appendChild(b)});
+ $(btn).addEventListener('click',function(e){e.stopPropagation();var o=m.hidden;closeAll();m.hidden=!o;$(btn).setAttribute('aria-expanded',String(o))});
+ m.addEventListener('click',function(e){var b=e.target.closest('button');if(!b)return;fn(b.dataset.v);save(key,b.dataset.v);closeAll()})}
+function closeAll(){['lang-menu','theme-menu'].forEach(function(i){$(i).hidden=true});$('lang').setAttribute('aria-expanded','false');$('theme').setAttribute('aria-expanded','false')}
+document.addEventListener('click',closeAll);document.addEventListener('keydown',function(e){if(e.key==='Escape')closeAll()});
+menu('lang-menu','lang',NAMES,setLang,'lang');menu('theme-menu','theme',THEMES,setTheme,'theme');
+setLang(T[d.lang]?d.lang:'ar');setTheme(THEMES[d.dataset.theme]?d.dataset.theme:'dark');
+
+var C=[{n:"Zeyad Essam",t:"جامد يا برو عاش عليك ماشاء الله طرش ده",f:1},{n:"Abdelrhman Hendy",t:"شغل عالي ي عمور",f:1},{n:"Ar Ko",t:"عاشت دماغك المبدعه",f:1},{n:"Mohammed Ahmed",t:"ما شاء الله عليك ي عمرو"},{n:"Ahmed Hussein",t:"الله ينور"},{n:"Ahmed Hussein",t:"عايزين اللينك بقي"},{n:"اسلام مجدي",t:"❤️ 🔥"},{n:"Mazen Abd Alrahman",t:"يا واد ي جامد"},{n:"NourEldeen Ahmed",t:"الله ينور"},{n:"Amr Mohamed",t:"❤️❤️❤️"},{n:"Ahmed Ali",t:"Congratz"}];
+var list=$('list');
+function mk(tag,cls,text){var e=document.createElement(tag);if(cls)e.className=cls;if(text!=null)e.textContent=text;return e}
+C.forEach(function(c){
+ var p=mk('figure','pill glass'+(c.f?' feat':'')),av=mk('span','av',c.n.charAt(0));av.setAttribute('aria-hidden','true');
+ var w=mk('div','who'),ascii=/^[\x00-\x7F]+$/.test(c.t),emo=!/[\u0600-\u06FFA-Za-z]/.test(c.t);
+ w.appendChild(mk('span','name',c.n));w.appendChild(mk('blockquote','txt'+(ascii&&!emo?' en':'')+(emo?' emo':''),c.t));
+ p.appendChild(av);p.appendChild(w);list.appendChild(p)});
+var pills=[].slice.call(document.querySelectorAll('.pill'));
+if('IntersectionObserver' in window){var io=new IntersectionObserver(function(es){es.forEach(function(e){if(e.isIntersecting){e.target.classList.add('in');io.unobserve(e.target)}})},{threshold:.15});pills.forEach(function(p){io.observe(p)})}else pills.forEach(function(p){p.classList.add('in')});
+addEventListener('pointermove',function(e){d.style.setProperty('--mx',(e.clientX/innerWidth*100).toFixed(1));d.style.setProperty('--my',(e.clientY/innerHeight*100).toFixed(1))},{passive:true});
+})();
+</script>
+</body>
+</html>
