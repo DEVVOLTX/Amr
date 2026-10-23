@@ -15,6 +15,8 @@ Based in **Kafr El Dawar, Egypt** 🇪🇬
 - **Mobile menu**, scroll-progress bar and active-section highlight in the nav
 - **Skills as fanned neon glass cards** — three horizontal boards (languages, tools & engines, cybersecurity): swipe on touch, drag with the mouse, arrows or ← → keys, snap to a card, and the fan tilts and re-centres as you scroll; each card links to the tool's official site
 - **Typing role switcher**, animated stats counters and a skills ticker
+- **Featured projects carousel** — the three projects with previews (HAND PLATFORMER, AGE CALCULATOR, SALAH STORE) sit in a scroll-snap carousel with arrows and dots; a "View all projects" button reveals the remaining collapsible project cards
+- **Website Updates button** — a floating pill that opens a popup with a link to the WhatsApp channel for update notices (translated into all 10 languages)
 - **Collapsible project cards** (native `<details>`, no JS)
 - **Playable game inside the portfolio** — HAND PLATFORMER (hand-tracking platformer) opens in an overlay from the hero button or the project card (`/#play` opens it directly). The page and the game talk via `postMessage`: live level/score in the overlay header, score toasts in the notification island, and a best-score + top-5 board on the project card shared through `localStorage`
 - **Certificates** with verify links, a front/back flip card and a fullscreen viewer
