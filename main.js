@@ -1024,7 +1024,7 @@ const gm = $("#game-modal"),
 const gmLoad = $("#gm-loading"),
   gmClose = $("#gm-close"),
   gmFull = $("#gm-full");
-const gmBackground = () => $$("nav, main, footer, #top, #wu");
+const gmBackground = () => $$("nav, main, footer, #top");
 let gmOpener = null;
 
 function readGame() {
@@ -1301,7 +1301,7 @@ if (location.hash === "#play") setTimeout(() => openGame(), 1500);
 /* ---------- CV chooser modal ---------- */
 const cvModal = $("#cvModal");
 let cvOpener = null;
-const cvBackground = () => $$("nav, main, footer, #top, #wu");
+const cvBackground = () => $$("nav, main, footer, #top");
 function openCvModal(from) {
   if (!cvModal.hidden) return;
   cvOpener = from || document.activeElement;
@@ -1583,33 +1583,6 @@ document.addEventListener("keydown", (e) => {
       $(".t-less", moreBtn).hidden = !open;
     });
   }
-})();
-
-/* ---------- Website Updates (floating button + WhatsApp channel popup) ---------- */
-(() => {
-  const box = $("#wu"),
-    btn = $("#wu-btn"),
-    pop = $("#wu-pop"),
-    x = $("#wu-close");
-  if (!box || !btn || !pop || !x) return;
-  const set = (open) => {
-    pop.hidden = !open;
-    btn.setAttribute("aria-expanded", String(open));
-  };
-  btn.addEventListener("click", () => set(pop.hidden));
-  x.addEventListener("click", () => {
-    set(false);
-    btn.focus();
-  });
-  document.addEventListener("click", (e) => {
-    if (!pop.hidden && !e.target.closest("#wu")) set(false);
-  });
-  document.addEventListener("keydown", (e) => {
-    if (e.key === "Escape" && !pop.hidden) {
-      set(false);
-      btn.focus();
-    }
-  });
 })();
 
 /* ---------- Single-open projects, copy credential ID ---------- */
