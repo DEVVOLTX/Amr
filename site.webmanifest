@@ -1,19 +1,23 @@
 {
-  "name": "Amr Essam",
-  "short_name": "Amr Essam",
+  "name": "DevVoltX | AE Portfolio",
+  "short_name": "DevVoltX",
+  "description": "Software Engineering student | Game Developer | Cybersecurity Enthusiast | Full-Stack Developer from Egypt",
+  "start_url": "/",
+  "theme_color": "#7c5cbf",
+  "background_color": "#0a0a0f",
+  "display": "standalone",
   "icons": [
     {
-      "src": "favicon-96x96.png",
-      "sizes": "96x96",
-      "type": "image/png"
+      "src": "/favicon/web-app-manifest-192x192.png",
+      "sizes": "192x192",
+      "type": "image/png",
+      "purpose": "any maskable"
     },
     {
-      "src": "apple-touch-icon.png",
-      "sizes": "180x180",
-      "type": "image/png"
+      "src": "/favicon/web-app-manifest-512x512.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "any maskable"
     }
-  ],
-  "theme_color": "#070B0E",
-  "background_color": "#070B0E",
-  "display": "standalone"
+  ]
 }
