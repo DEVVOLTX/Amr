@@ -1504,7 +1504,7 @@ document.addEventListener("keydown", (e) => {
 })();
 
 /* ---------- Featured projects carousel + "View all projects" ----------
-   The three projects with previews sit in a scroll-snap carousel (all three side by side on desktop).
+   The four projects with previews sit in a scroll-snap carousel (a 2x2 grid on desktop).
    The other three stay hidden until the button is pressed, so nothing is ever shown twice. */
 (() => {
   const track = $("#feat-track"),

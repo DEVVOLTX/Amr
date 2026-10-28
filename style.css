@@ -3386,7 +3386,7 @@ body.game-open {
   overflow-wrap: anywhere;
 }
 
-/* ===== Featured projects carousel (3 projects with previews) ===== */
+/* ===== Featured projects carousel (4 projects with previews) ===== */
 .feat-track {
   display: flex;
   gap: 1rem;
@@ -3806,11 +3806,11 @@ a.feat-go:hover,
   }
 }
 
-/* desktop: all three featured cards side by side, no carousel controls */
+/* desktop: all four featured cards in a 2x2 grid, no carousel controls */
 @media (min-width: 980px) {
   .feat-track {
     display: grid;
-    grid-template-columns: repeat(3, minmax(0, 1fr));
+    grid-template-columns: repeat(2, minmax(0, 1fr));
     overflow: visible;
     scroll-snap-type: none;
   }
@@ -3821,7 +3821,7 @@ a.feat-go:hover,
     display: none;
   }
   .feat-media {
-    aspect-ratio: 5 / 4;
+    aspect-ratio: 16 / 9;
   }
   .feat-cap h3 {
     font-size: 1.2rem;

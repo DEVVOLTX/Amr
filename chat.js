@@ -197,8 +197,8 @@
         "شغل",
         "موقع",
       ],
-      en: "Six projects: ANDERMAGIC (2D platformer in Godot), HIDE AND SINK (multiplayer game), CAR-WASH BOOKING (PHP + MySQL), SALAH STORE (gaming top-up store), AGE CALCULATOR (Arabic Hijri/Gregorian tool) and HAND PLATFORMER (a game you control with your hand).",
-      ar: "ست مشاريع: ANDERMAGIC (لعبة منصات 2D بـ Godot) وHIDE AND SINK (لعبة جماعية) وCAR-WASH BOOKING (PHP وMySQL) وSALAH STORE (متجر شحن ألعاب) وAGE CALCULATOR (حاسبة عمر هجري/ميلادي) وHAND PLATFORMER (لعبة بتلعبها بإيدك).",
+      en: "Seven projects: ANDERMAGIC (2D platformer in Godot), HIDE AND SINK (multiplayer game), CAR-WASH BOOKING (PHP + MySQL), SALAH STORE (gaming top-up store), AGE CALCULATOR (Arabic Hijri/Gregorian tool) HAND PLATFORMER (a game you control with your hand) and ZENITH (a study planner for Egyptian Thanaweya Amma students).",
+      ar: "سبع مشاريع: ANDERMAGIC (لعبة منصات 2D بـ Godot) وHIDE AND SINK (لعبة جماعية) وCAR-WASH BOOKING (PHP وMySQL) وSALAH STORE (متجر شحن ألعاب) وAGE CALCULATOR (حاسبة عمر هجري/ميلادي) وHAND PLATFORMER (لعبة بتلعبها بإيدك) وZENITH (مخطط مذاكرة لطلاب الثانوية العامة).",
       acts: [go("projects", "View projects", "شوف المشاريع")],
     },
     {
