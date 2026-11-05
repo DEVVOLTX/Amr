@@ -344,18 +344,10 @@
             <a class="btn ghost" href="#projects" data-i18n="view_work"
               >VIEW WORK</a
             >
-            <button
-              class="btn arc"
-              type="button"
-              data-play
-              data-i18n="hero_play"
-            >
-              ▶ PLAY MY GAME
-            </button>
           </div>
           <div class="stats" data-rise style="--i: 5">
             <div>
-              <b data-count="7">7</b
+              <b data-count="8">8</b
               ><span data-i18n="stat_projects">PROJECTS</span>
             </div>
             <div>
@@ -414,7 +406,7 @@
         <div class="reveal" id="project-list">
           <div class="feat" id="feat" role="region" aria-roledescription="carousel" aria-label="Featured projects">
             <div class="feat-track" id="feat-track">
-            <article class="feat-card" id="game-project" role="group" aria-roledescription="slide" aria-label="1 / 4">
+            <article class="feat-card" id="game-project" role="group" aria-roledescription="slide" aria-label="1 / 5">
               <div class="feat-media">
                 <button
                 class="game-poster"
@@ -572,7 +564,14 @@
                 <p data-i18n="p6_h">A platformer you play with your bare hand.</p>
                 <ul class="feat-tags"><li>MEDIAPIPE</li><li>HAND TRACKING</li><li>JAVASCRIPT</li><li>CANVAS</li><li>PWA</li></ul>
                 <div class="feat-actions">
-                  <button class="feat-view" type="button" data-play><span data-i18n="btn_play">▶ PLAY NOW</span></button>
+                  <button class="btn-play bp-wide" type="button" data-play>
+                    <span class="bp-label" data-i18n="btn_play">▶ PLAY NOW</span>
+                    <span class="bp-clip" aria-hidden="true">
+                      <span class="bp-corner bp-lt"></span><span class="bp-corner bp-rb"></span><span class="bp-corner bp-rt"></span><span class="bp-corner bp-lb"></span>
+                    </span>
+                    <span class="bp-arrow bp-ar" aria-hidden="true"></span>
+                    <span class="bp-arrow bp-al" aria-hidden="true"></span>
+                  </button>
                   <a class="feat-alt" href="play/hand-platformer/" target="_blank" rel="noopener" data-i18n="btn_open">↗ OPEN FULL PAGE</a>
                 </div>
                 <details class="feat-lb">
@@ -594,7 +593,7 @@
               </div>
             </article>
 
-            <article class="feat-card" role="group" aria-roledescription="slide" aria-label="2 / 4">
+            <article class="feat-card" role="group" aria-roledescription="slide" aria-label="2 / 5">
               <div class="feat-media">
                 <img src="images/zenith.webp" alt="Zenith study planner dashboard shown on a laptop and a phone" width="1672" height="941" loading="lazy" decoding="async" />
                 <span class="feat-year"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><rect x="3" y="4" width="18" height="18" rx="2"/><path d="M16 2v4M8 2v4M3 10h18M8 14h.01M12 14h.01M16 14h.01M8 18h.01M12 18h.01M16 18h.01"/></svg><time datetime="2026">2026</time></span>
@@ -616,7 +615,7 @@
               </div>
             </article>
 
-            <article class="feat-card" role="group" aria-roledescription="slide" aria-label="3 / 4">
+            <article class="feat-card" role="group" aria-roledescription="slide" aria-label="3 / 5">
               <div class="feat-media">
                 <img src="images/age-calculator.webp" alt="Age Calculator Arabic web app preview" width="1280" height="720" loading="lazy" decoding="async" />
                 <span class="feat-year"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><rect x="3" y="4" width="18" height="18" rx="2"/><path d="M16 2v4M8 2v4M3 10h18M8 14h.01M12 14h.01M16 14h.01M8 18h.01M12 18h.01M16 18h.01"/></svg><time datetime="2026">2026</time></span>
@@ -639,7 +638,7 @@
               </div>
             </article>
 
-            <article class="feat-card" role="group" aria-roledescription="slide" aria-label="4 / 4">
+            <article class="feat-card" role="group" aria-roledescription="slide" aria-label="4 / 5">
               <div class="feat-media">
                 <img class="fit-contain" src="images/salahstore.webp" alt="SALAH STORE gaming top-up website preview" width="1150" height="310" loading="lazy" decoding="async" />
                 <span class="feat-year"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><rect x="3" y="4" width="18" height="18" rx="2"/><path d="M16 2v4M8 2v4M3 10h18M8 14h.01M12 14h.01M16 14h.01M8 18h.01M12 18h.01M16 18h.01"/></svg><time datetime="2026">2026</time></span>
@@ -657,6 +656,28 @@
                 <ul class="feat-tags"><li>HTML/CSS</li><li>JAVASCRIPT</li><li>ARABIC UI</li><li>GAMING</li></ul>
                 <div class="feat-actions">
                   <a class="feat-view" href="https://devvoltx.github.io/TR_SALAH_Gaming_Site_v2/" target="_blank" rel="noopener noreferrer" aria-label="View project: SALAH STORE (opens in a new tab)"><span data-i18n="btn_viewproj">View Project</span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M7 17 17 7M8 7h9v9"/></svg></a>
+                </div>
+              </div>
+            </article>
+
+            <article class="feat-card" role="group" aria-roledescription="slide" aria-label="5 / 5">
+              <div class="feat-media">
+                <img src="images/forge-fitness.webp" alt="Forge Fitness workout tracker shown on a laptop and a phone" width="1280" height="720" loading="lazy" decoding="async" />
+                <span class="feat-year"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><rect x="3" y="4" width="18" height="18" rx="2"/><path d="M16 2v4M8 2v4M3 10h18M8 14h.01M12 14h.01M16 14h.01M8 18h.01M12 18h.01M16 18h.01"/></svg><time datetime="2026">2026</time></span>
+                <span class="feat-cat" data-i18n="t_fitness">Web / Fitness App</span>
+                <div class="feat-cap">
+                  <div>
+                    <small class="feat-kicker" data-i18n="feat_work">FEATURED WORK</small>
+                    <h3>FORGE FITNESS</h3>
+                  </div>
+                  <a class="feat-go" href="https://devvoltx.github.io/FORGE-FITNESS/" target="_blank" rel="noopener noreferrer" tabindex="-1" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M7 17 17 7M8 7h9v9"/></svg></a>
+                </div>
+              </div>
+              <div class="feat-body">
+                <p data-i18n="p8_h">A workout tracker with splits, an exercise library and an on-device form check.</p>
+                <ul class="feat-tags"><li>JAVASCRIPT</li><li>PWA</li><li>OFFLINE</li><li>MEDIAPIPE</li><li>LOCALSTORAGE</li></ul>
+                <div class="feat-actions">
+                  <a class="feat-view" href="https://devvoltx.github.io/FORGE-FITNESS/" target="_blank" rel="noopener noreferrer" aria-label="View project: FORGE FITNESS (opens in a new tab)"><span data-i18n="btn_viewproj">View Project</span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M7 17 17 7M8 7h9v9"/></svg></a>
                 </div>
               </div>
             </article>

@@ -1613,3 +1613,16 @@ $$(".copy-id").forEach((b) => {
     }, 1400);
   });
 });
+
+
+/* ---------- Project cards: cursor spotlight (fine pointers only; CSS reads --mx / --my) ---------- */
+(() => {
+  if (!matchMedia("(hover: hover) and (pointer: fine)").matches) return;
+  $$(".feat-card").forEach((card) => {
+    card.addEventListener("pointermove", (e) => {
+      const r = card.getBoundingClientRect();
+      card.style.setProperty("--mx", e.clientX - r.left + "px");
+      card.style.setProperty("--my", e.clientY - r.top + "px");
+    });
+  });
+})();
