@@ -12,7 +12,7 @@
 <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@500;600;700;800&family=Cairo:wght@500;700&display=swap" rel="stylesheet">
 <script>
 (function(){var d=document.documentElement;d.classList.add('js');
-try{var t=localStorage.getItem('theme');if(/^(dark|matrix|volt|light)$/.test(t))d.dataset.theme=t;
+try{var t=localStorage.getItem('theme');if(/^(dark|matrix|volt|nebula|toxic|ember|light)$/.test(t))d.dataset.theme=t;
 var l=localStorage.getItem('lang');if(/^(en|ar|it|es|de|fr|ru|ko|ja|zh)$/.test(l)){d.lang=l;d.dir=l==='ar'?'rtl':'ltr'}}catch(e){}})();
 </script>
 <style>
@@ -21,7 +21,10 @@ var l=localStorage.getItem('lang');if(/^(en|ar|it|es|de|fr|ru|ko|ja|zh)$/.test(l
 padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}
 [data-theme=matrix]{--bg:#030a05;--fg:#dcffe6;--fg-rgb:220,255,230;--dim:#6f9a7c;--accent:#1fe06a;--accent-rgb:31,224,106}
 [data-theme=volt]{--bg:#0a0a05;--fg:#fbfbe8;--fg-rgb:251,251,232;--dim:#9a9a78;--accent:#f0e500;--accent-rgb:240,229,0}
-[data-theme=light]{--bg:#eef5f7;--fg:#070b0e;--fg-rgb:7,11,14;--dim:#4a646c;--accent:#0b7f8c;--accent-rgb:11,127,140;--on-accent:#fff;--glow:.16;color-scheme:light}
+[data-theme=nebula]{--bg:#031326;--fg:#fff;--fg-rgb:255,255,255;--dim:#8f9bb8;--accent:#d24be3;--accent-rgb:210,75,227;--on-accent:#fff}
+[data-theme=toxic]{--bg:#050705;--fg:#fff;--fg-rgb:255,255,255;--dim:#8fa088;--accent:#7cf01e;--accent-rgb:124,240,30;--on-accent:#061200}
+[data-theme=ember]{--bg:#062e35;--fg:#fff;--fg-rgb:255,255,255;--dim:#87aab0;--accent:#ff5533;--accent-rgb:255,85,51;--on-accent:#fff}
+[data-theme=light]{--bg:#eef5f7;--fg:#070b0e;--fg-rgb:7,11,14;--dim:#4a646c;--accent:#097080;--accent-rgb:9,112,128;--on-accent:#fff;--glow:.16;color-scheme:light}
 *{box-sizing:border-box}html{scroll-padding-top:env(safe-area-inset-top,0px)}
 body{margin:0;min-height:100vh;color:var(--fg);font-family:var(--ar);background-color:var(--bg);background-attachment:fixed;
 background-image:radial-gradient(80% 38% at 50% 104%,rgba(var(--accent-rgb),var(--glow)),transparent 72%),radial-gradient(45% 30% at calc(var(--mx,50)*1%) calc(var(--my,20)*1%),rgba(var(--accent-rgb),.10),transparent 70%),repeating-linear-gradient(90deg,rgba(var(--fg-rgb),.025) 0 2px,transparent 2px 16px)}
@@ -69,6 +72,7 @@ a{color:inherit}figure,blockquote{margin:0}
 .btn{padding:.8rem 1.4rem;font:700 .76rem var(--en);letter-spacing:.1em;text-decoration:none;transition:transform .2s}
 .btn:hover{transform:translateY(-2px)}
 .btn.main{background:var(--accent);color:var(--on-accent);border-color:var(--accent)}
+.go-back{position:relative;display:inline-block;width:12rem;max-width:100%;height:3.5rem;padding:0;border:0;border-radius:1rem;background:var(--fg);color:var(--bg);font:700 1.1rem/3.5rem var(--sans,var(--en,system-ui),system-ui,sans-serif);text-align:center;text-decoration:none;cursor:pointer;touch-action:manipulation}.go-back .gb-ico{position:absolute;inset-inline-start:4px;top:4px;z-index:2;display:flex;align-items:center;justify-content:center;width:25%;height:calc(100% - 8px);border-radius:.75rem;background:var(--accent);color:var(--on-accent,#050a0c);transition:width .5s}.go-back svg{width:25px;height:25px;fill:currentColor}[dir=rtl] .go-back svg{transform:scaleX(-1)}.go-back .gb-txt{display:block;padding-inline-start:calc(25% + 4px);padding-inline-end:.5rem;white-space:nowrap}.go-back:hover .gb-ico,.go-back:focus-visible .gb-ico{width:calc(100% - 8px)}.go-back:focus-visible{outline:2px solid var(--accent);outline-offset:3px}@media (prefers-reduced-motion:reduce){.go-back .gb-ico{transition:none}}
 .foot{margin-top:2.4rem;text-align:center;font:500 .75rem var(--en);color:var(--dim)}
 @media(max-width:560px){.pill{padding:.8rem 1rem;gap:.7rem}.pill:nth-child(odd){margin-inline-end:3%}.pill:nth-child(even){margin-inline-start:3%}.thumb.a{width:60px;left:-10px;top:12px}.thumb.b{width:52px;right:-8px}.hero{margin-inline:.2rem}}
 @media(prefers-reduced-motion:reduce){.pill,.js .pill{transition:none;translate:0 0;opacity:1}.pill:hover{transform:none}}
@@ -102,7 +106,7 @@ a{color:inherit}figure,blockquote{margin:0}
   <div class="cta">
     <a class="btn glass main" href="https://devvoltx.github.io/Age-Calculator-v1/" target="_blank" rel="noopener noreferrer"><span data-t="demo"></span> ↗</a>
     <a class="btn glass" href="https://github.com/DEVVOLTX/Age-Calculator-v1" target="_blank" rel="noopener noreferrer"><span data-t="repo"></span> ↗</a>
-    <a class="btn glass" href="./">← <span data-t="home"></span></a>
+    <a class="go-back" href="./"><span class="gb-ico"><svg viewBox="0 0 1024 1024" aria-hidden="true" focusable="false"><path d="M224 480h640a32 32 0 1 1 0 64H224a32 32 0 0 1 0-64z"/><path d="m237.248 512 265.408 265.344a32 32 0 0 1-45.312 45.312l-288-288a32 32 0 0 1 0-45.312l288-288a32 32 0 1 1 45.312 45.312L237.248 512z"/></svg></span><span class="gb-txt" data-t="home"></span></a>
   </div>
   <p class="foot">amressam.is-a.dev</p>
 </main>
@@ -119,7 +123,7 @@ ru:{h:"Живые отзывы под постом о запуске",sub:"За�
 ko:{h:"런칭 게시물에 달린 실제 반응",sub:"Age Calculator Pro 출시 — 조회수 1.8k, 좋아요 30, 댓글 41개를 기록한 게시물의 실제 반응 · 2026년 7월",chip:"커뮤니티 반응",v:"조회",l:"좋아요",c:"댓글",s:"공유",note:"* 페이스북 런칭 게시물의 실제 댓글이며 지어낸 후기가 아닙니다. 개인정보 보호를 위해 프로필 사진은 이니셜로 대체했습니다.",demo:"라이브 데모",repo:"GITHUB 저장소",home:"포트폴리오"},
 ja:{h:"ローンチ投稿へのリアルな反応",sub:"Age Calculator Pro 公開時の投稿（1.8k 回表示、いいね 30、コメント 41）に寄せられたリアルな反応 · 2026年7月",chip:"コミュニティの反応",v:"表示",l:"いいね",c:"コメント",s:"シェア",note:"* Facebook のローンチ投稿にあった本物のコメントです。創作した感想ではありません。プライバシー保護のためプロフィール写真はイニシャルに置き換えています。",demo:"ライブデモ",repo:"GITHUB リポジトリ",home:"ポートフォリオ"},
 zh:{h:"来自发布帖的真实反馈",sub:"Age Calculator Pro 发布时 — 一条获得 1.8k 浏览、30 个赞和 41 条评论的帖子带来的真实反馈 · 2026 年 7 月",chip:"社区反馈",v:"浏览",l:"点赞",c:"评论",s:"分享",note:"* 来自 Facebook 发布帖的真实评论，并非编造的评价。出于隐私考虑，头像已替换为姓名首字母。",demo:"在线演示",repo:"GITHUB 仓库",home:"作品集"}};
-var THEMES={dark:"Midnight",matrix:"Matrix",volt:"VoltX",light:"Light"};
+var THEMES={dark:"Midnight",matrix:"Matrix",volt:"VoltX",nebula:"Nebula",toxic:"Toxic",ember:"Ember",light:"Light"};
 var NAMES={en:"English",ar:"العربية",it:"Italiano",es:"Español",de:"Deutsch",fr:"Français",ru:"Русский",ko:"한국어",ja:"日本語",zh:"中文"};
 var d=document.documentElement,$=function(i){return document.getElementById(i)};
 function save(k,v){try{localStorage.setItem(k,v)}catch(e){}}
