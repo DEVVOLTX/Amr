@@ -984,6 +984,86 @@ document.addEventListener("click", (e) => {
     setMenu(false);
 });
 
+/* ---------- Azure: one section at a time ----------
+   Only in the Azure theme: every section is its own page, and the nav shows just the one you pick.
+   Every other theme keeps the normal long scrolling page. The gallery sections (logos / cars / clients)
+   have no nav icon of their own, so they open together with PROJECTS. */
+const AZ_GROUP = {
+  "logo-projects": "projects",
+  "car-projects": "projects",
+  "client-projects": "projects",
+};
+let azView = "hero";
+const azSecs = () => $$("main > section.wrap");
+const azOf = (sec) => AZ_GROUP[sec.id] || sec.id;
+const azFromHash = () => {
+  let id = "";
+  try {
+    id = decodeURIComponent(location.hash.slice(1));
+  } catch (e) {}
+  const el = id && document.getElementById(id);
+  const sec = el && el.closest("main > section.wrap");
+  return sec ? azOf(sec) : "hero";
+};
+/* the section the reader is looking at right now (used when switching INTO Azure from a long-scroll theme) */
+const azFromScroll = () => {
+  let cur = null;
+  azSecs().forEach((sec) => {
+    if (sec.getBoundingClientRect().top <= innerHeight * 0.4) cur = sec;
+  });
+  return cur ? azOf(cur) : "hero";
+};
+const azApply = () => {
+  const on = root.dataset.theme === "azure";
+  azSecs().forEach((sec) =>
+    sec.classList.toggle("az-off", on && azOf(sec) !== azView),
+  );
+  root.classList.add("az-ready");
+  /* carousels / the nav highlight measure layout, so let them re-measure now that a section is visible */
+  requestAnimationFrame(() => window.dispatchEvent(new Event("resize")));
+};
+const azGo = (view, push) => {
+  azView = view;
+  if (push) history.pushState(null, "", "#" + view);
+  azApply();
+  scrollTo({ top: 0, behavior: "instant" });
+};
+document.addEventListener("click", (e) => {
+  if (root.dataset.theme !== "azure") return;
+  if (e.defaultPrevented || e.button || e.metaKey || e.ctrlKey || e.shiftKey)
+    return;
+  const a = e.target.closest('a[href^="#"]');
+  if (!a) return;
+  const id = a.getAttribute("href").slice(1);
+  const sec = id && document.getElementById(id);
+  if (!sec || !sec.matches("main > section.wrap")) return;
+  e.preventDefault();
+  azGo(azOf(sec), true);
+});
+const azSync = () => {
+  azView = azFromHash();
+  azApply();
+};
+addEventListener("popstate", azSync);
+addEventListener("hashchange", azSync);
+{
+  let was = root.dataset.theme;
+  new MutationObserver(() => {
+    const now = root.dataset.theme;
+    if (now === was) return;
+    const leaving = was === "azure";
+    was = now;
+    if (now === "azure") azView = azFromScroll();
+    azApply();
+    if (leaving) {
+      /* back to the long page: land on the section that was open */
+      const sec = document.getElementById(azView);
+      if (sec) sec.scrollIntoView({ block: "start", behavior: "instant" });
+    } else if (now === "azure") scrollTo({ top: 0, behavior: "instant" });
+  }).observe(root, { attributes: true, attributeFilter: ["data-theme"] });
+}
+azSync();
+
 /* ---------- Scroll progress + active section in the nav ---------- */
 const bar = $("#progress");
 const onScroll = () => {
@@ -1005,6 +1085,9 @@ onScroll();
       if (sec.getBoundingClientRect().top <= innerHeight * 0.4) cur = sec;
     });
     if (atEnd) cur = secs[secs.length - 1];
+    /* Azure shows one section at a time (the others are display:none), so the open view decides */
+    if (root.dataset.theme === "azure")
+      cur = secs.find((sec) => sec.id === azView) || null;
     links.forEach((a) => {
       const on = !!cur && a.getAttribute("href") === "#" + cur.id;
       a.classList.toggle("active", on);

@@ -4666,3 +4666,24 @@ html[data-fx="off"] .ticker ul { animation: none !important; }
 @media (prefers-reduced-motion: reduce) {
   [data-theme="azure"] .links .nl { transition: none; }
 }
+
+/* ===== Azure: one section per page (see "Azure: one section at a time" in main.js) ===== */
+[data-theme="azure"] main > section.wrap.az-off,
+/* before main.js runs, show only the hero so the long page never flashes */
+[data-theme="azure"]:not(.az-ready) main > section.wrap:not(#hero) {
+  display: none;
+}
+[data-theme="azure"] main > section.wrap:not(.az-off) {
+  animation: azIn 0.35s ease backwards;
+}
+@keyframes azIn {
+  from {
+    opacity: 0;
+    transform: translateY(12px);
+  }
+}
+@media (prefers-reduced-motion: reduce) {
+  [data-theme="azure"] main > section.wrap:not(.az-off) {
+    animation: none;
+  }
+}
