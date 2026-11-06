@@ -4,7 +4,7 @@ const $$ = (sel, root = document) => [...root.querySelectorAll(sel)];
 const EMAIL = "amrt6509@gmail.com";
 const SITE = "https://amressam.is-a.dev/";
 
-/* ---------- Theme (Midnight / Matrix / VoltX / Nebula / Toxic / Ember / Light) ---------- */
+/* ---------- Theme (Midnight / Matrix / VoltX / Nebula / Toxic / Ember / Azure / Light) ---------- */
 const themeBtn = $("#theme");
 const themeMenu = $("#theme-menu");
 const root = document.documentElement;
@@ -15,6 +15,7 @@ const THEME_ICO = {
   star: '<path d="M11.525 2.295a.53.53 0 0 1 .95 0l2.31 4.679a2.123 2.123 0 0 0 1.595 1.16l5.166.756a.53.53 0 0 1 .294.904l-3.736 3.638a2.123 2.123 0 0 0-.611 1.878l.882 5.14a.53.53 0 0 1-.771.56l-4.618-2.428a2.122 2.122 0 0 0-1.973 0L6.396 21.01a.53.53 0 0 1-.77-.56l.881-5.139a2.122 2.122 0 0 0-.611-1.879L2.16 9.795a.53.53 0 0 1 .294-.906l5.165-.755a2.122 2.122 0 0 0 1.597-1.16z"/>',
   drop: '<path d="M12 22a7 7 0 0 0 7-7c0-2-1-3.9-3-5.5s-3.5-4-4-6.5c-.5 2.5-2 4.9-4 6.5C6 11.1 5 13 5 15a7 7 0 0 0 7 7z"/>',
   flame: '<path d="M8.5 14.5A2.5 2.5 0 0 0 11 12c0-1.38-.5-2-1-3-1.072-2.143-.224-4.054 2-6 .5 2.5 2 4.9 4 6.5 2 1.6 3 3.5 3 5.5a7 7 0 1 1-14 0c0-1.153.433-2.294 1-3a2.5 2.5 0 0 0 2.5 2.5z"/>',
+  layout: '<rect width="7" height="9" x="3" y="3" rx="1"/><rect width="7" height="5" x="14" y="3" rx="1"/><rect width="7" height="9" x="14" y="12" rx="1"/><rect width="7" height="5" x="3" y="16" rx="1"/>',
   sun: '<circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2M6.34 17.66l-1.41 1.41M19.07 4.93l-1.41 1.41"/>',
 };
 const THEMES = {
@@ -24,6 +25,7 @@ const THEMES = {
   nebula: { name: "Nebula", icon: "star", color: "#031326" },
   toxic: { name: "Toxic", icon: "drop", color: "#050705" },
   ember: { name: "Ember", icon: "flame", color: "#062E35" },
+  azure: { name: "Azure", icon: "layout", color: "#8DB4EE" },
   light: { name: "Light", icon: "sun", color: "#EEF5F7" },
 };
 const setThemeMenu = (open) => {
