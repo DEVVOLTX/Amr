@@ -4,7 +4,7 @@ const $$ = (sel, root = document) => [...root.querySelectorAll(sel)];
 const EMAIL = "amrt6509@gmail.com";
 const SITE = "https://amressam.is-a.dev/";
 
-/* ---------- Theme (Midnight / Matrix / VoltX / Nebula / Toxic / Ember / Azure / Light) ---------- */
+/* ---------- Theme (Midnight / Matrix / VoltX / Nebula / Toxic / Ember / Crimson / Azure / Light) ---------- */
 const themeBtn = $("#theme");
 const themeMenu = $("#theme-menu");
 const root = document.documentElement;
@@ -15,6 +15,7 @@ const THEME_ICO = {
   star: '<path d="M11.525 2.295a.53.53 0 0 1 .95 0l2.31 4.679a2.123 2.123 0 0 0 1.595 1.16l5.166.756a.53.53 0 0 1 .294.904l-3.736 3.638a2.123 2.123 0 0 0-.611 1.878l.882 5.14a.53.53 0 0 1-.771.56l-4.618-2.428a2.122 2.122 0 0 0-1.973 0L6.396 21.01a.53.53 0 0 1-.77-.56l.881-5.139a2.122 2.122 0 0 0-.611-1.879L2.16 9.795a.53.53 0 0 1 .294-.906l5.165-.755a2.122 2.122 0 0 0 1.597-1.16z"/>',
   drop: '<path d="M12 22a7 7 0 0 0 7-7c0-2-1-3.9-3-5.5s-3.5-4-4-6.5c-.5 2.5-2 4.9-4 6.5C6 11.1 5 13 5 15a7 7 0 0 0 7 7z"/>',
   flame: '<path d="M8.5 14.5A2.5 2.5 0 0 0 11 12c0-1.38-.5-2-1-3-1.072-2.143-.224-4.054 2-6 .5 2.5 2 4.9 4 6.5 2 1.6 3 3.5 3 5.5a7 7 0 1 1-14 0c0-1.153.433-2.294 1-3a2.5 2.5 0 0 0 2.5 2.5z"/>',
+  palette: '<circle cx="13.5" cy="6.5" r=".5"/><circle cx="17.5" cy="10.5" r=".5"/><circle cx="8.5" cy="7.5" r=".5"/><circle cx="6.5" cy="12.5" r=".5"/><path d="M12 2C6.5 2 2 6.5 2 12s4.5 10 10 10c.926 0 1.648-.746 1.648-1.688 0-.437-.18-.835-.437-1.125-.29-.289-.438-.652-.438-1.125a1.64 1.64 0 0 1 1.668-1.668h1.996c3.051 0 5.555-2.503 5.555-5.554C21.965 6.012 17.461 2 12 2z"/>',
   layout: '<rect width="7" height="9" x="3" y="3" rx="1"/><rect width="7" height="5" x="14" y="3" rx="1"/><rect width="7" height="9" x="14" y="12" rx="1"/><rect width="7" height="5" x="3" y="16" rx="1"/>',
   sun: '<circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2M6.34 17.66l-1.41 1.41M19.07 4.93l-1.41 1.41"/>',
 };
@@ -25,6 +26,7 @@ const THEMES = {
   nebula: { name: "Nebula", icon: "star", color: "#031326" },
   toxic: { name: "Toxic", icon: "drop", color: "#050705" },
   ember: { name: "Ember", icon: "flame", color: "#062E35" },
+  crimson: { name: "Crimson", icon: "palette", color: "#F6F1EE" },
   azure: { name: "Azure", icon: "layout", color: "#8DB4EE" },
   light: { name: "Light", icon: "sun", color: "#EEF5F7" },
 };
@@ -33,7 +35,7 @@ const setThemeMenu = (open) => {
   themeBtn.setAttribute("aria-expanded", String(open));
 };
 const syncTheme = () => {
-  const t = THEMES[root.dataset.theme] ? root.dataset.theme : "dark";
+  const t = THEMES[root.dataset.theme] ? root.dataset.theme : "crimson";
   themeBtn.innerHTML = `<svg viewBox="0 0 24 24" aria-hidden="true">${THEME_ICO[THEMES[t].icon]}</svg>`;
   themeBtn.setAttribute("aria-label", "Theme: " + THEMES[t].name);
   $$("[data-theme-opt]").forEach((b) =>
@@ -71,6 +73,27 @@ document.addEventListener("keydown", (e) => {
   }
 });
 syncTheme();
+
+/* Crimson: mark the nav link of the section that is on screen (styled only in the Crimson theme) */
+(() => {
+  const links = $$('.links a[href^="#"]');
+  const byId = new Map(links.map((a) => [a.getAttribute("href").slice(1), a]));
+  if (!byId.size || !("IntersectionObserver" in window)) return;
+  const io = new IntersectionObserver(
+    (entries) =>
+      entries.forEach((e) => {
+        if (!e.isIntersecting) return;
+        links.forEach((l) => l.classList.remove("on-sec"));
+        const a = byId.get(e.target.id);
+        if (a) a.classList.add("on-sec");
+      }),
+    { rootMargin: "-45% 0px -50% 0px" },
+  );
+  byId.forEach((_, id) => {
+    const sec = document.getElementById(id);
+    if (sec) io.observe(sec);
+  });
+})();
 
 /* ---------- Language (EN / AR / IT / ES / KO / JA / ZH) ----------
    Text lives in i18n.js. English is the markup itself; other languages override it by data-i18n key. */
@@ -207,6 +230,9 @@ function paintIsland({
   ico.innerHTML = ISL_ICONS[name] ? svgIcon(name) : icon || "";
   ico.style.setProperty("--c1", t.c1);
   ico.style.setProperty("--c2", t.c2);
+  island.style.setProperty("--isl-glow", t.c2 + "99");
+  islCard.style.setProperty("--c1", t.c1);
+  islCard.style.setProperty("--c2", t.c2);
   $(".isl-title", island).textContent = title;
   const sub = $(".isl-sub", island);
   sub.textContent = text;
@@ -214,16 +240,42 @@ function paintIsland({
   islCard.classList.toggle("has-bar", progress !== null);
   island.style.setProperty("--p", (progress ?? 0) + "%");
 }
-function armIsland() {
+let islEnd = 0,
+  islLeft = 0,
+  islAction = null;
+function armIsland(ms = islDuration) {
   clearTimeout(islTimer);
-  if (islDuration > 0) islTimer = setTimeout(hideIsland, islDuration);
+  islCard.classList.remove("timed", "paused");
+  if (ms > 0) {
+    islEnd = Date.now() + ms;
+    islTimer = setTimeout(hideIsland, ms);
+    // restart the countdown line
+    islCard.style.setProperty("--dur", ms + "ms");
+    void islCard.offsetWidth;
+    islCard.classList.add("timed");
+  }
+}
+function pauseIsland() {
+  if (!islCard.classList.contains("timed")) return;
+  clearTimeout(islTimer);
+  islLeft = Math.max(400, islEnd - Date.now());
+  islCard.classList.add("paused");
+}
+function resumeIsland() {
+  if (!islCard.classList.contains("timed") || !islCard.classList.contains("paused")) return;
+  clearTimeout(islTimer);
+  islEnd = Date.now() + islLeft;
+  islTimer = setTimeout(hideIsland, islLeft);
+  islCard.classList.remove("paused");
 }
 function hideIsland() {
   clearTimeout(islTimer);
+  islCard.classList.remove("timed", "paused", "clickable");
+  islAction = null;
   island.classList.remove("show");
 }
 
-/* showIsland({ type, title, text, icon, progress, duration })  // icon: optional name from ISL_ICONS -> { update(patch), close() }
+/* showIsland({ type, title, text, icon, progress, duration, action })  // action: fn run when the card is tapped  // icon: optional name from ISL_ICONS -> { update(patch), close() }
    progress: 0-100 shows the bar and keeps the island open until you update/close it. */
 function showIsland(opts) {
   const id = ++islSeq;
@@ -237,6 +289,12 @@ function showIsland(opts) {
     void islCard.offsetWidth;
     islCard.classList.add("swap");
   }
+  islAction = typeof state.action === "function" ? state.action : null;
+  islCard.classList.toggle("clickable", !!islAction);
+  const ic = $(".isl-ico", island);
+  ic.classList.remove("pop");
+  void ic.offsetWidth;
+  ic.classList.add("pop");
   island.classList.add("show");
   armIsland();
   return {
@@ -245,12 +303,19 @@ function showIsland(opts) {
       Object.assign(state, patch);
       islDuration = state.progress != null ? 0 : (state.duration ?? 3200);
       paintIsland(state);
+      if (patch.action !== undefined) {
+        islAction = typeof state.action === "function" ? state.action : null;
+        islCard.classList.toggle("clickable", !!islAction);
+      }
       if (patch.type || patch.title) {
         islCard.classList.remove("swap");
         void islCard.offsetWidth;
         islCard.classList.add("swap");
       }
-      armIsland();
+      if (state.progress != null) {
+        islCard.classList.remove("timed", "paused");
+        clearTimeout(islTimer);
+      } else armIsland();
     },
     close() {
       if (id === islSeq) hideIsland();
@@ -258,8 +323,65 @@ function showIsland(opts) {
   };
 }
 $(".isl-x", island).addEventListener("click", hideIsland);
-island.addEventListener("mouseenter", () => clearTimeout(islTimer));
-island.addEventListener("mouseleave", armIsland);
+island.addEventListener("mouseenter", pauseIsland);
+island.addEventListener("mouseleave", resumeIsland);
+island.addEventListener("focusin", pauseIsland);
+island.addEventListener("focusout", resumeIsland);
+
+/* tap the card to run its action (if any); drag up / sideways to dismiss */
+(() => {
+  let sx = 0,
+    sy = 0,
+    dragging = false,
+    moved = false,
+    pid = null;
+  island.addEventListener("pointerdown", (e) => {
+    if (e.target.closest(".isl-x") || e.button > 0) return;
+    sx = e.clientX;
+    sy = e.clientY;
+    dragging = true;
+    moved = false;
+    pid = e.pointerId;
+    pauseIsland();
+  });
+  island.addEventListener("pointermove", (e) => {
+    if (!dragging || e.pointerId !== pid) return;
+    const dx = e.clientX - sx,
+      dy = e.clientY - sy;
+    if (!moved && Math.hypot(dx, dy) < 6) return;
+    if (!moved) {
+      moved = true;
+      island.classList.add("drag");
+      try {
+        island.setPointerCapture(pid);
+      } catch (_) {}
+    }
+    // rubber-band: free upwards/sideways, resisted downwards
+    island.style.setProperty("--dx", dx * 0.9 + "px");
+    island.style.setProperty("--dy", (dy < 0 ? dy : dy * 0.18) + "px");
+  });
+  const end = (e) => {
+    if (!dragging || (e && e.pointerId !== pid)) return;
+    dragging = false;
+    const dx = parseFloat(island.style.getPropertyValue("--dx")) || 0,
+      dy = parseFloat(island.style.getPropertyValue("--dy")) || 0;
+    island.classList.remove("drag");
+    island.style.removeProperty("--dx");
+    island.style.removeProperty("--dy");
+    if (moved && (dy < -38 || Math.abs(dx) > 90)) {
+      hideIsland();
+    } else {
+      resumeIsland();
+      if (!moved && islAction) {
+        const fn = islAction;
+        hideIsland();
+        fn();
+      }
+    }
+  };
+  island.addEventListener("pointerup", end);
+  island.addEventListener("pointercancel", end);
+})();
 document.addEventListener("keydown", (e) => {
   if (
     e.key === "Escape" &&

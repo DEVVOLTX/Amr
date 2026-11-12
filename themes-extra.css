@@ -1,6 +1,7 @@
 /* ═══ Per-theme identities: MATRIX (terminal) + VOLTX (racing HUD) ═══ */
 @import url("https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,600;0,9..144,800;1,9..144,600&family=Space+Grotesk:wght@500;700&family=Sora:wght@400;600;700&display=swap");
 @import url("https://fonts.googleapis.com/css2?family=Rajdhani:wght@500;600;700&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Gloock&family=Bagel+Fat+One&display=swap");
 
 /* ───────── MATRIX: everything is a terminal ───────── */
 [data-theme="matrix"] {
@@ -536,4 +537,324 @@ html:has(.theme-menu:not([hidden])) #island { visibility: hidden; }
 @media (prefers-reduced-motion: reduce) {
   .theme-menu .theme-pill { transition: none; }
   .theme-menu .theme-pill:hover { transform: none; }
+}
+
+/* ═══════════════ CRIMSON: cream paper, deep red, chunky headings (studio portfolio look) ═══════════════ */
+[data-theme="crimson"] {
+  --display: "Bagel Fat One", "Cairo", system-ui, sans-serif;
+  --serif: "Gloock", "Cairo", Georgia, serif;
+  --mono: "Inter", "Cairo", system-ui, sans-serif;
+  --r: 18px;
+  --ink: #2a0a0c;
+}
+/* red + pink wash behind the hero only, fading into the cream page */
+[data-theme="crimson"] body::before {
+  position: absolute;
+  inset: 0 0 auto;
+  height: min(105svh, 920px);
+  z-index: -1;
+  background:
+    radial-gradient(55% 60% at 4% 0%, rgba(196, 35, 43, 0.62), transparent 70%),
+    radial-gradient(50% 55% at 100% 22%, rgba(226, 140, 140, 0.5), transparent 72%),
+    radial-gradient(40% 40% at 50% 60%, rgba(244, 200, 196, 0.45), transparent 75%);
+  -webkit-mask-image: linear-gradient(#000 55%, transparent);
+  mask-image: linear-gradient(#000 55%, transparent);
+}
+
+/* floating pill navigation */
+[data-theme="crimson"] nav {
+  inset: 0.75rem 0 auto;
+  background: transparent;
+  border: 0;
+  backdrop-filter: none;
+}
+[data-theme="crimson"] .nav-in {
+  max-width: min(1120px, calc(100% - 1.5rem));
+  padding: 0.4rem 0.5rem 0.4rem 1.1rem;
+  border-radius: 999px;
+  background: rgba(255, 252, 250, 0.62);
+  -webkit-backdrop-filter: blur(16px) saturate(1.2);
+  backdrop-filter: blur(16px) saturate(1.2);
+  border: 1px solid rgba(42, 13, 15, 0.08);
+  box-shadow: 0 14px 34px -20px rgba(42, 13, 15, 0.55);
+}
+[data-theme="crimson"] .logo {
+  font-family: var(--display);
+  font-weight: 400;
+  letter-spacing: 0.06em;
+  color: var(--fg);
+}
+[data-theme="crimson"] .links a {
+  color: var(--fg);
+  font-weight: 500;
+  letter-spacing: 0.04em;
+  border-radius: 999px;
+}
+[data-theme="crimson"] .links a:hover {
+  background: rgba(42, 13, 15, 0.07);
+}
+[data-theme="crimson"] .links a.on-sec {
+  background: var(--accent);
+  color: #fff;
+}
+[data-theme="crimson"] .icon-btn,
+[data-theme="crimson"] .lang-btn {
+  background: rgba(255, 255, 255, 0.7);
+  border: 1px solid rgba(42, 13, 15, 0.14);
+  color: var(--fg);
+}
+[data-theme="crimson"] .icon-btn svg {
+  stroke: var(--fg);
+}
+[data-theme="crimson"] .icon-btn:hover,
+[data-theme="crimson"] .lang-btn:hover {
+  border-color: var(--accent);
+  color: var(--accent);
+}
+[data-theme="crimson"] .menu-btn .bars i {
+  background: var(--fg);
+}
+@media (max-width: 799px) {
+  [data-theme="crimson"] .links {
+    background: #fffaf7;
+    border: 1px solid var(--border);
+    border-radius: 22px;
+    box-shadow: 0 24px 50px -24px rgba(42, 13, 15, 0.6);
+  }
+}
+
+/* buttons: ink pills with a red under-edge */
+[data-theme="crimson"] .btn {
+  background: var(--ink);
+  border: 1px solid var(--ink);
+  color: #fff;
+  border-radius: 999px;
+  font-weight: 600;
+  letter-spacing: 0.05em;
+  box-shadow: 0 3px 0 var(--accent);
+  transition:
+    transform 0.15s,
+    box-shadow 0.15s,
+    background 0.2s,
+    color 0.2s;
+}
+[data-theme="crimson"] .btn:hover {
+  transform: translateY(-2px);
+  border-color: var(--ink);
+  box-shadow: 0 5px 0 var(--accent);
+}
+[data-theme="crimson"] .btn:active {
+  transform: translateY(1px);
+  box-shadow: 0 1px 0 var(--accent);
+}
+[data-theme="crimson"] .btn.ghost {
+  background: transparent;
+  color: var(--ink);
+  border-color: var(--ink);
+  box-shadow: none;
+}
+[data-theme="crimson"] .btn.ghost:hover {
+  background: var(--ink);
+  color: #fff;
+  box-shadow: 0 4px 0 var(--accent);
+}
+[data-theme="crimson"] #top {
+  background: var(--ink);
+  border-color: var(--ink);
+  color: #fff;
+}
+
+/* hero */
+[data-theme="crimson"] .tag-line {
+  color: var(--accent);
+  font-weight: 600;
+  letter-spacing: 0.16em;
+}
+[data-theme="crimson"] .tag-line::before {
+  background: var(--accent);
+}
+[data-theme="crimson"] .name {
+  font-family: var(--serif);
+  font-weight: 400;
+  letter-spacing: -0.02em;
+  line-height: 1;
+  font-size: clamp(3.6rem, 13vw, 8.2rem);
+  color: var(--fg);
+}
+[data-theme="crimson"] .name span,
+[data-theme="crimson"] .name em {
+  display: inline-block;
+  text-transform: lowercase;
+}
+[data-theme="crimson"] .name span::first-letter,
+[data-theme="crimson"] .name em::first-letter {
+  text-transform: uppercase;
+}
+[data-theme="crimson"] .name em {
+  font-style: normal;
+  background: none;
+  -webkit-text-fill-color: var(--accent);
+  color: var(--accent);
+  margin-inline-start: 0.22em;
+}
+[data-theme="crimson"] .role {
+  font-family: var(--display);
+  font-size: clamp(1.15rem, 3.4vw, 1.7rem);
+  color: var(--fg);
+  letter-spacing: 0.01em;
+}
+[data-theme="crimson"] .role::after {
+  background: var(--accent);
+}
+[data-theme="crimson"] .lead {
+  color: var(--dim);
+}
+[data-theme="crimson"] .avatar {
+  width: min(250px, 62vw);
+  aspect-ratio: 4 / 5;
+  padding: 0;
+  border-radius: 999px;
+  background: radial-gradient(circle at 50% 30%, #d4403f 0%, #7d1118 55%, #2a0a0c 100%);
+  box-shadow:
+    0 0 0 6px rgba(255, 252, 250, 0.7),
+    0 30px 80px -20px rgba(196, 35, 43, 0.7);
+  overflow: hidden;
+}
+[data-theme="crimson"] .avatar img {
+  border-radius: inherit;
+  object-fit: cover;
+  image-rendering: auto;
+}
+[data-theme="crimson"] .stats > div {
+  background: var(--bg2);
+  border: 1px solid var(--border);
+  border-radius: 16px;
+  padding: 0.7rem 1rem;
+}
+[data-theme="crimson"] .stats b {
+  font-family: var(--serif);
+  font-weight: 400;
+  color: var(--accent);
+  background: none;
+  -webkit-text-fill-color: var(--accent);
+}
+[data-theme="crimson"] .stats span {
+  color: var(--dim);
+}
+
+/* skills ribbon: tilted red band with white text and asterisks */
+[data-theme="crimson"] .ticker {
+  border: 0;
+  padding: 0.95rem 0;
+  margin-top: 3rem;
+  width: 104vw;
+  margin-inline: calc(50% - 52vw);
+  background: var(--accent);
+  transform: rotate(-1.8deg);
+  box-shadow: 0 16px 34px -18px rgba(120, 10, 16, 0.75);
+}
+[data-theme="crimson"] .ticker li {
+  color: #fff;
+  font-family: var(--display);
+  font-size: 1.05rem;
+  letter-spacing: 0.03em;
+}
+[data-theme="crimson"] .ticker li::after {
+  content: "✳";
+  color: #fff;
+}
+
+/* section titles */
+[data-theme="crimson"] .label {
+  position: relative;
+  font-family: var(--display);
+  font-weight: 400;
+  font-size: clamp(1.7rem, 5vw, 2.7rem);
+  line-height: 1.1;
+  letter-spacing: 0.01em;
+  color: var(--fg);
+  padding-bottom: 1.1rem;
+}
+[data-theme="crimson"] .label b {
+  display: block;
+  margin: 0 0 0.35rem;
+  font: 600 0.78rem var(--mono);
+  letter-spacing: 0.14em;
+  color: var(--accent);
+}
+[data-theme="crimson"] .label::after {
+  content: "";
+  position: absolute;
+  inset: auto auto 0 0;
+  width: 64px;
+  height: 3px;
+  border-radius: 3px;
+  background: var(--accent);
+  box-shadow: 70px 1px 0 -1px rgba(42, 13, 15, 0.12), 150px 1px 0 -1px rgba(42, 13, 15, 0.07);
+}
+[dir="rtl"][data-theme="crimson"] .label::after {
+  inset: auto 0 0 auto;
+}
+
+/* cards: soft beige panels */
+[data-theme="crimson"] .card,
+[data-theme="crimson"] .feat-card {
+  background: var(--bg2);
+  border: 1px solid var(--border);
+  border-radius: 18px;
+  box-shadow: none;
+}
+[data-theme="crimson"] .card:hover,
+[data-theme="crimson"] .feat-card:hover {
+  border-color: var(--accent);
+  transform: translateY(-3px);
+  box-shadow: 0 20px 38px -24px rgba(196, 35, 43, 0.6);
+}
+[data-theme="crimson"] .tag,
+[data-theme="crimson"] .badge,
+[data-theme="crimson"] .pill {
+  color: var(--accent);
+  background: rgba(196, 35, 43, 0.08);
+  border-color: rgba(196, 35, 43, 0.35);
+  border-radius: 999px;
+}
+
+/* contact: pink call-to-action card with a hard offset shadow */
+[data-theme="crimson"] #contact {
+  background: linear-gradient(180deg, #ead0cb, #efe3de);
+  border: 1px solid rgba(42, 13, 15, 0.14);
+  border-radius: 24px;
+  box-shadow: 6px 6px 0 #3a0508;
+  padding: 0.5rem 1.5rem 2.5rem;
+  margin-block: 4rem 2rem;
+}
+[data-theme="crimson"] #contact .big {
+  font-family: var(--display);
+  font-weight: 400;
+  color: var(--fg);
+}
+[data-theme="crimson"] #contact .big span {
+  color: var(--accent);
+}
+[data-theme="crimson"] #contact .email {
+  color: var(--accent);
+}
+[data-theme="crimson"] footer {
+  color: var(--dim);
+  border-top: 1px dashed rgba(196, 35, 43, 0.5);
+}
+[data-theme="crimson"] footer span {
+  color: var(--accent);
+  font-weight: 700;
+}
+
+/* Crimson: keep the dark notification island readable on the cream page */
+[data-theme="crimson"] #island,
+[data-theme="crimson"] #island * {
+  --fg: #fff;
+  --dim: #cdbcbc;
+}
+[data-theme="crimson"] #island {
+  background: var(--ink);
+  color: #fff;
 }
