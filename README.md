@@ -23,7 +23,7 @@ Based in **Kafr El Dawar, Egypt** 🇪🇬
 - **Website Updates button** — a floating pill that opens a popup with a link to the WhatsApp channel for update notices (translated into all 10 languages)
 - **Collapsible project cards** (native `<details>`, no JS)
 - **Playable game inside the portfolio** — HAND PLATFORMER (hand-tracking platformer) opens in an overlay from the hero button or the project card (`/#play` opens it directly). The page and the game talk via `postMessage`: live level/score in the overlay header, score toasts in the notification island, and a best-score + top-5 board on the project card shared through `localStorage`
-- **Certificates** with verify links, a front/back flip card and a fullscreen viewer
+- **Certificates as folder cards** (`certs.css` + `certs.js`) — each card is a colour-coded folder with the certificate peeking out; tapping it opens a bottom sheet (centred card on desktop) with the full certificate, download, fullscreen, front/back flip (Cisco), copy credential ID, verify link, Share on X and a copy-link that reopens the same certificate (`?cert=js1`). To add one, copy a card in `index.html` and change its `data-*` attributes
 - **Galleries** (logos, car posters, client work) with a keyboard- and swipe-friendly lightbox
 - **Two CV versions** — the Download CV buttons open a chooser: `amr_essam_cv.pdf` (plain ATS / HR, single column) and `amr_essam_cv_designed.pdf` (dark, in the style of the site); the download shows a live progress "island" notification
 - **SEO ready** — Open Graph / Twitter cards, JSON-LD, sitemap, robots, web manifest
