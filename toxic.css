@@ -1,0 +1,194 @@
+/* ════════ THEME: Toxic — data-theme="toxic" ════════
+   ARCHIVED — not linked anywhere. To restore: see README.md in this folder
+*/
+
+/* ── Toxic: rules cut from style.css ── */
+/* Toxic: near-black with a single lime light, like a glowing path through a dark maze */
+[data-theme="toxic"] {
+  --bg: #050705;
+  --bg2: #0c110a;
+  --fg: #ffffff;
+  --dim: #8fa088;
+  --teal: #1f5200;
+  --accent: #7cf01e;
+  --ice: #d3ffa6;
+  --border: rgba(211, 255, 166, 0.1);
+  --card: rgba(12, 17, 10, 0.78);
+  --teal-rgb: 31, 82, 0;
+  --accent-rgb: 124, 240, 30;
+  --bg-rgb: 5, 7, 5;
+  --ice-rgb: 211, 255, 166;
+  --accent2: #a8ff3a;
+  --accent2-rgb: 168, 255, 58;
+  --on-accent: #061200;
+}
+[data-theme="toxic"] {
+  color-scheme: dark;
+}
+[data-theme="toxic"] body::before {
+  background:
+    radial-gradient(55% 45% at 8% 0, rgba(var(--accent-rgb), 0.28), transparent),
+    radial-gradient(50% 40% at 100% 38%, rgba(var(--accent2-rgb), 0.16), transparent),
+    radial-gradient(60% 45% at 30% 100%, rgba(var(--teal-rgb), 0.45), transparent);
+}
+[data-theme="toxic"] .name em {
+  background-image: linear-gradient(100deg, var(--accent), var(--accent2));
+  filter: drop-shadow(0 0 22px rgba(var(--accent-rgb), 0.45));
+}
+[data-theme="toxic"] .avatar {
+  background: conic-gradient(var(--accent), var(--accent2), var(--ice), var(--accent));
+  box-shadow:
+    0 0 36px rgba(var(--accent-rgb), 0.6),
+    0 0 90px rgba(var(--accent-rgb), 0.28);
+}
+[data-theme="toxic"] .btn:not(.ghost):not(.arc) {
+  background: linear-gradient(100deg, var(--accent), var(--accent2));
+  border-color: transparent;
+  color: var(--on-accent);
+  box-shadow: 0 8px 28px -8px rgba(var(--accent-rgb), 0.75);
+}
+[data-theme="toxic"] .btn:not(.ghost):not(.arc):hover {
+  box-shadow: 0 12px 34px -6px rgba(var(--accent-rgb), 0.95);
+}
+[data-theme="toxic"] .btn.ghost {
+  border-color: rgba(var(--accent-rgb), 0.55);
+  box-shadow: inset 0 0 18px rgba(var(--accent-rgb), 0.12);
+}
+[data-theme="toxic"] .stats b {
+  color: var(--accent);
+  text-shadow: 0 0 18px rgba(var(--accent-rgb), 0.7);
+}
+[data-theme="toxic"] .card {
+  border-color: rgba(var(--accent-rgb), 0.25);
+  background:
+    linear-gradient(160deg, rgba(var(--accent-rgb), 0.12), rgba(var(--accent-rgb), 0) 50%),
+    var(--card);
+  box-shadow: inset 0 1px 0 rgba(var(--accent-rgb), 0.35);
+}
+[data-theme="toxic"] .card:hover {
+  border-color: var(--accent);
+  box-shadow:
+    inset 0 1px 0 rgba(var(--accent-rgb), 0.5),
+    0 18px 50px -18px rgba(var(--accent-rgb), 0.7);
+}
+[data-theme="toxic"] .about-title span {
+  color: var(--accent);
+  text-shadow: 0 0 24px rgba(var(--accent-rgb), 0.5);
+}
+@media (prefers-reduced-motion: no-preference) {
+[data-theme="toxic"] body::before {
+    inset: -12%;
+    animation: neon-aurora 16s ease-in-out infinite alternate;
+    will-change: transform;
+  }
+[data-theme="toxic"] .name em {
+    background-image: linear-gradient(100deg, var(--accent), var(--accent2), var(--accent));
+    background-size: 220% 100%;
+    animation: neon-shimmer 7s linear infinite;
+  }
+[data-theme="toxic"] .avatar {
+    animation: neon-pulse 4.5s ease-in-out infinite;
+  }
+[data-theme="toxic"] .stats b {
+    animation: neon-flicker 3.6s ease-in-out infinite;
+  }
+[data-theme="toxic"] .btn:not(.ghost):not(.arc) {
+    position: relative;
+    overflow: hidden;
+  }
+[data-theme="toxic"] .btn:not(.ghost):not(.arc)::after {
+    content: "";
+    position: absolute;
+    inset: 0 auto 0 0;
+    width: 40%;
+    background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.45), transparent);
+    animation: neon-shine 4.5s ease-in-out infinite;
+    pointer-events: none;
+  }
+[data-theme="toxic"] .card:hover {
+    transform: translateY(-4px);
+  }
+}
+/* ===== Toxic: lime path-in-the-dark look =====
+   white headline + one lime line, a single light pool at the bottom, no rainbow shimmer */
+[data-theme="toxic"] body::before {
+  background:
+    radial-gradient(70% 38% at 50% 108%, rgba(var(--accent-rgb), 0.26), transparent 70%),
+    radial-gradient(45% 30% at 50% 100%, rgba(var(--accent2-rgb), 0.18), transparent 70%),
+    radial-gradient(60% 40% at 12% 0, rgba(var(--teal-rgb), 0.4), transparent);
+}
+[data-theme="toxic"] .name em {
+  background: none;
+  -webkit-text-fill-color: var(--accent);
+  color: var(--accent);
+  text-shadow: 0 0 28px rgba(var(--accent-rgb), 0.55);
+  animation: none;
+}
+[data-theme="toxic"] .about-title span {
+  color: var(--accent);
+  text-shadow: 0 0 22px rgba(var(--accent-rgb), 0.45);
+}
+[data-theme="toxic"] .avatar {
+  box-shadow: 0 0 46px rgba(var(--accent-rgb), 0.38), 0 0 110px rgba(var(--accent-rgb), 0.14);
+}
+[data-theme="toxic"] .card:hover {
+  border-color: rgba(var(--accent-rgb), 0.55);
+}
+
+/* ── Toxic: rules cut from themes-extra.css ── */
+/* ───────── TOXIC: hard-edged neon maze ───────── */
+[data-theme="toxic"] {
+  --r: 0px;
+  --sans: "Space Grotesk", system-ui, sans-serif;
+}
+[data-theme="toxic"] body {
+  font-family: var(--sans);
+}
+[data-theme="toxic"] .card,
+[data-theme="toxic"] .feat-card {
+  border-radius: 0;
+  background: var(--bg2);
+  border: 2px solid var(--accent);
+  box-shadow: 6px 6px 0 rgba(var(--accent-rgb), 0.9);
+  transition: transform 0.15s ease, box-shadow 0.15s ease;
+}
+[data-theme="toxic"] .card:hover,
+[data-theme="toxic"] .feat-card:hover {
+  transform: translate(4px, 4px);
+  box-shadow: 2px 2px 0 var(--accent);
+}
+[data-theme="toxic"] .btn {
+  border-radius: 0;
+  border: 2px solid var(--accent);
+  font-weight: 700;
+  text-transform: uppercase;
+}
+[data-theme="toxic"] .btn:not(.ghost) {
+  background: var(--accent);
+  color: var(--on-accent);
+  box-shadow: 4px 4px 0 var(--ice);
+}
+[data-theme="toxic"] .tag,
+[data-theme="toxic"] .pill {
+  border-radius: 0;
+  border: 1px solid var(--accent);
+}
+[data-theme="toxic"] #progress {
+  height: 4px;
+  background: var(--accent);
+  box-shadow: 0 0 14px var(--accent), 0 0 30px rgba(var(--accent-rgb), 0.6);
+}
+[data-theme="toxic"] .name:hover {
+  animation: tx-glitch 0.35s steps(2) 2;
+}
+@keyframes tx-glitch {
+  0% { text-shadow: 3px 0 #ff2bd6, -3px 0 #00e5ff; }
+  50% { text-shadow: -3px 0 #ff2bd6, 3px 0 #00e5ff; transform: translateX(2px); }
+  100% { text-shadow: none; }
+}
+@media (prefers-reduced-motion: reduce) {
+[data-theme="toxic"] .name:hover { animation: none; }
+[data-theme="toxic"] .card:hover { transform: none; }
+}
+.theme-menu [data-theme-opt="toxic"]::before { background: #050705; color: #7cf01e; border-radius: 0; border: 2px solid #7cf01e; box-shadow: 4px 4px 0 #7cf01e; font-family: "Space Grotesk", sans-serif; }
+.theme-menu [data-theme-opt="toxic"]::after { content: "Neon maze"; }

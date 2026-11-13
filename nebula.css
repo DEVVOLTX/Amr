@@ -1,0 +1,239 @@
+/* ════════ THEME: Nebula — data-theme="nebula" ════════
+   ARCHIVED — not linked anywhere. To restore: see README.md in this folder
+*/
+
+/* ── Nebula: rules cut from style.css ── */
+/* Nebula: deep navy with neon violet */
+[data-theme="nebula"] {
+  --bg: #031326;
+  --bg2: #061c36;
+  --fg: #ffffff;
+  --dim: #8f9bb8;
+  --teal: #5b1a78;
+  --accent: #d24be3;
+  --ice: #e9c6f2;
+  --border: rgba(233, 198, 242, 0.12);
+  --card: rgba(6, 28, 54, 0.75);
+  --teal-rgb: 91, 26, 120;
+  --accent-rgb: 210, 75, 227;
+  --bg-rgb: 3, 19, 38;
+  --ice-rgb: 233, 198, 242;
+  --accent2: #6d7bff;
+  --accent2-rgb: 109, 123, 255;
+  --on-accent: #ffffff;
+}
+[data-theme="nebula"] {
+  color-scheme: dark;
+}
+/* ===== Neon treatment for Nebula / Toxic / Ember ===== */
+[data-theme="nebula"] body::before {
+  background:
+    radial-gradient(55% 45% at 8% 0, rgba(var(--accent-rgb), 0.28), transparent),
+    radial-gradient(50% 40% at 100% 38%, rgba(var(--accent2-rgb), 0.16), transparent),
+    radial-gradient(60% 45% at 30% 100%, rgba(var(--teal-rgb), 0.45), transparent);
+}
+[data-theme="nebula"] .name em {
+  background-image: linear-gradient(100deg, var(--accent), var(--accent2));
+  filter: drop-shadow(0 0 22px rgba(var(--accent-rgb), 0.45));
+}
+[data-theme="nebula"] .avatar {
+  background: conic-gradient(var(--accent), var(--accent2), var(--ice), var(--accent));
+  box-shadow:
+    0 0 36px rgba(var(--accent-rgb), 0.6),
+    0 0 90px rgba(var(--accent-rgb), 0.28);
+}
+[data-theme="nebula"] .btn:not(.ghost):not(.arc) {
+  background: linear-gradient(100deg, var(--accent), var(--accent2));
+  border-color: transparent;
+  color: var(--on-accent);
+  box-shadow: 0 8px 28px -8px rgba(var(--accent-rgb), 0.75);
+}
+[data-theme="nebula"] .btn:not(.ghost):not(.arc):hover {
+  box-shadow: 0 12px 34px -6px rgba(var(--accent-rgb), 0.95);
+}
+[data-theme="nebula"] .btn.ghost {
+  border-color: rgba(var(--accent-rgb), 0.55);
+  box-shadow: inset 0 0 18px rgba(var(--accent-rgb), 0.12);
+}
+[data-theme="nebula"] .stats b {
+  color: var(--accent);
+  text-shadow: 0 0 18px rgba(var(--accent-rgb), 0.7);
+}
+[data-theme="nebula"] .card {
+  border-color: rgba(var(--accent-rgb), 0.25);
+  background:
+    linear-gradient(160deg, rgba(var(--accent-rgb), 0.12), rgba(var(--accent-rgb), 0) 50%),
+    var(--card);
+  box-shadow: inset 0 1px 0 rgba(var(--accent-rgb), 0.35);
+}
+[data-theme="nebula"] .card:hover {
+  border-color: var(--accent);
+  box-shadow:
+    inset 0 1px 0 rgba(var(--accent-rgb), 0.5),
+    0 18px 50px -18px rgba(var(--accent-rgb), 0.7);
+}
+[data-theme="nebula"] .about-title span {
+  color: var(--accent);
+  text-shadow: 0 0 24px rgba(var(--accent-rgb), 0.5);
+}
+@media (prefers-reduced-motion: no-preference) {
+[data-theme="nebula"] body::before {
+    inset: -12%;
+    animation: neon-aurora 16s ease-in-out infinite alternate;
+    will-change: transform;
+  }
+[data-theme="nebula"] .name em {
+    background-image: linear-gradient(100deg, var(--accent), var(--accent2), var(--accent));
+    background-size: 220% 100%;
+    animation: neon-shimmer 7s linear infinite;
+  }
+[data-theme="nebula"] .avatar {
+    animation: neon-pulse 4.5s ease-in-out infinite;
+  }
+[data-theme="nebula"] .stats b {
+    animation: neon-flicker 3.6s ease-in-out infinite;
+  }
+[data-theme="nebula"] .btn:not(.ghost):not(.arc) {
+    position: relative;
+    overflow: hidden;
+  }
+[data-theme="nebula"] .btn:not(.ghost):not(.arc)::after {
+    content: "";
+    position: absolute;
+    inset: 0 auto 0 0;
+    width: 40%;
+    background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.45), transparent);
+    animation: neon-shine 4.5s ease-in-out infinite;
+    pointer-events: none;
+  }
+[data-theme="nebula"] .card:hover {
+    transform: translateY(-4px);
+  }
+}
+/* ===== Pixel bats (Nebula theme only) ===== */
+.bat-sky {
+  display: none;
+}
+[data-theme="nebula"] .bat-sky {
+  display: block;
+  position: fixed;
+  inset: 0;
+  overflow: hidden;
+  pointer-events: none;
+  z-index: 1;
+}
+.bat {
+  --w: 64px;
+  --s: 0.7;
+  position: absolute;
+  left: 0;
+  top: var(--y, 20%);
+  width: calc(var(--w) * var(--s));
+  height: calc(48px * var(--s));
+  background: var(--accent);
+  opacity: 0.6;
+  filter: drop-shadow(0 0 6px rgba(var(--accent-rgb, 192, 38, 211), 0.9));
+  -webkit-mask: url(images/bat-sprite.png) 0 0 / 400% 100% no-repeat;
+  mask: url(images/bat-sprite.png) 0 0 / 400% 100% no-repeat;
+  image-rendering: pixelated;
+  transform: translate3d(-15vw, 0, 0);
+}
+.bat.b1 { --y: 14%; --s: 0.8; --d: 24s; --o: 0s; }
+.bat.b2 { --y: 46%; --s: 0.55; --d: 30s; --o: -11s; opacity: 0.45; }
+.bat.b3 { --y: 72%; --s: 0.7; --d: 27s; --o: -19s; opacity: 0.5; }
+@keyframes bat-fly-r {
+  from { transform: translate3d(-15vw, 0, 0); }
+  to { transform: translate3d(115vw, 0, 0); }
+}
+@keyframes bat-fly-l {
+  from { transform: translate3d(115vw, 0, 0) scaleX(-1); }
+  to { transform: translate3d(-15vw, 0, 0) scaleX(-1); }
+}
+@keyframes bat-bob {
+  from { translate: 0 -18px; }
+  to { translate: 0 18px; }
+}
+@keyframes bat-flap {
+  from { -webkit-mask-position: 0 0; mask-position: 0 0; }
+  to {
+    -webkit-mask-position: calc(var(--w) * var(--s) * -4) 0;
+    mask-position: calc(var(--w) * var(--s) * -4) 0;
+  }
+}
+@media (prefers-reduced-motion: no-preference) {
+[data-theme="nebula"] .bat {
+    animation:
+      bat-fly-r var(--d) linear var(--o) infinite,
+      bat-bob 2.4s ease-in-out infinite alternate,
+      bat-flap 0.5s steps(4) infinite;
+  }
+[data-theme="nebula"] .bat.b2 {
+    animation:
+      bat-fly-l var(--d) linear var(--o) infinite,
+      bat-bob 2.9s ease-in-out infinite alternate,
+      bat-flap 0.5s steps(4) infinite;
+  }
+}
+@media (prefers-reduced-motion: reduce) {
+.bat-sky { display: none !important; }
+}
+@media (max-width: 640px) {
+.bat { --s: 0.5; }
+}
+html[data-fx="off"] .bat-sky { display: none !important; }
+
+/* ── Nebula: rules cut from themes-extra.css ── */
+/* ───────── NEBULA: deep-space glass ───────── */
+[data-theme="nebula"] {
+  --r: 28px;
+  --sans: "Sora", system-ui, sans-serif;
+}
+[data-theme="nebula"] body {
+  font-family: var(--sans);
+}
+[data-theme="nebula"] body::after {
+  content: "";
+  position: fixed;
+  inset: -20%;
+  pointer-events: none;
+  z-index: 0;
+  background:
+    radial-gradient(40% 35% at 20% 25%, rgba(var(--accent-rgb), 0.22), transparent 70%),
+    radial-gradient(35% 40% at 80% 70%, rgba(var(--accent2-rgb), 0.2), transparent 70%);
+  animation: nb-drift 26s ease-in-out infinite alternate;
+}
+[data-theme="nebula"] nav .nav-in {
+  border-radius: 28px;
+  background: rgba(6, 28, 54, 0.6);
+}
+[data-theme="nebula"] .card,
+[data-theme="nebula"] .feat-card {
+  border-radius: 28px;
+  background: rgba(255, 255, 255, 0.05);
+  backdrop-filter: blur(22px) saturate(140%);
+  -webkit-backdrop-filter: blur(22px) saturate(140%);
+  border: 1px solid transparent;
+  background-image: linear-gradient(rgba(6, 28, 54, 0.55), rgba(6, 28, 54, 0.55)),
+    linear-gradient(140deg, rgba(var(--accent-rgb), 0.7), rgba(var(--accent2-rgb), 0.15) 55%, rgba(var(--accent2-rgb), 0.6));
+  background-origin: border-box;
+  background-clip: padding-box, border-box;
+}
+[data-theme="nebula"] .btn {
+  border-radius: 999px;
+}
+[data-theme="nebula"] .btn:not(.ghost) {
+  background: linear-gradient(120deg, var(--accent), var(--accent2));
+  color: #fff;
+}
+[data-theme="nebula"] .name {
+  font-weight: 700;
+  letter-spacing: -0.02em;
+}
+@keyframes nb-drift {
+  to { transform: translate3d(4%, -3%, 0) scale(1.08); }
+}
+@media (prefers-reduced-motion: reduce) {
+[data-theme="nebula"] body::after { animation: none; }
+}
+.theme-menu [data-theme-opt="nebula"]::before { background: radial-gradient(60% 90% at 25% 20%, rgba(210,75,227,.5), transparent), #031326; color: #fff; border-radius: 20px; font-family: "Sora", sans-serif; border-color: rgba(210,75,227,.6); }
+.theme-menu [data-theme-opt="nebula"]::after { content: "Glass & space"; }

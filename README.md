@@ -10,7 +10,7 @@ Based in **Kafr El Dawar, Egypt** 🇪🇬
 ## ✨ Features
 
 - **Contact profile card** — a neumorphic card with the avatar, name and role; its button fans the social icons (Instagram, GitHub, TikTok, X, Discord, Telegram) out in an arc
-- **7 themes — Midnight, Matrix, VoltX, Nebula, Toxic, Ember and Light** — picked from flat pill buttons in the header (icon-only circles on small screens); follows the system dark / light on the first visit, then remembers the choice. Switching fades smoothly, and the toast messages are translated into all 10 languages. Nebula (navy + neon violet), Toxic (black + neon green) and Ember (dark teal + neon orange) add a neon glow background; Nebula also shows animated pixel bats
+- **2 themes — Crimson (cream paper, default) and Azure (dark app dashboard)** — picked from the pill buttons in the header (icon-only circles on small screens); the choice is remembered. Switching fades smoothly, and the toast messages are translated into all 10 languages. The other themes (Midnight, Matrix, VoltX, Nebula, Toxic, Ember, Light) are archived, unlinked, in `themes-archive/` — see its README to bring them back
 - **Aurora hover buttons** — every button gets a rotating conic-gradient border in the theme's accent colors on hover / focus (disabled with reduced-motion)
 - **Go Back button** — an animated pill whose arrow chip expands on hover (theme-aware, RTL-aware, reduced-motion safe), used on the 404 page and as the way back from the feedback page
 - **Animations switch** — a toggle inside the theme menu (adapted from a Uiverse neo toggle, themed with the accent colour) that turns off decorative motion: bats, ticker, carousel scroll and glows. It follows the system reduced-motion setting on the first visit, then remembers the choice
@@ -37,12 +37,14 @@ Plain HTML5, CSS3 and vanilla JavaScript — no build step, no dependencies.
 
 ```
 index.html        page markup
-style.css         all styles (themes, RTL, print)
+style.css         base styles (tokens, layout, RTL, print) — theme rules live in themes/
+themes/            one CSS file per live theme: crimson.css, azure.css
+themes-archive/   unlinked: one CSS file per removed theme + JS/markup + how to restore them
 i18n.js          language data: flags, translations, toast messages
 main.js          language switcher, theme, menu, galleries, lightbox, CV download
 404.html          custom not-found page (uses root-absolute paths)
 favicon/          icons + web manifest
-images/           project, certificate, logo and poster images (+ bat-sprite.png: 4-frame pixel-bat sheet for the Nebula theme)
+images/           project, certificate, logo and poster images (+ bat-sprite.png: 4-frame pixel-bat sheet, used only by the archived Nebula theme)
 play/hand-platformer/   the game (index.html, PWA manifest, service worker, icons), embedded with ?embed=1
 sitemap.xml  robots.txt  CNAME
 ```

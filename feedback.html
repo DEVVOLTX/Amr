@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="ar" dir="rtl" data-theme="dark">
+<html lang="ar" dir="rtl" data-theme="crimson">
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
@@ -12,19 +12,14 @@
 <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@500;600;700;800&family=Cairo:wght@500;700&display=swap" rel="stylesheet">
 <script>
 (function(){var d=document.documentElement;d.classList.add('js');
-try{var t=localStorage.getItem('theme');if(/^(dark|matrix|volt|nebula|toxic|ember|light)$/.test(t))d.dataset.theme=t;
+try{var t=localStorage.getItem('theme');if(/^(crimson|azure)$/.test(t))d.dataset.theme=t;
 var l=localStorage.getItem('lang');if(/^(en|ar|it|es|de|fr|ru|ko|ja|zh)$/.test(l)){d.lang=l;d.dir=l==='ar'?'rtl':'ltr'}}catch(e){}})();
 </script>
 <style>
-:root{--bg:#070b0e;--fg:#e8f4f6;--fg-rgb:232,244,246;--dim:#78939b;--accent:#00d4e8;--accent-rgb:0,212,232;--on-accent:#031318;--glow:.34;
---en:"Poppins",system-ui,sans-serif;--ar:"Cairo","Poppins",system-ui,sans-serif;color-scheme:dark;box-sizing:border-box;
+:root{--bg:#f6f1ee;--fg:#2a0d0f;--fg-rgb:42,13,15;--dim:#6e5a5a;--accent:#c4232b;--accent-rgb:196,35,43;--on-accent:#fff;--glow:.16;
+--en:"Poppins",system-ui,sans-serif;--ar:"Cairo","Poppins",system-ui,sans-serif;color-scheme:light;box-sizing:border-box;
 padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}
-[data-theme=matrix]{--bg:#030a05;--fg:#dcffe6;--fg-rgb:220,255,230;--dim:#6f9a7c;--accent:#1fe06a;--accent-rgb:31,224,106}
-[data-theme=volt]{--bg:#0a0a05;--fg:#fbfbe8;--fg-rgb:251,251,232;--dim:#9a9a78;--accent:#f0e500;--accent-rgb:240,229,0}
-[data-theme=nebula]{--bg:#031326;--fg:#fff;--fg-rgb:255,255,255;--dim:#8f9bb8;--accent:#d24be3;--accent-rgb:210,75,227;--on-accent:#fff}
-[data-theme=toxic]{--bg:#050705;--fg:#fff;--fg-rgb:255,255,255;--dim:#8fa088;--accent:#7cf01e;--accent-rgb:124,240,30;--on-accent:#061200}
-[data-theme=ember]{--bg:#062e35;--fg:#fff;--fg-rgb:255,255,255;--dim:#87aab0;--accent:#ff5533;--accent-rgb:255,85,51;--on-accent:#fff}
-[data-theme=light]{--bg:#eef5f7;--fg:#070b0e;--fg-rgb:7,11,14;--dim:#4a646c;--accent:#097080;--accent-rgb:9,112,128;--on-accent:#fff;--glow:.16;color-scheme:light}
+[data-theme=azure]{--bg:#0b1627;--fg:#f2f7ff;--fg-rgb:242,247,255;--dim:#9db3cf;--accent:#2e9bff;--accent-rgb:46,155,255;--on-accent:#041428;--glow:.34;color-scheme:dark}
 *{box-sizing:border-box}html{scroll-padding-top:env(safe-area-inset-top,0px)}
 body{margin:0;min-height:100vh;color:var(--fg);font-family:var(--ar);background-color:var(--bg);background-attachment:fixed;
 background-image:radial-gradient(80% 38% at 50% 104%,rgba(var(--accent-rgb),var(--glow)),transparent 72%),radial-gradient(45% 30% at calc(var(--mx,50)*1%) calc(var(--my,20)*1%),rgba(var(--accent-rgb),.10),transparent 70%),repeating-linear-gradient(90deg,rgba(var(--fg-rgb),.025) 0 2px,transparent 2px 16px)}
@@ -32,7 +27,7 @@ a{color:inherit}figure,blockquote{margin:0}
 .page{max-width:760px;margin:0 auto;padding:1.1rem 1.2rem 4rem}
 /* one glass style for everything */
 .glass{border:1px solid rgba(var(--fg-rgb),.16);background:linear-gradient(100deg,rgba(var(--fg-rgb),.07),rgba(var(--accent-rgb),.13));-webkit-backdrop-filter:blur(14px);backdrop-filter:blur(14px);box-shadow:0 12px 34px rgba(0,0,0,.3);border-radius:999px}
-[data-theme=light] .glass{box-shadow:0 10px 28px rgba(7,11,14,.12);background:linear-gradient(100deg,rgba(255,255,255,.8),rgba(var(--accent-rgb),.12))}
+html:not([data-theme=azure]) .glass{box-shadow:0 10px 28px rgba(7,11,14,.12);background:linear-gradient(100deg,rgba(255,255,255,.8),rgba(var(--accent-rgb),.12))}
 .top{display:flex;justify-content:space-between;align-items:center;gap:.6rem;direction:ltr;margin-bottom:2rem;position:relative;z-index:5}
 .brand{padding:.5rem 1.1rem;font:800 .95rem var(--en);letter-spacing:.14em;text-decoration:none}
 .tools{display:flex;gap:.5rem}
@@ -84,7 +79,7 @@ a{color:inherit}figure,blockquote{margin:0}
     <a class="brand glass" href="./" aria-label="A.ESSAM home">A.ESSAM</a>
     <div class="tools">
       <div class="wrap"><button class="tb glass" id="lang" aria-haspopup="true" aria-expanded="false" aria-label="Language">AR ▾</button><div class="menu" id="lang-menu" hidden></div></div>
-      <div class="wrap"><button class="tb glass" id="theme" aria-haspopup="true" aria-expanded="false" aria-label="Theme">Midnight ▾</button><div class="menu" id="theme-menu" hidden></div></div>
+      <div class="wrap"><button class="tb glass" id="theme" aria-haspopup="true" aria-expanded="false" aria-label="Theme">Crimson ▾</button><div class="menu" id="theme-menu" hidden></div></div>
     </div>
   </div>
 
@@ -123,7 +118,7 @@ ru:{h:"Живые отзывы под постом о запуске",sub:"За�
 ko:{h:"런칭 게시물에 달린 실제 반응",sub:"Age Calculator Pro 출시 — 조회수 1.8k, 좋아요 30, 댓글 41개를 기록한 게시물의 실제 반응 · 2026년 7월",chip:"커뮤니티 반응",v:"조회",l:"좋아요",c:"댓글",s:"공유",note:"* 페이스북 런칭 게시물의 실제 댓글이며 지어낸 후기가 아닙니다. 개인정보 보호를 위해 프로필 사진은 이니셜로 대체했습니다.",demo:"라이브 데모",repo:"GITHUB 저장소",home:"포트폴리오"},
 ja:{h:"ローンチ投稿へのリアルな反応",sub:"Age Calculator Pro 公開時の投稿（1.8k 回表示、いいね 30、コメント 41）に寄せられたリアルな反応 · 2026年7月",chip:"コミュニティの反応",v:"表示",l:"いいね",c:"コメント",s:"シェア",note:"* Facebook のローンチ投稿にあった本物のコメントです。創作した感想ではありません。プライバシー保護のためプロフィール写真はイニシャルに置き換えています。",demo:"ライブデモ",repo:"GITHUB リポジトリ",home:"ポートフォリオ"},
 zh:{h:"来自发布帖的真实反馈",sub:"Age Calculator Pro 发布时 — 一条获得 1.8k 浏览、30 个赞和 41 条评论的帖子带来的真实反馈 · 2026 年 7 月",chip:"社区反馈",v:"浏览",l:"点赞",c:"评论",s:"分享",note:"* 来自 Facebook 发布帖的真实评论，并非编造的评价。出于隐私考虑，头像已替换为姓名首字母。",demo:"在线演示",repo:"GITHUB 仓库",home:"作品集"}};
-var THEMES={dark:"Midnight",matrix:"Matrix",volt:"VoltX",nebula:"Nebula",toxic:"Toxic",ember:"Ember",light:"Light"};
+var THEMES={crimson:"Crimson",azure:"Azure"};
 var NAMES={en:"English",ar:"العربية",it:"Italiano",es:"Español",de:"Deutsch",fr:"Français",ru:"Русский",ko:"한국어",ja:"日本語",zh:"中文"};
 var d=document.documentElement,$=function(i){return document.getElementById(i)};
 function save(k,v){try{localStorage.setItem(k,v)}catch(e){}}
@@ -140,7 +135,7 @@ function menu(id,btn,map,fn,key){var m=$(id);
 function closeAll(){['lang-menu','theme-menu'].forEach(function(i){$(i).hidden=true});$('lang').setAttribute('aria-expanded','false');$('theme').setAttribute('aria-expanded','false')}
 document.addEventListener('click',closeAll);document.addEventListener('keydown',function(e){if(e.key==='Escape')closeAll()});
 menu('lang-menu','lang',NAMES,setLang,'lang');menu('theme-menu','theme',THEMES,setTheme,'theme');
-setLang(T[d.lang]?d.lang:'ar');setTheme(THEMES[d.dataset.theme]?d.dataset.theme:'dark');
+setLang(T[d.lang]?d.lang:'ar');setTheme(THEMES[d.dataset.theme]?d.dataset.theme:'crimson');
 
 var C=[{n:"Zeyad Essam",t:"جامد يا برو عاش عليك ماشاء الله طرش ده",f:1},{n:"Abdelrhman Hendy",t:"شغل عالي ي عمور",f:1},{n:"Ar Ko",t:"عاشت دماغك المبدعه",f:1},{n:"Mohammed Ahmed",t:"ما شاء الله عليك ي عمرو"},{n:"Ahmed Hussein",t:"الله ينور"},{n:"Ahmed Hussein",t:"عايزين اللينك بقي"},{n:"اسلام مجدي",t:"❤️ 🔥"},{n:"Mazen Abd Alrahman",t:"يا واد ي جامد"},{n:"NourEldeen Ahmed",t:"الله ينور"},{n:"Amr Mohamed",t:"❤️❤️❤️"},{n:"Ahmed Ali",t:"Congratz"}];
 var list=$('list');

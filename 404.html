@@ -1,9 +1,9 @@
 <!doctype html>
-<html lang="en" dir="ltr" data-theme="dark">
+<html lang="en" dir="ltr" data-theme="crimson">
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <meta name="theme-color" content="#070B0E" />
+    <meta name="theme-color" content="#F6F1EE" />
     <meta name="robots" content="noindex, nofollow" />
     <meta
       name="description"
@@ -13,12 +13,8 @@
     <link rel="icon" href="/favicon/favicon.ico" sizes="any" />
     <script>
       try {
-        var t =
-          localStorage.getItem("theme") ||
-          (matchMedia("(prefers-color-scheme: light)").matches
-            ? "light"
-            : "dark");
-        document.documentElement.dataset.theme = t;
+        var t = localStorage.getItem("theme");
+        document.documentElement.dataset.theme = t === "azure" ? "azure" : "crimson";
       } catch (e) {}
     </script>
     <link
@@ -33,6 +29,8 @@
       href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;700;800&family=Inter:wght@400;600;700;800;900&display=swap"
     />
     <link rel="stylesheet" href="/style.css" />
+    <link rel="stylesheet" href="/themes/crimson.css" />
+    <link rel="stylesheet" href="/themes/azure.css" />
     <style>
       :root {
         --error-pink: #ff477e;

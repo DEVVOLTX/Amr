@@ -1,0 +1,348 @@
+/* ════════ THEME: Azure — data-theme="azure" ════════
+   Linked from index.html and 404.html, after style.css + themes-extra.css.
+*/
+
+/* ── Azure: rules cut from style.css ── */
+[data-theme="azure"] {
+  color-scheme: dark;
+}
+[data-theme="azure"] body::before {
+  background:
+    radial-gradient(55% 45% at 8% 0, rgba(var(--accent-rgb), 0.28), transparent),
+    radial-gradient(50% 40% at 100% 38%, rgba(var(--accent2-rgb), 0.16), transparent),
+    radial-gradient(60% 45% at 30% 100%, rgba(var(--teal-rgb), 0.45), transparent);
+}
+[data-theme="azure"] .name em {
+  background-image: linear-gradient(100deg, var(--accent), var(--accent2));
+  filter: drop-shadow(0 0 22px rgba(var(--accent-rgb), 0.45));
+}
+[data-theme="azure"] .avatar {
+  background: conic-gradient(var(--accent), var(--accent2), var(--ice), var(--accent));
+  box-shadow:
+    0 0 36px rgba(var(--accent-rgb), 0.6),
+    0 0 90px rgba(var(--accent-rgb), 0.28);
+}
+[data-theme="azure"] .btn:not(.ghost):not(.arc) {
+  background: linear-gradient(100deg, var(--accent), var(--accent2));
+  border-color: transparent;
+  color: var(--on-accent);
+  box-shadow: 0 8px 28px -8px rgba(var(--accent-rgb), 0.75);
+}
+[data-theme="azure"] .btn:not(.ghost):not(.arc):hover {
+  box-shadow: 0 12px 34px -6px rgba(var(--accent-rgb), 0.95);
+}
+[data-theme="azure"] .btn.ghost {
+  border-color: rgba(var(--accent-rgb), 0.55);
+  box-shadow: inset 0 0 18px rgba(var(--accent-rgb), 0.12);
+}
+[data-theme="azure"] .stats b {
+  color: var(--accent);
+  text-shadow: 0 0 18px rgba(var(--accent-rgb), 0.7);
+}
+[data-theme="azure"] .card {
+  border-color: rgba(var(--accent-rgb), 0.25);
+  background:
+    linear-gradient(160deg, rgba(var(--accent-rgb), 0.12), rgba(var(--accent-rgb), 0) 50%),
+    var(--card);
+  box-shadow: inset 0 1px 0 rgba(var(--accent-rgb), 0.35);
+}
+[data-theme="azure"] .card:hover {
+  border-color: var(--accent);
+  box-shadow:
+    inset 0 1px 0 rgba(var(--accent-rgb), 0.5),
+    0 18px 50px -18px rgba(var(--accent-rgb), 0.7);
+}
+[data-theme="azure"] .about-title span {
+  color: var(--accent);
+  text-shadow: 0 0 24px rgba(var(--accent-rgb), 0.5);
+}
+@media (prefers-reduced-motion: no-preference) {
+[data-theme="azure"] body::before {
+    inset: -12%;
+    animation: neon-aurora 16s ease-in-out infinite alternate;
+    will-change: transform;
+  }
+[data-theme="azure"] .name em {
+    background-image: linear-gradient(100deg, var(--accent), var(--accent2), var(--accent));
+    background-size: 220% 100%;
+    animation: neon-shimmer 7s linear infinite;
+  }
+[data-theme="azure"] .avatar {
+    animation: neon-pulse 4.5s ease-in-out infinite;
+  }
+[data-theme="azure"] .stats b {
+    animation: neon-flicker 3.6s ease-in-out infinite;
+  }
+[data-theme="azure"] .btn:not(.ghost):not(.arc) {
+    position: relative;
+    overflow: hidden;
+  }
+[data-theme="azure"] .btn:not(.ghost):not(.arc)::after {
+    content: "";
+    position: absolute;
+    inset: 0 auto 0 0;
+    width: 40%;
+    background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.45), transparent);
+    animation: neon-shine 4.5s ease-in-out infinite;
+    pointer-events: none;
+  }
+[data-theme="azure"] .card:hover {
+    transform: translateY(-4px);
+  }
+}
+/* ===== Azure: blue glow, dark floating panels on a light-blue page, vertical glowing icon nav ===== */
+[data-theme="azure"] {
+  --bg: #0b1627;
+  --bg2: #101f36;
+  --fg: #f2f7ff;
+  --dim: #9db3cf;
+  --teal: #0a63c9;
+  --accent: #2e9bff;
+  --ice: #bfe0ff;
+  --border: rgba(120, 180, 255, 0.16);
+  --card: rgba(16, 31, 54, 0.8);
+  --teal-rgb: 10, 99, 201;
+  --accent-rgb: 46, 155, 255;
+  --bg-rgb: 11, 22, 39;
+  --ice-rgb: 191, 224, 255;
+  --accent2: #22d3ee;
+  --accent2-rgb: 34, 211, 238;
+  --on-accent: #ffffff;
+  --page: linear-gradient(135deg, #a9cff2 0%, #86abee 50%, #6a8fe6 100%);
+  --panel-glow: 0 0 0 1px rgba(120, 180, 255, 0.14), 0 24px 60px -24px rgba(8, 24, 64, 0.65);
+  background: var(--page) fixed;
+}
+[data-theme="azure"] body {
+  background: transparent;
+}
+/* the neon glow moves into each panel; the page itself stays a calm gradient */
+[data-theme="azure"] body::before {
+  background: none;
+  animation: none;
+  inset: 0;
+}
+/* filled buttons: a deeper blue so white text keeps 4.5:1 */
+[data-theme="azure"] .btn:not(.ghost):not(.arc) {
+  background: linear-gradient(100deg, #0a63c9, #0a7ab8);
+}
+[data-theme="azure"] .name em,
+[data-theme="azure"] .about-title span {
+  background-image: linear-gradient(100deg, #2e9bff, #22d3ee);
+}
+/* sections become dark rounded panels */
+[data-theme="azure"] main > section.wrap {
+  position: relative;
+  max-width: 1000px;
+  width: calc(100% - 1.5rem);
+  margin: 1.1rem auto;
+  padding: 2.5rem 1.25rem;
+  border-radius: 22px;
+  background:
+    radial-gradient(38% 34% at 22% 40%, rgba(var(--accent-rgb), 0.18), transparent 70%),
+    var(--bg);
+  box-shadow: var(--panel-glow);
+}
+[data-theme="azure"] main > section.hero {
+  margin-top: 5.2rem;
+}
+[data-theme="azure"] footer {
+  width: calc(100% - 1.5rem);
+  max-width: 1000px;
+  margin: 1.1rem auto;
+  border: 0;
+  border-radius: 22px;
+  background: var(--bg);
+  box-shadow: var(--panel-glow);
+}
+/* top bar: a dark floating pill */
+[data-theme="azure"] nav {
+  background: none;
+  border: 0;
+  backdrop-filter: none;
+  pointer-events: none;
+}
+[data-theme="azure"] .nav-in {
+  pointer-events: auto;
+  width: calc(100% - 1.5rem);
+  margin: 0.6rem auto 0;
+  padding: 0.55rem 0.8rem 0.55rem 1.25rem;
+  border-radius: 999px;
+  background: rgba(var(--bg-rgb), 0.92);
+  box-shadow: var(--panel-glow);
+}
+[data-theme="azure"] .links { pointer-events: auto; }
+[data-theme="azure"] #progress {
+  background: linear-gradient(90deg, var(--accent), var(--accent2));
+}
+@media (min-width: 800px) {
+/* symmetric gutters leave room for the dock on the left */
+[data-theme="azure"] main > section.wrap,
+[data-theme="azure"] footer {
+    width: min(1000px, calc(100% - 11rem));
+    margin-inline: auto;
+  }
+/* vertical glowing icon dock */
+[data-theme="azure"] .links {
+    position: fixed;
+    inset-inline-start: 1.1rem;
+    top: 50%;
+    transform: translateY(-50%);
+    flex-direction: column;
+    gap: 0.7rem;
+    padding: 0.8rem 0.55rem;
+    border: 1px solid rgba(var(--accent-rgb), 0.35);
+    border-radius: 999px;
+    background: rgba(var(--bg-rgb), 0.92);
+    box-shadow:
+      0 0 24px rgba(var(--accent-rgb), 0.35),
+      inset 0 0 18px rgba(var(--accent-rgb), 0.12);
+    z-index: 55;
+  }
+[data-theme="azure"] .links > a {
+    position: relative;
+    display: grid;
+    place-items: center;
+    width: 42px;
+    height: 42px;
+    padding: 0;
+    border-radius: 50%;
+    color: var(--ice);
+    background: rgba(var(--accent-rgb), 0.08);
+    transition: background 0.2s, box-shadow 0.2s, color 0.2s;
+  }
+[data-theme="azure"] .links > a::before {
+    content: "";
+    width: 19px;
+    height: 19px;
+    background: currentColor;
+    -webkit-mask: var(--ico) center / contain no-repeat;
+    mask: var(--ico) center / contain no-repeat;
+  }
+[data-theme="azure"] .links > a:hover,
+[data-theme="azure"] .links > a:focus-visible {
+    background: rgba(var(--accent-rgb), 0.22);
+    box-shadow: 0 0 16px rgba(var(--accent-rgb), 0.55);
+    color: #fff;
+  }
+[data-theme="azure"] .links > a.active {
+    color: #fff;
+    background: linear-gradient(135deg, #1b86f0, #0a63c9);
+    box-shadow: 0 0 20px rgba(var(--accent-rgb), 0.85);
+  }
+/* label bubble on hover / focus (text stays in the DOM for screen readers) */
+[data-theme="azure"] .links .nl {
+    position: absolute;
+    inset-inline-start: calc(100% + 0.9rem);
+    top: 50%;
+    transform: translateY(-50%) translateX(-6px);
+    padding: 0.35rem 0.7rem;
+    border-radius: 8px;
+    background: var(--bg);
+    border: 1px solid var(--border);
+    color: var(--fg);
+    font: 0.75rem var(--mono);
+    letter-spacing: 0.12em;
+    white-space: nowrap;
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 0.15s, transform 0.15s;
+  }
+[data-theme="azure"] .links > a:hover .nl,
+[data-theme="azure"] .links > a:focus-visible .nl {
+    opacity: 1;
+    transform: translateY(-50%);
+  }
+[data-theme="azure"] .links > a[href="#about"] { --ico: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23000' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M19 21v-2a4 4 0 0 0-4-4H9a4 4 0 0 0-4 4v2'/%3E%3Ccircle cx='12' cy='7' r='4'/%3E%3C/svg%3E"); }
+[data-theme="azure"] .links > a[href="#projects"] { --ico: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23000' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M20 20a2 2 0 0 0 2-2V8a2 2 0 0 0-2-2h-7.9a2 2 0 0 1-1.69-.9L9.6 3.9A2 2 0 0 0 7.93 3H4a2 2 0 0 0-2 2v13a2 2 0 0 0 2 2Z'/%3E%3C/svg%3E"); }
+[data-theme="azure"] .links > a[href="#skills"] { --ico: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23000' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='m16 18 6-6-6-6'/%3E%3Cpath d='m8 6-6 6 6 6'/%3E%3C/svg%3E"); }
+[data-theme="azure"] .links > a[href="#certificates"] { --ico: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23000' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M21.42 10.922a1 1 0 0 0-.019-1.838L12.83 5.18a2 2 0 0 0-1.66 0L2.6 9.08a1 1 0 0 0 0 1.832l8.57 3.908a2 2 0 0 0 1.66 0z'/%3E%3Cpath d='M22 10v6'/%3E%3Cpath d='M6 12.5V16a6 3 0 0 0 12 0v-3.5'/%3E%3C/svg%3E"); }
+[data-theme="azure"] .links > a[href="#contact"] { --ico: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23000' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Crect width='20' height='16' x='2' y='4' rx='2'/%3E%3Cpath d='m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7'/%3E%3C/svg%3E"); }
+}
+@media (max-width: 799px) {
+[data-theme="azure"] .links { background: var(--bg2); }
+}
+@media (prefers-reduced-motion: reduce) {
+[data-theme="azure"] .links .nl { transition: none; }
+}
+/* ===== Azure: one section per page (see "Azure: one section at a time" in main.js) ===== */
+[data-theme="azure"] main > section.wrap.az-off,
+/* before main.js runs, show only the hero so the long page never flashes */
+[data-theme="azure"]:not(.az-ready) main > section.wrap:not(#hero) {
+  display: none;
+}
+[data-theme="azure"] main > section.wrap:not(.az-off) {
+  animation: azIn 0.35s ease backwards;
+}
+@media (prefers-reduced-motion: reduce) {
+[data-theme="azure"] main > section.wrap:not(.az-off) {
+    animation: none;
+  }
+}
+
+/* ── Azure: rules cut from themes-extra.css ── */
+/* ───────── AZURE: app / bento-dashboard feel (dock + one-page-per-section already exist) ───────── */
+[data-theme="azure"] {
+  --r: 22px;
+}
+[data-theme="azure"] .card,
+[data-theme="azure"] .feat-card,
+[data-theme="azure"] .stats > * {
+  border-radius: 22px;
+  border: 1px solid rgba(var(--accent-rgb), 0.22);
+  background:
+    linear-gradient(160deg, rgba(var(--accent-rgb), 0.1), transparent 45%),
+    var(--card);
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.25), inset 0 1px 0 rgba(255, 255, 255, 0.06);
+  transition: transform 0.25s ease, border-color 0.25s ease, box-shadow 0.25s ease;
+}
+[data-theme="azure"] .card:hover,
+[data-theme="azure"] .feat-card:hover {
+  transform: translateY(-4px);
+  border-color: rgba(var(--accent-rgb), 0.6);
+  box-shadow: 0 16px 40px rgba(0, 0, 0, 0.35), 0 0 24px rgba(var(--accent-rgb), 0.2);
+}
+/* bento: first certificate is the big hero tile */
+[data-theme="azure"] .grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  grid-auto-flow: dense;
+  gap: 0.9rem;
+}
+[data-theme="azure"] .grid,
+[data-theme="azure"] #cert-list {
+  grid-template-columns: 1fr;
+  align-items: start;
+}
+@media (min-width: 800px) {
+[data-theme="azure"] .grid,
+[data-theme="azure"] #cert-list {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 1.1rem;
+  }
+}
+/* stats become compact bento tiles */
+[data-theme="azure"] .stats {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 0.7rem;
+}
+[data-theme="azure"] .stats > * {
+  min-width: 0;
+  padding: 0.85rem 1rem;
+}
+[data-theme="azure"] main > section.wrap:not(#hero) {
+  padding-top: 5.5rem;
+}
+[data-theme="azure"] .label {
+  display: inline-block;
+  padding: 0.35rem 0.9rem;
+  border-radius: 999px;
+  border: 1px solid rgba(var(--accent-rgb), 0.3);
+  background: rgba(var(--accent-rgb), 0.08);
+}
+@media (prefers-reduced-motion: reduce) {
+[data-theme="azure"] .card:hover,
+[data-theme="azure"] .feat-card:hover { transform: none; }
+}
+.theme-menu [data-theme-opt="azure"]::before { background: linear-gradient(160deg, rgba(0,160,255,.3), transparent), #071a33; color: #38bdf8; border-radius: 16px; font-family: Inter, system-ui, sans-serif; border-color: rgba(56,189,248,.5); }
+.theme-menu [data-theme-opt="azure"]::after { content: "App dashboard"; }
