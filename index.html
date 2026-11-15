@@ -131,6 +131,7 @@
     <link rel="stylesheet" href="themes/azure.css" />
     <link rel="stylesheet" href="certs.css" />
     <link rel="stylesheet" href="hero-portfolio.css" />
+    <link rel="stylesheet" href="projects.css" />
     <script>
       /* runs before paint: restores theme + language (first visit uses the Crimson theme), enables reveal animations */
       var de = document.documentElement,
@@ -452,9 +453,15 @@
       <section class="wrap" id="projects">
         <h2 class="label" data-i18n="lbl_projects"><b>02 /</b>PROJECTS</h2>
         <div class="reveal" id="project-list">
+          <div class="proj-filter" id="proj-filter" role="group" aria-label="Filter projects">
+            <button type="button" class="pf" data-f="all" aria-pressed="true" data-i18n="flt_all">All</button>
+            <button type="button" class="pf" data-f="web" aria-pressed="false" data-i18n="flt_web">Web</button>
+            <button type="button" class="pf" data-f="game" aria-pressed="false" data-i18n="flt_game">Games</button>
+            <button type="button" class="pf" data-f="apps" aria-pressed="false" data-i18n="flt_apps">Tools &amp; Apps</button>
+          </div>
           <div class="feat" id="feat" role="region" aria-roledescription="carousel" aria-label="Featured projects">
             <div class="feat-track" id="feat-track">
-            <article class="feat-card" id="game-project" role="group" aria-roledescription="slide" aria-label="1 / 5">
+            <article class="feat-card" data-cat="game" id="game-project" role="group" aria-roledescription="slide" aria-label="1 / 5">
               <div class="feat-media">
                 <button
                 class="game-poster"
@@ -641,7 +648,7 @@
               </div>
             </article>
 
-            <article class="feat-card" role="group" aria-roledescription="slide" aria-label="2 / 5">
+            <article class="feat-card" data-cat="web apps" role="group" aria-roledescription="slide" aria-label="2 / 5">
               <div class="feat-media">
                 <img src="images/zenith.webp" alt="Zenith study planner dashboard shown on a laptop and a phone" width="1672" height="941" loading="lazy" decoding="async" />
                 <span class="feat-year"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><rect x="3" y="4" width="18" height="18" rx="2"/><path d="M16 2v4M8 2v4M3 10h18M8 14h.01M12 14h.01M16 14h.01M8 18h.01M12 18h.01M16 18h.01"/></svg><time datetime="2026">2026</time></span>
@@ -655,6 +662,8 @@
                 </div>
               </div>
               <div class="feat-body">
+                <small class="feat-tag" data-i18n="t_planner">Web / Productivity</small>
+                <h3 class="feat-title">ZENITH</h3>
                 <p data-i18n="p7_h">A study planner for Egyptian Thanaweya Amma students.</p>
                 <ul class="feat-tags"><li>NEXT.JS</li><li>TYPESCRIPT</li><li>TAILWIND</li><li>PWA</li><li>INDEXEDDB</li></ul>
                 <div class="feat-actions">
@@ -663,7 +672,7 @@
               </div>
             </article>
 
-            <article class="feat-card" role="group" aria-roledescription="slide" aria-label="3 / 5">
+            <article class="feat-card" data-cat="web apps" role="group" aria-roledescription="slide" aria-label="3 / 5">
               <div class="feat-media">
                 <img src="images/age-calculator.webp" alt="Age Calculator Arabic web app preview" width="1280" height="720" loading="lazy" decoding="async" />
                 <span class="feat-year"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><rect x="3" y="4" width="18" height="18" rx="2"/><path d="M16 2v4M8 2v4M3 10h18M8 14h.01M12 14h.01M16 14h.01M8 18h.01M12 18h.01M16 18h.01"/></svg><time datetime="2026">2026</time></span>
@@ -677,6 +686,8 @@
                 </div>
               </div>
               <div class="feat-body">
+                <small class="feat-tag" data-i18n="t_tool">Web / Tool</small>
+                <h3 class="feat-title">AGE CALCULATOR</h3>
                 <p data-i18n="p5_h">An Arabic age calculator with Gregorian and Hijri dates.</p>
                 <ul class="feat-tags"><li>HTML/CSS</li><li>JAVASCRIPT</li><li>ARABIC UI</li><li>HIJRI CALENDAR</li></ul>
                 <div class="feat-actions">
@@ -686,7 +697,7 @@
               </div>
             </article>
 
-            <article class="feat-card" role="group" aria-roledescription="slide" aria-label="4 / 5">
+            <article class="feat-card" data-cat="web" role="group" aria-roledescription="slide" aria-label="4 / 5">
               <div class="feat-media">
                 <img class="fit-contain" src="images/salahstore.webp" alt="SALAH STORE gaming top-up website preview" width="1150" height="310" loading="lazy" decoding="async" />
                 <span class="feat-year"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><rect x="3" y="4" width="18" height="18" rx="2"/><path d="M16 2v4M8 2v4M3 10h18M8 14h.01M12 14h.01M16 14h.01M8 18h.01M12 18h.01M16 18h.01"/></svg><time datetime="2026">2026</time></span>
@@ -700,6 +711,8 @@
                 </div>
               </div>
               <div class="feat-body">
+                <small class="feat-tag" data-i18n="t_store">Web / Storefront</small>
+                <h3 class="feat-title">SALAH STORE</h3>
                 <p data-i18n="p4_h">A gaming top-up storefront with instant delivery.</p>
                 <ul class="feat-tags"><li>HTML/CSS</li><li>JAVASCRIPT</li><li>ARABIC UI</li><li>GAMING</li></ul>
                 <div class="feat-actions">
@@ -708,7 +721,7 @@
               </div>
             </article>
 
-            <article class="feat-card" role="group" aria-roledescription="slide" aria-label="5 / 5">
+            <article class="feat-card pj-extra" data-cat="web apps" role="group" aria-roledescription="slide" aria-label="5 / 5">
               <div class="feat-media">
                 <img src="images/forge-fitness.webp" alt="Forge Fitness workout tracker shown on a laptop and a phone" width="1280" height="720" loading="lazy" decoding="async" />
                 <span class="feat-year"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><rect x="3" y="4" width="18" height="18" rx="2"/><path d="M16 2v4M8 2v4M3 10h18M8 14h.01M12 14h.01M16 14h.01M8 18h.01M12 18h.01M16 18h.01"/></svg><time datetime="2026">2026</time></span>
@@ -722,6 +735,8 @@
                 </div>
               </div>
               <div class="feat-body">
+                <small class="feat-tag" data-i18n="t_fitness">Web / Fitness App</small>
+                <h3 class="feat-title">FORGE FITNESS</h3>
                 <p data-i18n="p8_h">A workout tracker with splits, an exercise library and an on-device form check.</p>
                 <ul class="feat-tags"><li>JAVASCRIPT</li><li>PWA</li><li>OFFLINE</li><li>MEDIAPIPE</li><li>LOCALSTORAGE</li></ul>
                 <div class="feat-actions">
@@ -742,9 +757,9 @@
             </button>
           </div>
           <div class="more-projects" id="more-projects" hidden>
-          <details class="card project">
+          <details class="card project" data-cat="web">
             <summary>
-              <span class="num">04</span>
+              <span class="num">06</span>
               <h3>CAR-WASH BOOKING</h3>
               <span class="sum-meta"><span class="pill" data-i18n="t_full">Full-Stack Web</span><time datetime="2024">2024</time></span>
             </summary>
@@ -783,9 +798,9 @@
             </div>
           </details>
 
-          <details class="card project">
+          <details class="card project" data-cat="game">
             <summary>
-              <span class="num">05</span>
+              <span class="num">07</span>
               <h3>HIDE AND SINK</h3>
               <span class="sum-meta"><span class="pill" data-i18n="t_game">Game Development</span><time datetime="2024">2024</time></span>
             </summary>
@@ -827,9 +842,9 @@
             </div>
           </details>
 
-          <details class="card project">
+          <details class="card project" data-cat="game">
             <summary>
-              <span class="num">06</span>
+              <span class="num">08</span>
               <h3>ANDERMAGIC</h3>
               <span class="sum-meta"><span class="pill" data-i18n="t_game">Game Development</span><time datetime="2024">2024</time></span>
             </summary>
@@ -1323,6 +1338,7 @@
 
     <script src="i18n.js" defer></script>
     <script src="main.js" defer></script>
+    <script src="projects.js" defer></script>
     <script src="certs.js" defer></script>
   </body>
 </html>

@@ -1,0 +1,378 @@
+/* ════════ PROJECTS — glass showcase for desktop (≥ 980px) ════════
+   • Phones / tablets: untouched (original carousel + cards). Everything below sits inside the media query,
+     except the few helpers that must exist at every width.
+   • Desktop: filter pills → spotlight game row → equal-height glass cards (image on top, text inside)
+     → glass "more projects" rows. One spacing scale for the whole section (--pj-gap).
+   • Colours come only from theme variables (--accent-rgb, --fg, --bg, --card, --border…), so every theme
+     keeps working. Style language matches the Skills cards: frosted glass + soft accent neon edge.
+*/
+
+/* helpers used at every width */
+.proj-filter,
+.feat-title,
+.feat-tag { display: none; }
+#projects .is-out { display: none !important; }
+
+@keyframes pj-in {
+  from { opacity: 0; transform: translateY(14px) scale(0.985); }
+}
+@property --pj-ang {
+  syntax: "<angle>";
+  inherits: false;
+  initial-value: 0deg;
+}
+@keyframes pj-spin { to { --pj-ang: 360deg; } }
+
+@media (min-width: 980px) {
+
+  #projects { --pj-gap: 1.75rem; --pj-radius: 28px; }
+
+  /* ── soft atmosphere behind the section (accent only, fades out) ── */
+  #projects.wrap { position: relative; isolation: isolate; }
+  #projects.wrap::before {
+    content: "";
+    position: absolute;
+    inset: 4rem -6rem 0;
+    z-index: -1;
+    pointer-events: none;
+    background:
+      radial-gradient(40% 30% at 10% 6%, rgba(var(--accent-rgb), 0.16), transparent 70%),
+      radial-gradient(36% 28% at 94% 40%, rgba(var(--accent-rgb), 0.11), transparent 72%),
+      radial-gradient(40% 28% at 20% 92%, rgba(var(--accent-rgb), 0.08), transparent 72%);
+  }
+
+  /* ── filter pills (frosted, neon when active) ── */
+  .proj-filter {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 0.7rem;
+    margin: 0.4rem 0 2.2rem;
+  }
+  .proj-filter .pf {
+    padding: 0.65rem 1.4rem;
+    border-radius: 999px;
+    border: 1px solid var(--border);
+    background: color-mix(in srgb, var(--card) 70%, transparent);
+    -webkit-backdrop-filter: blur(12px);
+    backdrop-filter: blur(12px);
+    color: var(--fg);
+    font: 700 0.78rem var(--mono, var(--sans));
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    cursor: pointer;
+    transition: background 0.25s, color 0.25s, border-color 0.25s, transform 0.2s, box-shadow 0.3s;
+  }
+  .proj-filter { align-items: center; }
+  .proj-filter .pf-sep { width: 1px; height: 1.5rem; margin-inline: 0.35rem; background: var(--border); }
+  /* "View all projects" lives in this row as the last pill */
+  .proj-filter .feat-all-btn {
+    padding: 0.65rem 1.3rem;
+    border-radius: 999px;
+    border: 1px solid rgba(var(--accent-rgb), 0.35);
+    background: color-mix(in srgb, var(--card) 70%, transparent);
+    -webkit-backdrop-filter: blur(12px);
+    backdrop-filter: blur(12px);
+    color: var(--fg);
+    font: 700 0.78rem var(--mono, var(--sans));
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    gap: 0.55rem;
+    cursor: pointer;
+    transition: border-color 0.25s, box-shadow 0.3s, transform 0.2s;
+  }
+  .proj-filter .feat-all-btn:hover { border-color: rgba(var(--accent-rgb), 0.8); box-shadow: 0 12px 30px -12px rgba(var(--accent-rgb), 0.7); transform: translateY(-2px); }
+  .proj-filter .feat-all-btn svg { width: 1rem; height: 1rem; }
+  .proj-filter .pf:hover { border-color: rgba(var(--accent-rgb), 0.6); transform: translateY(-2px); }
+  .proj-filter .pf[aria-pressed="true"] {
+    background: linear-gradient(135deg, rgba(var(--accent-rgb), 0.28), rgba(var(--accent-rgb), 0.1));
+    border-color: rgba(var(--accent-rgb), 0.85);
+    box-shadow: 0 0 0 4px rgba(var(--accent-rgb), 0.1), 0 12px 32px -10px rgba(var(--accent-rgb), 0.75);
+  }
+  .proj-filter .pf:focus-visible { outline: 2px solid var(--accent); outline-offset: 3px; }
+
+  /* ── grid: equal columns, equal-height rows, one gap ── */
+  #projects .feat-track {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    grid-auto-flow: dense;
+    gap: var(--pj-gap);
+    align-items: stretch;
+    padding-block: 0;
+    counter-reset: pj;
+  }
+
+  /* ── every card = frosted glass + moving neon edge on hover ── */
+  #projects .feat-card {
+    counter-increment: feat pj;
+    position: relative;
+    isolation: isolate;
+    overflow: hidden;
+    padding: 0.8rem 0.8rem 1.5rem;
+    gap: 1.2rem;
+    border-radius: var(--pj-radius);
+    border: 1px solid var(--border);
+    background:
+      linear-gradient(155deg, rgba(var(--accent-rgb), 0.1), transparent 42%),
+      color-mix(in srgb, var(--card) 84%, transparent);
+    -webkit-backdrop-filter: blur(16px) saturate(1.25);
+    backdrop-filter: blur(16px) saturate(1.25);
+    box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.14), 0 30px 60px -44px rgba(0, 0, 0, 0.6);
+    transition: transform 0.4s cubic-bezier(.2,.7,.2,1), border-color 0.3s, box-shadow 0.4s;
+  }
+  /* cursor spotlight (position comes from main.js) */
+  #projects .feat-card::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    z-index: -1;
+    border-radius: inherit;
+    background: radial-gradient(460px circle at var(--mx, 50%) var(--my, 0%), rgba(var(--accent-rgb), 0.2), transparent 62%);
+    opacity: 0;
+    transition: opacity 0.3s;
+    pointer-events: none;
+  }
+  /* rotating neon edge */
+  #projects .feat-card::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    z-index: 2;
+    border-radius: inherit;
+    padding: 1.5px;
+    background: conic-gradient(from var(--pj-ang), transparent 0 52%, rgba(var(--accent-rgb), 0.95) 74%, transparent 92%);
+    -webkit-mask: linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0);
+    -webkit-mask-composite: xor;
+    mask: linear-gradient(#000 0 0) content-box exclude, linear-gradient(#000 0 0);
+    opacity: 0;
+    transition: opacity 0.35s;
+    pointer-events: none;
+  }
+  #projects .feat-card:hover,
+  #projects .feat-card:focus-within {
+    transform: translateY(-8px);
+    border-color: rgba(var(--accent-rgb), 0.4);
+    box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.18), 0 36px 70px -30px rgba(var(--accent-rgb), 0.55), 0 0 0 1px rgba(var(--accent-rgb), 0.1);
+  }
+  #projects .feat-card:hover::before,
+  #projects .feat-card:focus-within::before { opacity: 1; }
+  #projects .feat-card:hover::after,
+  #projects .feat-card:focus-within::after { opacity: 1; animation: pj-spin 3.2s linear infinite; }
+
+  /* ── media ── */
+  #projects .feat-media {
+    border-radius: 20px;
+    aspect-ratio: 16 / 9;
+    box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.08), 0 18px 36px -26px rgba(0, 0, 0, 0.7);
+  }
+  #projects .feat-card:not(#game-project) .feat-media::after {
+    background: linear-gradient(180deg, rgba(7, 11, 14, 0.32) 0%, rgba(7, 11, 14, 0) 26%, rgba(7, 11, 14, 0) 58%, rgba(7, 11, 14, 0.75) 100%);
+  }
+  #projects .feat-card:not(#game-project) .feat-cap { display: none; } /* title lives in the body here */
+
+  /* glass chip: year top-end (the category becomes the kicker line in the body) */
+  #projects .feat-card:not(#game-project) .feat-cat { display: none; }
+  #projects .feat-card:not(#game-project) .feat-year {
+    background: rgba(10, 14, 18, 0.5);
+    color: #f1f6f8;
+    border: 1px solid rgba(255, 255, 255, 0.22);
+    -webkit-backdrop-filter: blur(10px);
+    backdrop-filter: blur(10px);
+    font-size: 0.78rem;
+  }
+  #projects .feat-card:not(#game-project) .feat-year {
+    top: 0.9rem;
+    inset-inline: auto 0.9rem;
+  }
+
+  /* ── spotlight: the playable game keeps the full row ── */
+  #projects #game-project {
+    grid-column: 1 / -1;
+    padding: 1.1rem;
+    border-color: rgba(var(--accent-rgb), 0.35);
+    box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.16), 0 44px 80px -48px rgba(var(--accent-rgb), 0.6);
+  }
+  #projects #game-project::after { opacity: 0.8; animation: pj-spin 7s linear infinite; }
+  #projects #game-project .feat-media { min-width: 0; max-width: 100%; }
+
+  /* ── extra card (shown by "View all" or by a filter): a second wide spotlight row ── */
+  #projects:not(.pj-filtered):has(#more-btn[aria-expanded="false"]) .feat-card.pj-extra { display: none; }
+  #projects .feat-card.pj-extra {
+    grid-column: 1 / -1;
+    display: grid;
+    grid-template-columns: minmax(0, 1.35fr) minmax(0, 1fr);
+    align-items: stretch;
+    gap: 2rem;
+    padding: 1.1rem;
+  }
+  #projects .feat-card.pj-extra .feat-media { aspect-ratio: auto; min-height: 300px; height: 100%; }
+  #projects .feat-card.pj-extra .feat-body { justify-content: center; padding: 0.6rem 1rem 0.6rem 0; }
+  [dir="rtl"] #projects .feat-card.pj-extra .feat-body { padding: 0.6rem 0 0.6rem 1rem; }
+  #projects .feat-card.pj-extra .feat-title { font-size: 1.8rem; }
+  #projects .feat-card.pj-extra .feat-actions { margin-top: 0.6rem; }
+
+  /* ── body: number → title → text → tags → action (action sticks to the bottom) ── */
+  #projects .feat-card:not(#game-project) .feat-body {
+    padding: 0 0.7rem;
+    gap: 0.8rem;
+    flex: 1;
+  }
+  #projects .feat-card:not(#game-project) .feat-title {
+    display: block;
+    font-family: var(--display, var(--sans));
+    font-size: 1.4rem;
+    line-height: 1.15;
+    letter-spacing: 0.01em;
+    color: var(--fg);
+    transition: color 0.25s;
+  }
+  /* kicker: "02 · WEB / PRODUCTIVITY" in accent, like the reference */
+  #projects .feat-card:not(#game-project) .feat-tag {
+    display: block;
+    font: 700 0.7rem var(--mono, var(--sans));
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--accent);
+  }
+  #projects .feat-card:not(#game-project) .feat-tag::before {
+    content: counter(pj, decimal-leading-zero) "  ·  ";
+    opacity: 0.75;
+  }
+  #projects .feat-card:not(#game-project):hover .feat-title { color: var(--accent); }
+  #projects .feat-card:not(#game-project) .feat-body > p { font-size: 0.95rem; line-height: 1.6; }
+
+  #projects .feat-tags { gap: 0.45rem; }
+  #projects .feat-tags li {
+    padding: 0.28rem 0.75rem;
+    font-size: 0.68rem;
+    background: color-mix(in srgb, var(--card) 60%, transparent);
+    -webkit-backdrop-filter: blur(6px);
+    backdrop-filter: blur(6px);
+  }
+  #projects .feat-card:hover .feat-tags li {
+    border-color: rgba(var(--accent-rgb), 0.45);
+    background: rgba(var(--accent-rgb), 0.1);
+  }
+
+  /* action row: pill button; the whole card is the click target */
+  #projects .feat-card:not(#game-project) .feat-actions {
+    margin-top: auto;
+    padding-top: 0.5rem;
+    flex-wrap: nowrap;
+    align-items: center;
+    gap: 0.8rem;
+  }
+  #projects .feat-card:not(#game-project) .feat-view {
+    flex: 0 1 auto;
+    width: auto;
+    padding: 0.7rem 1.25rem;
+    border: 1px solid rgba(var(--accent-rgb), 0.5);
+    border-radius: 999px;
+    background: rgba(var(--accent-rgb), 0.1);
+    box-shadow: none;
+    color: var(--fg);
+    font: 700 0.76rem var(--mono, var(--sans));
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    gap: 0.7rem;
+    justify-content: flex-start;
+    transition: background 0.25s, color 0.25s, border-color 0.25s, box-shadow 0.3s;
+  }
+  #projects .feat-card:not(#game-project):hover .feat-view,
+  #projects .feat-card:not(#game-project) .feat-view:focus-visible {
+    transform: none;
+    background: var(--accent);
+    border-color: var(--accent);
+    color: var(--bg);
+    box-shadow: 0 12px 30px -10px rgba(var(--accent-rgb), 0.8);
+  }
+  #projects .feat-card:not(#game-project) .feat-view::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    z-index: 3;
+  }
+  #projects .feat-card:has(.feat-view:focus-visible) {
+    outline: 2px solid var(--accent);
+    outline-offset: 3px;
+  }
+  #projects .feat-card:not(#game-project) .feat-view:focus-visible { outline: none; }
+  #projects .feat-card:not(#game-project) .feat-fb {
+    position: relative;
+    z-index: 4;
+    width: auto;
+    flex: none;
+    margin: 0;
+    display: grid;
+    place-items: center;
+    width: 2.7rem;
+    height: 2.7rem;
+    padding: 0;
+    border-radius: 50%;
+  }
+  /* icon-only in the 3-column grid so every "view project" button sits on the same line */
+  #projects .feat-card:not(#game-project) .feat-fb span {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    overflow: hidden;
+    clip: rect(0 0 0 0);
+    white-space: nowrap;
+  }
+  #projects .feat-card:not(#game-project) .feat-fb svg { width: 1.15rem; height: 1.15rem; margin: 0; }
+
+  /* ── "View all" button + the extra rows ── */
+  #projects .feat-all { margin: 2.6rem 0 0; }
+  #projects .feat-all-btn {
+    -webkit-backdrop-filter: blur(12px);
+    backdrop-filter: blur(12px);
+    border-color: rgba(var(--accent-rgb), 0.35);
+    transition: border-color 0.25s, box-shadow 0.3s, transform 0.2s;
+  }
+  #projects .feat-all-btn:hover {
+    border-color: rgba(var(--accent-rgb), 0.8);
+    box-shadow: 0 14px 34px -14px rgba(var(--accent-rgb), 0.7);
+    transform: translateY(-2px);
+  }
+
+  #projects .more-projects:not([hidden]) {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr);
+    gap: 1.1rem;
+    align-items: start;
+    margin-top: 1.6rem;
+  }
+  #projects .more-projects .project {
+    margin: 0;
+    border-radius: 22px;
+    border: 1px solid var(--border);
+    background:
+      linear-gradient(155deg, rgba(var(--accent-rgb), 0.07), transparent 50%),
+      color-mix(in srgb, var(--card) 84%, transparent);
+    -webkit-backdrop-filter: blur(14px);
+    backdrop-filter: blur(14px);
+    box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.12);
+    transition: border-color 0.3s, box-shadow 0.35s, transform 0.3s;
+  }
+  #projects .more-projects .project:hover,
+  #projects .more-projects .project[open] {
+    border-color: rgba(var(--accent-rgb), 0.45);
+    box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.16), 0 24px 50px -30px rgba(var(--accent-rgb), 0.55);
+  }
+  #projects .more-projects .project:hover { transform: translateY(-3px); }
+  #projects .more-projects .project[open] { transform: none; }
+
+  /* entrance when the filter changes */
+  #projects .is-in { animation: pj-in 0.45s cubic-bezier(.2,.7,.2,1) both; }
+}
+
+@media (min-width: 980px) and (prefers-reduced-motion: reduce) {
+  #projects .is-in,
+  #projects .feat-card:hover::after,
+  #projects .feat-card:focus-within::after,
+  #projects #game-project::after { animation: none; }
+  #projects .feat-card:hover,
+  #projects .feat-card:focus-within,
+  #projects .more-projects .project:hover { transform: none; }
+}
+html[data-fx="off"] #projects .is-in,
+html[data-fx="off"] #projects .feat-card::after { animation: none !important; }
