@@ -108,21 +108,21 @@
     <link
       rel="preload"
       as="image"
-      href="images/avatar-250.webp"
-      imagesrcset="images/avatar-250.webp 1x, images/avatar-500.webp 2x"
+      href="images/avatar-crimson-640.webp"
+      imagesrcset="images/avatar-crimson-640.webp 1x, images/avatar-crimson-1024.webp 2x"
       fetchpriority="high"
     />
     <!-- fonts load without blocking first paint (system fonts show until they arrive) -->
     <link
       rel="stylesheet"
-      href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;700&family=Inter:wght@400;700;900&family=Cairo:wght@400;700;900&display=swap"
+      href="https://fonts.googleapis.com/css2?family=Anton&family=JetBrains+Mono:wght@400;700&family=Inter:wght@400;700;900&family=Cairo:wght@400;700;900&display=swap"
       media="print"
       onload="this.media='all'"
     />
     <noscript>
       <link
         rel="stylesheet"
-        href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;700&family=Inter:wght@400;700;900&family=Cairo:wght@400;700;900&display=swap"
+        href="https://fonts.googleapis.com/css2?family=Anton&family=JetBrains+Mono:wght@400;700&family=Inter:wght@400;700;900&family=Cairo:wght@400;700;900&display=swap"
       />
     </noscript>
     <link rel="stylesheet" href="style.css" />
@@ -130,6 +130,7 @@
     <link rel="stylesheet" href="themes/crimson.css" />
     <link rel="stylesheet" href="themes/azure.css" />
     <link rel="stylesheet" href="certs.css" />
+    <link rel="stylesheet" href="hero-portfolio.css" />
     <script>
       /* runs before paint: restores theme + language (first visit uses the Crimson theme), enables reveal animations */
       var de = document.documentElement,
@@ -325,15 +326,36 @@
     <main>
       <!-- HERO -->
       <section class="wrap hero" id="hero">
+        <svg class="hero-word" viewBox="0 0 1000 235" preserveAspectRatio="none" aria-hidden="true" focusable="false">
+          <defs>
+            <linearGradient id="hwg" x1="0" y1="0" x2="0" y2="1">
+              <stop offset="0" style="stop-color: var(--accent)" stop-opacity="0.95" />
+              <stop offset="0.6" style="stop-color: var(--teal)" stop-opacity="0.85" />
+              <stop offset="1" style="stop-color: var(--teal)" stop-opacity="0" />
+            </linearGradient>
+          </defs>
+          <text x="0" y="215" textLength="1000" lengthAdjust="spacingAndGlyphs" fill="url(#hwg)" font-family="Anton, Impact, 'Arial Narrow Bold', sans-serif" font-size="250">PORTFOLIO</text>
+        </svg>
         <div class="avatar" data-rise style="--i: 4">
           <img
-            src="images/avatar-250.webp"
-            srcset="images/avatar-250.webp 1x, images/avatar-500.webp 2x"
-            alt="Amr Essam profile photo"
-            width="250"
-            height="250"
+            class="av av-crimson"
+            src="images/avatar-crimson-640.webp"
+            srcset="images/avatar-crimson-640.webp 1x, images/avatar-crimson-1024.webp 2x"
+            alt="Amr Essam"
+            width="640"
+            height="800"
             decoding="async"
             fetchpriority="high"
+          />
+          <img
+            class="av av-azure"
+            src="images/avatar-azure-640.webp"
+            srcset="images/avatar-azure-640.webp 1x, images/avatar-azure-1024.webp 2x"
+            alt="Amr Essam"
+            width="640"
+            height="800"
+            decoding="async"
+            fetchpriority="low"
           />
         </div>
         <div>
