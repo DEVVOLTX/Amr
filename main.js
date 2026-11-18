@@ -1686,27 +1686,80 @@ document.addEventListener("keydown", (e) => {
 })();
 
 
-/* ---------- Skeleton loader: fades out as soon as the hero is ready (min ~350ms so it never flashes) ---------- */
+/* ---------- Planet launch intro: full intro once per session, instant fade on later loads / reduced motion ---------- */
 (() => {
   const L = $("#loader");
   if (!L) return;
-  let gone = false;
-  const hide = () => {
+  const W = $("#li-word"), F = $("#li-fill"), P = $("#li-pct"), S = $("#li-status"),
+    stars = $("#li-stars"), scene = $("#li-scene");
+  let gone = false, raf = 0;
+  const DUR = 2600;
+  const hide = (quick) => {
     if (gone) return;
     gone = true;
+    cancelAnimationFrame(raf);
+    if (quick) L.classList.add("quick");
     L.classList.add("done");
-    setTimeout(() => L.remove(), 700);
+    setTimeout(() => L.remove(), quick ? 50 : 1300);
   };
-  const go = () => setTimeout(hide, Math.max(0, 350 - performance.now()));
-  const av = $(".avatar img");
-  const ready = () =>
-    av && !av.complete
-      ? av.addEventListener("load", go, { once: true })
-      : go();
-  if (document.readyState === "loading")
-    addEventListener("DOMContentLoaded", ready, { once: true });
-  else ready();
-  setTimeout(hide, 2500); // safety net on very slow connections
+  let seen = false;
+  try { seen = sessionStorage.getItem("intro-seen") === "1"; sessionStorage.setItem("intro-seen", "1"); } catch (e) {}
+  const noFx = document.documentElement.dataset.fx === "off";
+  if (seen || noFx) {
+    const quickGo = () => setTimeout(() => hide(true), Math.max(0, 350 - performance.now()));
+    if (document.readyState === "loading") addEventListener("DOMContentLoaded", quickGo, { once: true });
+    else quickGo();
+    return;
+  }
+  const letters = (t, cls) => {
+    W.className = "li-word" + (cls ? " " + cls : "");
+    W.innerHTML = "";
+    [...t].forEach((c, i) => {
+      const s = document.createElement("span");
+      s.className = "li-letter";
+      s.textContent = c;
+      s.style.animationDelay = (cls ? i * 0.06 : i * 0.1) + "s";
+      W.appendChild(s);
+    });
+  };
+  for (let i = 0; i < 16; i++) {
+    const d = document.createElement("div"), z = 3 + Math.random() * 6;
+    d.className = "li-star";
+    d.style.cssText = `left:${6 + Math.random() * 88}%;top:${8 + Math.random() * 70}%;width:${z}px;height:${z}px;animation-delay:${Math.random() * 3}s`;
+    stars.appendChild(d);
+  }
+  L.addEventListener("mousemove", (e) => {
+    const x = e.clientX / innerWidth - 0.5, y = e.clientY / innerHeight - 0.5;
+    scene.style.transform = `translate(${x * 14}px,${y * 10}px)`;
+    stars.style.transform = `translate(${x * -26}px,${y * -18}px)`;
+  });
+  $("#li-skip").addEventListener("click", () => hide(false));
+  const avatarReady = new Promise((res) => {
+    const av = $(".avatar img");
+    if (!av || av.complete) return res();
+    av.addEventListener("load", res, { once: true });
+    av.addEventListener("error", res, { once: true });
+    setTimeout(res, 2000); // never wait forever on slow connections
+  });
+  const finish = () => {
+    if (gone) return;
+    F.style.width = "100%"; P.textContent = "100%"; S.textContent = "Ready";
+    letters("WELCOME", "ready");
+    setTimeout(() => hide(false), 1100);
+  };
+  letters("LAUNCHING");
+  const t0 = performance.now();
+  const tick = (now) => {
+    const p = Math.min((now - t0) / DUR, 1),
+      e = p < 0.5 ? 2 * p * p : 1 - Math.pow(-2 * p + 2, 2) / 2,
+      v = Math.round(e * (p < 1 ? 99 : 100));
+    F.style.width = v + "%";
+    P.textContent = v + "%";
+    S.textContent = v < 35 ? "Initializing" : v < 75 ? "Loading assets" : "Almost there";
+    if (p < 1) raf = requestAnimationFrame(tick);
+    else avatarReady.then(finish);
+  };
+  raf = requestAnimationFrame(tick);
 })();
 
 /* ---------- Featured projects carousel + "View all projects" ----------

@@ -133,6 +133,7 @@
     <link rel="stylesheet" href="hero-portfolio.css" />
     <link rel="stylesheet" href="projects.css" />
     <link rel="stylesheet" href="hire.css" />
+    <link rel="stylesheet" href="loader-intro.css" />
     <script>
       /* runs before paint: restores theme + language (first visit uses the Crimson theme), enables reveal animations */
       var de = document.documentElement,
@@ -182,30 +183,20 @@
     <a class="skip" href="#hero">Skip to content</a>
     <div id="progress" aria-hidden="true"></div>
     <div id="menu-backdrop" aria-hidden="true"></div>
-    <div id="loader" aria-hidden="true">
-      <div class="sk-nav">
-        <i class="sk sk-logo"></i>
-        <span class="sk-links"
-          ><i class="sk"></i><i class="sk"></i><i class="sk"></i
-          ><i class="sk"></i
-        ></span>
-        <i class="sk sk-pill"></i>
-      </div>
-      <div class="sk-page">
-        <div class="sk-hero">
-          <i class="sk sk-avatar"></i>
-          <i class="sk sk-tag"></i>
-          <i class="sk sk-h1"></i>
-          <i class="sk sk-h1 w70"></i>
-          <i class="sk sk-line"></i>
-          <i class="sk sk-line w80"></i>
-          <div class="sk-row"><i class="sk sk-btn"></i><i class="sk sk-btn"></i></div>
-          <div class="sk-stats"><i class="sk sk-stat"></i><i class="sk sk-stat"></i><i class="sk sk-stat"></i><i class="sk sk-stat"></i></div>
+    <div id="loader" role="status" aria-label="Loading">
+      <div class="li-stars" id="li-stars"></div><div class="li-shoot"></div>
+      <div class="li-scene" id="li-scene">
+        <div class="li-stage">
+          <div class="li-ring"><i></i><b></b></div>
+          <div class="li-planet"></div>
+          <div class="li-word" id="li-word"></div>
         </div>
-        <i class="sk sk-label"></i>
-        <div class="sk-cards"><i class="sk sk-card"></i><i class="sk sk-card"></i><i class="sk sk-card"></i></div>
-        <i class="sk sk-label"></i>
-        <div class="sk-tiles"><i class="sk"></i><i class="sk"></i><i class="sk"></i><i class="sk"></i><i class="sk"></i><i class="sk"></i></div>
+      </div>
+      <button class="li-skip" id="li-skip" type="button">SKIP</button>
+      <div class="li-bottom">
+        <div class="li-brand"><b>Amr</b> Essam</div>
+        <div class="li-status" id="li-status">Initializing</div>
+        <div class="li-meter"><div class="li-bar"><i id="li-fill"></i></div><div class="li-pct" id="li-pct">0%</div></div>
       </div>
     </div>
     <div id="island" role="status" aria-live="polite" aria-atomic="true">
