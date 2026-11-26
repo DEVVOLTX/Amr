@@ -1,0 +1,16 @@
+/* Hire me chooser: reuses the CV chooser look (.cv-modal / .cv-option), only adds the round icons */
+a.cv-option { text-decoration: none; }
+.hm-ico {
+  flex: none;
+  display: grid;
+  place-items: center;
+  width: 46px;
+  height: 46px;
+  border-radius: 50%;
+  color: #fff;
+  box-shadow: 0 8px 18px -8px rgba(0, 0, 0, 0.6);
+}
+.hm-ico svg { width: 24px; height: 24px; }
+.hm-ico.wa { background: #25d366; }
+.hm-ico.ml { background: var(--accent); color: var(--bg); }
+#hireModal .cvo-txt em { direction: ltr; text-align: start; }

@@ -1,0 +1,12 @@
+/* ════════ THEME: Midnight — data-theme="dark" ════════
+   ARCHIVED — not linked anywhere. To restore: see README.md in this folder
+*/
+
+/* ── Midnight: rules cut from style.css ── */
+[data-theme="dark"] {
+  color-scheme: dark;
+}
+
+/* ── Midnight: rules cut from themes-extra.css ── */
+.theme-menu [data-theme-opt="dark"]::before { background: #070b0e; color: #00d4e8; border-radius: 10px; font-family: Inter, system-ui, sans-serif; border-color: #0b5965; }
+.theme-menu [data-theme-opt="dark"]::after { content: "Clean & calm"; }

@@ -1,0 +1,95 @@
+/* ════════ THEME: VoltX — data-theme="volt" ════════
+   ARCHIVED — not linked anywhere. To restore: see README.md in this folder
+*/
+
+/* ── VoltX: rules cut from style.css ── */
+/* VoltX: near-black with electric yellow */
+[data-theme="volt"] {
+  --bg: #0a0a05;
+  --bg2: #14140a;
+  --fg: #fbfbe8;
+  --dim: #9a9a78;
+  --teal: #6b6606;
+  --accent: #f0e500;
+  --ice: #f1edb0;
+  --border: rgba(241, 237, 176, 0.11);
+  --card: rgba(20, 20, 10, 0.75);
+  --teal-rgb: 107, 102, 6;
+  --accent-rgb: 240, 229, 0;
+  --bg-rgb: 10, 10, 5;
+  --ice-rgb: 241, 237, 176;
+}
+[data-theme="volt"] {
+  color-scheme: dark;
+}
+
+/* ── VoltX: rules cut from themes-extra.css ── */
+/* ───────── VOLTX: racing HUD ───────── */
+[data-theme="volt"] {
+  --r: 0px;
+  --display: "Rajdhani", var(--sans);
+}
+[data-theme="volt"] .name,
+[data-theme="volt"] h1,
+[data-theme="volt"] h2,
+[data-theme="volt"] h3,
+[data-theme="volt"] .label,
+[data-theme="volt"] .stats b {
+  font-family: var(--display);
+  font-style: italic;
+  text-transform: uppercase;
+  letter-spacing: 0.02em;
+  font-weight: 700;
+}
+/* angled, clipped corners instead of rounded cards */
+[data-theme="volt"] .card,
+[data-theme="volt"] .feat-card {
+  border-radius: 0;
+  border: 0;
+  background: linear-gradient(135deg, rgba(var(--accent-rgb), 0.5), rgba(var(--accent-rgb), 0.08) 40%, var(--card));
+  clip-path: polygon(0 0, calc(100% - 22px) 0, 100% 22px, 100% 100%, 22px 100%, 0 calc(100% - 22px));
+  border-inline-start: 4px solid var(--accent);
+  transition: transform 0.25s ease, filter 0.25s ease;
+}
+[data-theme="volt"] .card:hover,
+[data-theme="volt"] .feat-card:hover {
+  transform: skewX(-2deg) translateY(-3px);
+  filter: drop-shadow(0 0 14px rgba(var(--accent-rgb), 0.45));
+}
+[data-theme="volt"] .btn {
+  border-radius: 0;
+  clip-path: polygon(12px 0, 100% 0, calc(100% - 12px) 100%, 0 100%);
+  font-family: var(--display);
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+}
+[data-theme="volt"] .btn:not(.ghost) {
+  background: var(--accent);
+  color: #0a0a05;
+}
+/* hazard stripe under the nav */
+[data-theme="volt"] nav {
+  border-radius: 0;
+  border-bottom: 0;
+}
+[data-theme="volt"] nav::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  height: 4px;
+  background: repeating-linear-gradient(-45deg, var(--accent) 0 10px, #0a0a05 10px 20px);
+}
+[data-theme="volt"] .tag,
+[data-theme="volt"] .pill {
+  border-radius: 0;
+  transform: skewX(-12deg);
+}
+@media (prefers-reduced-motion: reduce) {
+[data-theme="volt"] .card:hover,
+[data-theme="volt"] .feat-card:hover { transform: none; }
+}
+.theme-menu [data-theme-opt="volt"]::before { content: "VOLT"; background: #0a0a05; color: #f0e500; font-family: "Rajdhani", sans-serif; font-style: italic; letter-spacing: 0.05em; clip-path: polygon(0 0, calc(100% - 12px) 0, 100% 12px, 100% 100%, 12px 100%, 0 calc(100% - 12px)); border: 0; border-inline-start: 4px solid #f0e500; }
+.theme-menu [data-theme-opt="volt"]::after { content: "Racing HUD"; }

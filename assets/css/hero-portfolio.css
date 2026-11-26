@@ -1,0 +1,123 @@
+/* ===== Hero v2: big PORTFOLIO word behind a large centered character (theme-aware via --accent / --teal) ===== */
+.hero { position: relative; isolation: isolate; }
+.hero.wrap { max-width: 1240px; }
+
+/* the word is an SVG stretched to an exact width, so it is ALWAYS fully visible whatever font loads */
+.hero .hero-word {
+  position: absolute;
+  top: 5.2rem;
+  left: 50%;
+  width: min(100vw, 1400px);
+  height: auto;
+  transform: translateX(-50%);
+  z-index: -1;
+  overflow: visible;
+  pointer-events: none;
+  user-select: none;
+}
+
+/* the character: big, centered, fades softly at the bottom */
+.hero .avatar {
+  position: relative;
+  z-index: 1;
+  width: min(88vw, 460px);
+  aspect-ratio: 4 / 5;
+  margin: 0 auto;
+  padding: 0;
+  border-radius: 0;
+  background: none;
+  box-shadow: none;
+  justify-self: center;
+  overflow: visible;
+  -webkit-mask-image: linear-gradient(#000 80%, transparent 100%);
+  mask-image: linear-gradient(#000 80%, transparent 100%);
+}
+.hero .avatar img {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  object-position: 50% 0;
+  border-radius: 0;
+  image-rendering: auto;
+  filter: drop-shadow(0 24px 40px rgba(0, 0, 0, 0.35));
+}
+
+
+/* text */
+.hero .tag-line, .hero .name, .hero .role, .hero .lead, .hero .row, .hero .stats { position: relative; z-index: 2; }
+.hero .name {
+  font-family: "Anton", Impact, "Arial Narrow Bold", sans-serif;
+  font-weight: 400;
+  text-transform: uppercase;
+  letter-spacing: 0.01em;
+  line-height: 0.95;
+  font-size: clamp(3.2rem, 13vw, 5.4rem);
+}
+.hero .name span, .hero .name em { font-weight: 400; }
+html[dir="rtl"] .hero .name, html[lang="ar"] .hero .name { font-family: "Cairo", var(--sans); font-weight: 900; letter-spacing: 0; }
+.hero .role { text-transform: uppercase; letter-spacing: 0.06em; }
+
+/* stats */
+.hero .stats { flex-direction: column; gap: 0; margin-top: 1.5rem; }
+.hero .stats > div {
+  display: flex; align-items: baseline; gap: 0.9rem;
+  padding: 0.7rem 0; border: 0; border-top: 1px solid var(--border);
+  background: none; border-radius: 0; box-shadow: none;
+}
+.hero .stats b { font-family: "Anton", Impact, sans-serif; font-weight: 400; font-size: 2.2rem; min-width: 2.4ch; }
+.hero .stats span { letter-spacing: 0.18em; }
+
+/* phones + tablets: word at the top, character over it, text and a stats row underneath */
+@media (max-width: 999px) {
+  .hero { grid-template-columns: minmax(0, 1fr); padding-top: 6rem; gap: 1rem; }
+  .hero .hero-word { height: min(32vw, 240px); }
+  .hero .avatar { order: 0; margin-top: min(11vw, 5rem); }
+  .hero .stats { flex-direction: row; flex-wrap: wrap; gap: 0.4rem 2rem; }
+  .hero .stats > div { flex-direction: column; gap: 0; border-top: 0; padding: 0.3rem 0; }
+}
+@media (min-width: 800px) and (max-width: 999px) {
+  .hero .avatar { width: min(70vw, 520px); }
+}
+
+/* laptops / desktops: text left, big character center, stats right */
+@media (min-width: 1000px) {
+  .hero {
+    grid-template-columns: minmax(0, 1fr) minmax(360px, 540px) minmax(0, 0.75fr);
+    grid-template-rows: 1fr repeat(5, auto) auto;
+    column-gap: 1.5rem;
+    row-gap: 0;
+    align-items: end;
+    min-height: 0;
+    padding-top: 6rem;
+  }
+  .hero > div:not(.avatar):not(.ticker) { display: contents; }
+  .hero .avatar { grid-column: 2; grid-row: 1 / 7; width: 100%; align-self: end; }
+  .hero .tag-line { grid-column: 1; grid-row: 2; }
+  .hero .name     { grid-column: 1; grid-row: 3; margin: 0.6rem 0; }
+  .hero .role     { grid-column: 1; grid-row: 4; }
+  .hero .lead     { grid-column: 1; grid-row: 5; margin: 0.8rem 0 1.4rem; }
+  .hero .row      { grid-column: 1; grid-row: 6; }
+  .hero .stats    { grid-column: 3; grid-row: 2 / 7; align-self: end; margin: 0 0 0.4rem; }
+  .hero .ticker   { grid-row: 7; }
+}
+
+/* one character per theme: red hoodie for Crimson (default), blue hoodie for Azure */
+.hero .avatar { animation: none; }
+.hero .avatar .av-azure { display: none; }
+[data-theme="azure"] .hero .avatar .av-azure { display: block; }
+[data-theme="azure"] .hero .avatar .av-crimson { display: none; }
+
+/* Azure shows the hero inside a rounded panel: keep the word inside it and use the panel's narrower width */
+.hero .stats { display: flex; }
+[data-theme="azure"] .hero { overflow: hidden; }
+[data-theme="azure"] .hero .hero-word { width: 100%; }
+@media (min-width: 1000px) {
+  [data-theme="azure"] .hero {
+    grid-template-columns: minmax(0, 1fr) minmax(280px, 400px) minmax(0, 0.8fr);
+    column-gap: 1rem;
+  }
+  [data-theme="azure"] .hero .name { font-size: clamp(3rem, 5vw, 4.4rem); }
+}
+
+/* Crimson skills ribbon: slower, calmer scroll (was 24s) - raise the number to slow it down more */
+[data-theme="crimson"] .hero .ticker ul { animation-duration: 56s; }

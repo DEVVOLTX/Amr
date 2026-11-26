@@ -1,0 +1,108 @@
+/* ════════ THEME: Light — data-theme="light" ════════
+   ARCHIVED — not linked anywhere. To restore: see README.md in this folder
+*/
+
+/* ── Light: rules cut from style.css ── */
+[data-theme="light"] {
+  --bg: #eef5f7;
+  --bg2: #e1edf0;
+  --fg: #070b0e;
+  --dim: #4a646c;
+  --accent: #097080;
+  --ice: #0b5965;
+  --border: rgba(7, 11, 14, 0.12);
+  --card: rgba(255, 255, 255, 0.85);
+}
+[data-theme="light"] {
+  color-scheme: light;
+}
+[data-theme="light"] nav {
+  background: rgba(238, 245, 247, 0.88);
+}
+[data-theme="light"] #island {
+  --isl-bg: rgba(255, 255, 255, 0.94);
+  --isl-bd: rgba(7, 11, 14, 0.1);
+  --isl-sub: #5b727a;
+  --isl-track: rgba(7, 11, 14, 0.09);
+  --isl-shadow: 0 18px 40px -14px rgba(11, 60, 70, 0.35);
+}
+[data-theme="light"] .links {
+  background: #fff;
+}
+[data-theme="light"] #menu-backdrop {
+  background: rgba(14, 30, 36, 0.35);
+}
+@media (min-width: 800px) {
+[data-theme="light"] .links > a.active {
+    color: #fff;
+  }
+}
+[data-theme="light"] .pc {
+  --pc-bg: #f6fafb;
+  --pc-sh-d: rgba(110, 145, 155, 0.38);
+  --pc-sh-l: rgba(255, 255, 255, 0.95);
+  --pc-btn: #070b0e;
+  --pc-btn-ink: #fff;
+  --pc-ring: #fff;
+}
+
+/* ── Light: rules cut from themes-extra.css ── */
+/* ───────── LIGHT: warm paper ───────── */
+[data-theme="light"] {
+  --bg: #faf6ee;
+  --bg2: #f1eadc;
+  --fg: #231c10;
+  --dim: #6b5f4b;
+  --accent: #a3361c;
+  --ice: #7a4a1f;
+  --border: rgba(35, 28, 16, 0.16);
+  --card: rgba(255, 255, 255, 0.7);
+  --r: 6px;
+  --display: "Fraunces", Georgia, serif;
+}
+[data-theme="light"] nav {
+  background: rgba(250, 246, 238, 0.9);
+}
+[data-theme="light"] .name,
+[data-theme="light"] h1,
+[data-theme="light"] h2,
+[data-theme="light"] h3 {
+  font-family: var(--display);
+  font-weight: 600;
+  letter-spacing: -0.01em;
+}
+[data-theme="light"] .card,
+[data-theme="light"] .feat-card {
+  border-radius: 6px;
+  border: 1px solid var(--border);
+  background: #fffdf8;
+  box-shadow: 0 1px 0 rgba(35, 28, 16, 0.06), 0 14px 28px -16px rgba(35, 28, 16, 0.25);
+}
+[data-theme="light"] .btn {
+  border-radius: 4px;
+}
+[data-theme="light"] .btn:not(.ghost) {
+  background: var(--fg);
+  color: var(--bg);
+}
+[data-theme="light"] .label {
+  border-bottom: 1px solid var(--fg);
+  padding-bottom: 0.3rem;
+}
+.theme-menu [data-theme-opt="light"]::before { background: #faf6ee; color: #a3361c; border-radius: 4px; border-color: rgba(35,28,16,.25); font-family: "Fraunces", Georgia, serif; }
+.theme-menu [data-theme-opt="light"]::after { content: "Warm paper"; }
+
+/* ── Light: rules cut from chat.css ── */
+[data-theme="light"] .chat-panel {
+  background: linear-gradient(
+    160deg,
+    rgba(238, 245, 247, 0.92),
+    rgba(225, 237, 240, 0.95)
+  );
+  border-color: rgba(7, 11, 14, 0.14);
+  box-shadow: 0 24px 60px rgba(7, 40, 50, 0.25);
+}
+[data-theme="light"] .chat-bar {
+  background: rgba(7, 11, 14, 0.06);
+  border-color: rgba(7, 11, 14, 0.16);
+}

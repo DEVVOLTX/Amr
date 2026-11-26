@@ -1,0 +1,106 @@
+/* ════════ THEME: Matrix — data-theme="matrix" ════════
+   ARCHIVED — not linked anywhere. To restore: see README.md in this folder
+*/
+
+/* ── Matrix: rules cut from style.css ── */
+/* Matrix: deep green terminal */
+[data-theme="matrix"] {
+  --bg: #030a05;
+  --bg2: #07120a;
+  --fg: #dcffe6;
+  --dim: #6f9a7c;
+  --teal: #0f5a2a;
+  --accent: #1fe06a;
+  --ice: #b6f0c8;
+  --border: rgba(182, 240, 200, 0.1);
+  --card: rgba(7, 18, 10, 0.75);
+  --teal-rgb: 15, 90, 42;
+  --accent-rgb: 31, 224, 106;
+  --bg-rgb: 3, 10, 5;
+  --ice-rgb: 182, 240, 200;
+}
+[data-theme="matrix"] {
+  color-scheme: dark;
+}
+
+/* ── Matrix: rules cut from themes-extra.css ── */
+/* ───────── MATRIX: everything is a terminal ───────── */
+[data-theme="matrix"] {
+  --r: 2px;
+  --sans: var(--mono);
+}
+[data-theme="matrix"] body {
+  font-family: var(--mono);
+}
+[data-theme="matrix"] body::after {
+  content: "";
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  z-index: 60;
+  background: repeating-linear-gradient(0deg, rgba(0, 0, 0, 0.14) 0 1px, transparent 1px 3px);
+  opacity: 0.35;
+}
+[data-theme="matrix"] .card,
+[data-theme="matrix"] .feat-card,
+[data-theme="matrix"] .btn,
+[data-theme="matrix"] .tag,
+[data-theme="matrix"] .pill,
+[data-theme="matrix"] nav,
+[data-theme="matrix"] .avatar {
+  border-radius: 2px;
+}
+[data-theme="matrix"] .card,
+[data-theme="matrix"] .feat-card {
+  border: 1px solid rgba(var(--accent-rgb), 0.35);
+  box-shadow: inset 0 0 24px rgba(var(--accent-rgb), 0.05);
+  position: relative;
+  padding-top: 2.2rem;
+}
+/* fake terminal title bar on every card */
+[data-theme="matrix"] .card::before,
+[data-theme="matrix"] .feat-card::before {
+  content: "● ● ●  user@devvoltx:~$";
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  padding: 0.3rem 0.7rem;
+  font: 600 0.65rem var(--mono);
+  letter-spacing: 0.08em;
+  color: var(--accent);
+  background: rgba(var(--accent-rgb), 0.08);
+  border-bottom: 1px solid rgba(var(--accent-rgb), 0.3);
+  pointer-events: none;
+}
+[data-theme="matrix"] .label::before {
+  content: "~/";
+  color: var(--accent);
+}
+[data-theme="matrix"] .name {
+  text-shadow: 0 0 14px rgba(var(--accent-rgb), 0.55);
+}
+[data-theme="matrix"] .name::after {
+  content: "▌";
+  margin-inline-start: 0.15em;
+  color: var(--accent);
+  animation: mx-blink 1s steps(2) infinite;
+}
+[data-theme="matrix"] .btn:not(.ghost) {
+  background: transparent;
+  color: var(--accent);
+  border: 1px solid var(--accent);
+}
+[data-theme="matrix"] .btn:not(.ghost):hover {
+  background: var(--accent);
+  color: var(--bg);
+  box-shadow: 0 0 18px rgba(var(--accent-rgb), 0.6);
+}
+@keyframes mx-blink {
+  50% { opacity: 0; }
+}
+@media (prefers-reduced-motion: reduce) {
+[data-theme="matrix"] .name::after { animation: none; }
+}
+.theme-menu [data-theme-opt="matrix"]::before { content: "$_"; background: #030a05; color: #1fe06a; border-radius: 2px; font-family: var(--mono); border-color: #1fe06a; }
+.theme-menu [data-theme-opt="matrix"]::after { content: "Terminal"; }

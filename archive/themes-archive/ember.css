@@ -1,0 +1,174 @@
+/* ════════ THEME: Ember — data-theme="ember" ════════
+   ARCHIVED — not linked anywhere. To restore: see README.md in this folder
+*/
+
+/* ── Ember: rules cut from style.css ── */
+/* Ember: dark teal with neon orange */
+[data-theme="ember"] {
+  --bg: #062e35;
+  --bg2: #08434c;
+  --fg: #ffffff;
+  --dim: #87aab0;
+  --teal: #0f6a78;
+  --accent: #ff5533;
+  --ice: #ffd2c7;
+  --border: rgba(255, 210, 199, 0.13);
+  --card: rgba(8, 67, 76, 0.65);
+  --teal-rgb: 15, 106, 120;
+  --accent-rgb: 255, 85, 51;
+  --bg-rgb: 6, 46, 53;
+  --ice-rgb: 255, 210, 199;
+  --accent2: #ffb020;
+  --accent2-rgb: 255, 176, 32;
+  --on-accent: #1a0600;
+}
+[data-theme="ember"] {
+  color-scheme: dark;
+}
+[data-theme="ember"] body::before {
+  background:
+    radial-gradient(55% 45% at 8% 0, rgba(var(--accent-rgb), 0.28), transparent),
+    radial-gradient(50% 40% at 100% 38%, rgba(var(--accent2-rgb), 0.16), transparent),
+    radial-gradient(60% 45% at 30% 100%, rgba(var(--teal-rgb), 0.45), transparent);
+}
+[data-theme="ember"] .name em {
+  background-image: linear-gradient(100deg, var(--accent), var(--accent2));
+  filter: drop-shadow(0 0 22px rgba(var(--accent-rgb), 0.45));
+}
+[data-theme="ember"] .avatar {
+  background: conic-gradient(var(--accent), var(--accent2), var(--ice), var(--accent));
+  box-shadow:
+    0 0 36px rgba(var(--accent-rgb), 0.6),
+    0 0 90px rgba(var(--accent-rgb), 0.28);
+}
+[data-theme="ember"] .btn:not(.ghost):not(.arc) {
+  background: linear-gradient(100deg, var(--accent), var(--accent2));
+  border-color: transparent;
+  color: var(--on-accent);
+  box-shadow: 0 8px 28px -8px rgba(var(--accent-rgb), 0.75);
+}
+[data-theme="ember"] .btn:not(.ghost):not(.arc):hover {
+  box-shadow: 0 12px 34px -6px rgba(var(--accent-rgb), 0.95);
+}
+[data-theme="ember"] .btn.ghost {
+  border-color: rgba(var(--accent-rgb), 0.55);
+  box-shadow: inset 0 0 18px rgba(var(--accent-rgb), 0.12);
+}
+[data-theme="ember"] .stats b {
+  color: var(--accent);
+  text-shadow: 0 0 18px rgba(var(--accent-rgb), 0.7);
+}
+[data-theme="ember"] .card {
+  border-color: rgba(var(--accent-rgb), 0.25);
+  background:
+    linear-gradient(160deg, rgba(var(--accent-rgb), 0.12), rgba(var(--accent-rgb), 0) 50%),
+    var(--card);
+  box-shadow: inset 0 1px 0 rgba(var(--accent-rgb), 0.35);
+}
+[data-theme="ember"] .card:hover {
+  border-color: var(--accent);
+  box-shadow:
+    inset 0 1px 0 rgba(var(--accent-rgb), 0.5),
+    0 18px 50px -18px rgba(var(--accent-rgb), 0.7);
+}
+[data-theme="ember"] .about-title span {
+  color: var(--accent);
+  text-shadow: 0 0 24px rgba(var(--accent-rgb), 0.5);
+}
+@media (prefers-reduced-motion: no-preference) {
+[data-theme="ember"] body::before {
+    inset: -12%;
+    animation: neon-aurora 16s ease-in-out infinite alternate;
+    will-change: transform;
+  }
+[data-theme="ember"] .name em {
+    background-image: linear-gradient(100deg, var(--accent), var(--accent2), var(--accent));
+    background-size: 220% 100%;
+    animation: neon-shimmer 7s linear infinite;
+  }
+[data-theme="ember"] .avatar {
+    animation: neon-pulse 4.5s ease-in-out infinite;
+  }
+[data-theme="ember"] .stats b {
+    animation: neon-flicker 3.6s ease-in-out infinite;
+  }
+[data-theme="ember"] .btn:not(.ghost):not(.arc) {
+    position: relative;
+    overflow: hidden;
+  }
+[data-theme="ember"] .btn:not(.ghost):not(.arc)::after {
+    content: "";
+    position: absolute;
+    inset: 0 auto 0 0;
+    width: 40%;
+    background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.45), transparent);
+    animation: neon-shine 4.5s ease-in-out infinite;
+    pointer-events: none;
+  }
+[data-theme="ember"] .card:hover {
+    transform: translateY(-4px);
+  }
+}
+
+/* ── Ember: rules cut from themes-extra.css ── */
+/* ───────── EMBER: warm editorial ───────── */
+[data-theme="ember"] {
+  --r: 0px;
+  --display: "Fraunces", Georgia, serif;
+}
+[data-theme="ember"] body::after {
+  content: "";
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  z-index: 60;
+  opacity: 0.07;
+  mix-blend-mode: overlay;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='2'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+}
+[data-theme="ember"] .name,
+[data-theme="ember"] h1,
+[data-theme="ember"] h2,
+[data-theme="ember"] h3 {
+  font-family: var(--display);
+  font-weight: 800;
+  letter-spacing: -0.02em;
+  line-height: 1.02;
+}
+[data-theme="ember"] .name {
+  font-size: clamp(2.8rem, 11vw, 6rem);
+}
+[data-theme="ember"] .label {
+  display: inline-block;
+  background: var(--accent);
+  color: var(--on-accent);
+  padding: 0.25rem 0.7rem;
+  transform: rotate(-1.5deg);
+}
+[data-theme="ember"] .card,
+[data-theme="ember"] .feat-card {
+  border-radius: 0;
+  border: 0;
+  border-top: 4px solid var(--accent);
+  background: rgba(var(--bg-rgb), 0.35);
+  box-shadow: none;
+}
+[data-theme="ember"] .card:nth-child(even) {
+  margin-top: 1.4rem;
+}
+[data-theme="ember"] .btn {
+  border-radius: 0;
+  font-family: var(--display);
+  font-weight: 600;
+}
+[data-theme="ember"] .btn:not(.ghost) {
+  background: var(--accent);
+  color: var(--on-accent);
+}
+[data-theme="ember"] .stats b {
+  font-family: var(--display);
+  font-size: 2.6rem;
+  color: var(--accent2);
+}
+.theme-menu [data-theme-opt="ember"]::before { background: #062e35; color: #ff5533; border-radius: 0; border: 0; border-top: 4px solid #ff5533; font-family: "Fraunces", Georgia, serif; font-weight: 800; }
+.theme-menu [data-theme-opt="ember"]::after { content: "Editorial"; }

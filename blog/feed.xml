@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+<channel>
+<title>Amr Essam — Blog</title>
+<link>https://amressam.is-a.dev/#blog</link>
+<description>قصص فعاليات، ملاحظات وتنبيهات أمان بقلم عمرو عصام.</description>
+<language>ar</language>
+<atom:link href="https://amressam.is-a.dev/blog/feed.xml" rel="self" type="application/rss+xml"/>
+<item>
+<title>⚠️ قبل ما تسجل في Instinct.. اقرأ ده!</title>
+<link>https://amressam.is-a.dev/blog/instinct-ai-warning.html</link>
+<guid isPermaLink="true">https://amressam.is-a.dev/blog/instinct-ai-warning.html</guid>
+<pubDate>Tue, 24 Nov 2026 12:00:00 +0000</pubDate>
+<description>تخزين إيميلات، تصرفات من غير إذن، وبيانات صعب تتمسح. اللي لازم تعرفه قبل ما تدي Instinct مفتاح إيميلك.</description>
+</item>
+<item>
+<title>يوم ما يتنسيش… GDG Damanhour × Creativa</title>
+<link>https://amressam.is-a.dev/blog/gdg-creativa-article.html</link>
+<guid isPermaLink="true">https://amressam.is-a.dev/blog/gdg-creativa-article.html</guid>
+<pubDate>Sun, 22 Nov 2026 12:00:00 +0000</pubDate>
+<description>الزحمة، الباجات، النوتبوكس، والصور من يوم GDG Damanhour في Creativa.</description>
+</item>
+</channel>
+</rss>
